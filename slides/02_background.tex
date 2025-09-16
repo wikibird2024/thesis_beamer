@@ -129,27 +129,86 @@ Sử dụng ICE để xuyên NAT, TLS/SRTP để bảo mật
 Hệ thống cảnh báo tự động, tin cậy từ thiết bị nhúng đến cuộc gọi VoIP
 \end{block}
 \end{frame}
+%====================================== COMPUTER VISION ========================= 
 
-%mdeida pose edge----------------- edge
-\begin{frame}
-\frametitle{Hình ảnh An toàn}
-\begin{columns}
-\begin{column}{0.4\textwidth}
-    \begin{figure}
+% Slide 1: Tổng quan + Pipeline
+\begin{frame}{Tổng quan CV}
+\begin{block}{Định nghĩa \& Mục tiêu}
+CV cho máy tính \textbf{hiểu và phân tích hình ảnh/video} → phân loại, phát hiện, theo dõi, ước lượng tư thế.  
+Mục tiêu: \textbf{Nhanh, chính xác, quy mô lớn}.
+\end{block}
+\begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{pose_landmarks_index.png}
-    \caption{Hình ảnh mô tả.}
-    \end{figure}
+    \includegraphics[width=0.8\textwidth]{vision_flow-crop.pdf}
+    \caption{Pipeline CV: Thu nhận → Tiền xử lý → Trích xuất đặc trưng → Ra quyết định.}
+\end{figure}
+\end{frame}
+
+% Slide 2: Bài toán CV cốt lõi
+\begin{frame}{Bài toán CV cốt lõi}
+\begin{itemize}
+    \item Phân loại ảnh
+    \item Phát hiện đối tượng (bounding box)
+    \item Phân đoạn ảnh: ngữ nghĩa / thể hiện
+    \item Ước lượng Tư thế Người (HPE) → keypoints
+\end{itemize}
+\end{frame}
+
+% Slide 3: CNN + ViT
+\begin{frame}{CNN \& Vision Transformer}
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\textbf{CNN}: Tích chập + Pooling → học đặc trưng phân cấp
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{2_2_convolution.jpeg}
+\caption{CNN Operations}
+\end{figure}
 \end{column}
-\begin{column}{0.6\textwidth}
-    \begin{block}{Mô tả Chi tiết}
-    Sử dụng \textbf{MediaPipe} là giải pháp then chốt để có được các điểm mốc 3D chính xác.
-    \end{block}
+\begin{column}{0.5\textwidth}
+\textbf{ViT}: Chia ảnh thành patches → Self-Attention → quan hệ toàn cục
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{visual_transformer.png}
+\caption{Vision Transformer}
+\end{figure}
 \end{column}
 \end{columns}
 \end{frame}
 
-%mdeida pose edge----------------------------yy------------------- edge
+% Slide 4: Datasets & Metrics - Detailed
+
+\begin{frame}{Tập dữ liệu \& Metrics trong CV}
+\begin{columns}[T]
+
+% Column 1: Datasets
+\begin{column}{0.55\textwidth}
+\begin{block}{Tập dữ liệu chính}
+\begin{itemize}
+    \item \textbf{ImageNet} \cite{deng2009imagenet}: >14 triệu ảnh, ~20,000 nhãn. Chuẩn cho \textbf{phân loại ảnh}.
+    \item \textbf{COCO} \cite{lin2014microsoft}: Hơn 330k ảnh, có \textbf{bounding box}, \textbf{segmentation}, \textbf{keypoints}. Chuẩn cho phát hiện đối tượng & phân đoạn.
+    \item \textbf{MPII Human Pose}: ~25k ảnh, 16 keypoints trên cơ thể người. Chuẩn cho HPE.
+    \item \textbf{COCO Keypoints}: Mở rộng COCO cho 17 keypoints, hỗ trợ HPE thời gian thực.
+\end{itemize}
+\end{block}
+\end{column}
+
+% Column 2: Metrics
+\begin{column}{0.45\textwidth}
+\begin{block}{Metrics}
+\begin{itemize}
+    \item IoU – Trùng khớp hộp giới hạn
+    \item mAP – Hiệu suất phát hiện đối tượng
+    \item F1-score – Trung bình điều hòa Precision & Recall
+    \item OKS – Độ chính xác keypoints HPE
+\end{itemize}
+\end{block}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+%mdeida pose edge---- HINH ANH MAU AN TOAN------------- edge
 
 % Slide 1: Section Overview
 \begin{frame}{Nhận diện Tư thế Người và Phát hiện Té ngã}
@@ -162,10 +221,9 @@ Hệ thống cảnh báo tự động, tin cậy từ thiết bị nhúng đến
     \end{block}
 \end{frame}
 
-
+% Slide 2: Nhận diện Tư thế Người
 \begin{frame}{Nhận diện Tư thế Người}
 \begin{columns}[T]
-    % Column Hình
     \begin{column}{0.45\textwidth}
         \centering
         \includegraphics[height=0.8\textheight, keepaspectratio]{pose_landmarks_index.png}
@@ -173,77 +231,81 @@ Hệ thống cảnh báo tự động, tin cậy từ thiết bị nhúng đến
         {\small Keypoints cơ bản trong HPE (Human Pose Estimation).}
     \end{column}
 
-    % Column Text
     \begin{column}{0.55\textwidth}
         \begin{block}{Khái niệm}
             Ước lượng vị trí khớp từ hình ảnh/video:
             \[
                 \mathcal{K} = \{k_i = (x_i, y_i, z_i, c_i)\}
             \]
+            \small{\textit{($c_i$ là confidence score cho mỗi keypoint).}}
         \end{block}
 
         \begin{alertblock}{Phương pháp}
             \begin{itemize}
-                \item \textbf{Top-down:} Phát hiện người trước, keypoints sau (MediaPipe)
-                \item \textbf{Bottom-up:} Keypoints trước, nhóm sau (OpenPose)
+                \item \textbf{Top-down:} Phát hiện người trước, sau đó keypoints (MediaPipe).
+                \item \textbf{Bottom-up:} Keypoints trước, nhóm thành người sau (OpenPose).
             \end{itemize}
         \end{alertblock}
     \end{column}
 \end{columns}
 \end{frame}
 
-% Slide 3: MediaPipe Pose
-
-\begin{frame}{MediaPipe Pose Thời gian thực – Kiến trúc BlazePose}
+% Slide 3: MediaPipe Pose – Kiến trúc BlazePose
+\begin{frame}{MediaPipe Pose – Kiến trúc BlazePose}
     \begin{block}{Kiến trúc BlazePose}
-        Tối ưu HPE 3D với:
+        BlazePose tối ưu HPE 3D với:
         \begin{itemize}
-            \item \textbf{Nodes:} Module xử lý.
-            \item \textbf{Edges:} Luồng dữ liệu đồng bộ.
+            \item \textbf{Nodes:} Các module xử lý tín hiệu hình ảnh.
+            \item \textbf{Edges:} Luồng dữ liệu đồng bộ giữa các module.
         \end{itemize}
+        \small{\textit{(Nodes = các bước tính toán; Edges = kết nối dữ liệu giữa các bước).}}
     \end{block}
 \end{frame}
 
+% Slide 4: MediaPipe Pose – Thành phần & Hậu xử lý
 \begin{frame}{MediaPipe Pose – Thành phần & Hậu xử lý}
     \begin{exampleblock}{Thành phần chính}
         \begin{itemize}
-            \item \textbf{Detection:} ROI từ RGB.
+            \item \textbf{Detection:} ROI từ ảnh RGB, phát hiện người.
             \item \textbf{Landmark:} 33 keypoints 3D, Loss: $\mathcal{L} = \sum \lambda_i \mathcal{L}_i$.
-            \item \textbf{Tracking:} Dự đoán ROI.
+            \item \textbf{Tracking:} Dự đoán vị trí ROI cho khung tiếp theo.
         \end{itemize}
+        \small{\textit{(Landmark 3D giúp đánh giá tư thế và động tác).}}
     \end{exampleblock}
 
     \begin{alertblock}{Hậu xử lý}
         \begin{itemize}
-            \item One Euro Filter: Làm mịn nhiễu.
-            \item Chuẩn hóa $z$: Dựa trên hông.
+            \item \textbf{One Euro Filter:} Làm mịn nhiễu trong dữ liệu keypoints.
+            \item \textbf{Chuẩn hóa $z$:} Dựa trên hông, tăng độ chính xác 3D.
         \end{itemize}
     \end{alertblock}
 \end{frame}
 
-% Slide 4: Thuật toán Phát hiện Té ngã
+% Slide 5: Thuật toán Phát hiện Té ngã
 \begin{frame}{Thuật toán Phát hiện Té ngã}
-    \begin{columns}[t]
+    \begin{columns}[T]
         \column{0.5\textwidth}
         \begin{block}{Đặc trưng Động học}
             \begin{itemize}
-                \item Vận tốc: $\vec{v}_{\text{COM}} = \frac{\Delta \vec{p}}{\Delta t}$.
-                \item Gia tốc: $a = \frac{\|\Delta \vec{v}\|}{\Delta t}$.
+                \item \textbf{Vận tốc COM:} $\vec{v}_{\text{COM}} = \frac{\Delta \vec{p}}{\Delta t}$
+                \item \textbf{Gia tốc:} $a = \frac{\|\Delta \vec{v}\|}{\Delta t}$
             \end{itemize}
         \end{block}
         \begin{block}{Đặc trưng Tư thế}
             \begin{itemize}
-                \item \textbf{AR:} Tăng khi nằm ngang.
-                \item \textbf{$\theta_{\text{body}}$:} Góc vai-hông.
-                \item \textbf{$\Delta h_{\text{head}}$:} Giảm chiều cao.
+                \item \textbf{AR (Aspect Ratio):} Tăng khi người nằm ngang
+                \item \textbf{$\theta_{\text{body}}$:} Góc vai-hông
+                \item \textbf{$\Delta h_{\text{head}}$:} Giảm chiều cao đầu
             \end{itemize}
+            \small{\textit{(AR, $\theta$, $\Delta h$ giúp xác định tư thế bất thường).}}
         \end{block}
+
         \column{0.5\textwidth}
         \begin{alertblock}{Ba Giai đoạn Phát hiện}
             \begin{enumerate}
-                \item \textbf{Sớm:} Tốc độ/gia tốc COM cao.
-                \item \textbf{Xác nhận:} AR, $\theta_{\text{body}}$ chỉ nằm ngang.
-                \item \textbf{Bất động:} Chuyển động $< M_{th}$.
+                \item \textbf{Sớm:} Tốc độ/gia tốc COM cao
+                \item \textbf{Xác nhận:} AR, $\theta_{\text{body}}$ chỉ nằm ngang
+                \item \textbf{Bất động:} Chuyển động $< M_{th}$
             \end{enumerate}
         \end{alertblock}
     \end{columns}
