@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{+w}{        }\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{mpu6050\PYGZus{}task}\PYG{p}{(}\PYG{k+kt}{void}\PYG{+w}{ }\PYG{o}{*}\PYG{n}{pvParameters}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{            }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{ax}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ay}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{az}\PYG{p}{;}
+\PYG{+w}{            }\PYG{k}{while}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{                }\PYG{n}{mpu6050\PYGZus{}read\PYGZus{}accel}\PYG{p}{(}\PYG{o}{\PYGZam{}}\PYG{n}{ax}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{ay}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZam{}}\PYG{n}{az}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{                }\PYG{c+c1}{// Xử lý dữ liệu}
+\PYG{+w}{                }\PYG{n}{vTaskDelay}\PYG{p}{(}\PYG{n}{pdMS\PYGZus{}TO\PYGZus{}TICKS}\PYG{p}{(}\PYG{l+m+mi}{100}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{            }\PYG{p}{\PYGZcb{}}
+\PYG{+w}{        }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

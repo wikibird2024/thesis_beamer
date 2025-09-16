@@ -1,0 +1,63 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="Page-1" id="oRjMqMTdMht6xzY0DjWO">
+    <mxGraphModel dx="1246" dy="824" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-33" value="Bắt đầu" style="rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="223" y="30" width="260" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-34" value="MPU6050 đọc dữ liệu" style="whiteSpace=wrap;strokeWidth=2;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="223" y="90" width="254" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-35" value="Tính tổng vector gia tốc" style="whiteSpace=wrap;strokeWidth=2;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="107" y="180" width="233" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5jznRoAWgzzJiD-D76dw-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontColor=default;" edge="1" parent="1" source="AOXDfMxbHxmrqoLTAo5D-36" target="AOXDfMxbHxmrqoLTAo5D-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-36" value="Gia tốc &amp;lt; Ngưỡng?" style="rhombus;strokeWidth=2;whiteSpace=wrap;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="103" y="250" width="247" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5jznRoAWgzzJiD-D76dw-1" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontColor=default;" edge="1" parent="1" source="AOXDfMxbHxmrqoLTAo5D-37" target="AOXDfMxbHxmrqoLTAo5D-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-37" value="Phát hiện té ngã" style="whiteSpace=wrap;strokeWidth=2;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="113" y="370" width="227" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontColor=default;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="AOXDfMxbHxmrqoLTAo5D-38" edge="1" target="AOXDfMxbHxmrqoLTAo5D-39">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-38" value="Gửi sự kiện EVENT_FALL_DETECTED" style="whiteSpace=wrap;strokeWidth=2;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="115" y="440" width="227" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-39" value="Kết thúc vòng kiểm tra" style="rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;labelBackgroundColor=none;" parent="1" vertex="1">
+          <mxGeometry x="380" y="266.75" width="150" height="56.5" as="geometry" />
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-40" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.49;exitY=1;entryX=0.5;entryY=0;rounded=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="AOXDfMxbHxmrqoLTAo5D-33" target="AOXDfMxbHxmrqoLTAo5D-34" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-42" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.512;exitY=0.98;entryX=0.5;entryY=0;rounded=0;labelBackgroundColor=none;fontColor=default;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="AOXDfMxbHxmrqoLTAo5D-35" target="AOXDfMxbHxmrqoLTAo5D-36" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="AOXDfMxbHxmrqoLTAo5D-43" value="Có" style="startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" parent="1" source="AOXDfMxbHxmrqoLTAo5D-36" target="AOXDfMxbHxmrqoLTAo5D-37" edge="1">
+          <mxGeometry x="-0.0058" y="14" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5jznRoAWgzzJiD-D76dw-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.612;entryY=0.03;entryDx=0;entryDy=0;entryPerimeter=0;labelBackgroundColor=none;fontColor=default;" edge="1" parent="1" source="AOXDfMxbHxmrqoLTAo5D-34" target="AOXDfMxbHxmrqoLTAo5D-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5jznRoAWgzzJiD-D76dw-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.913;entryY=0.967;entryDx=0;entryDy=0;entryPerimeter=0;labelBackgroundColor=none;fontColor=default;" edge="1" parent="1" source="AOXDfMxbHxmrqoLTAo5D-39" target="AOXDfMxbHxmrqoLTAo5D-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

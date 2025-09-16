@@ -1,0 +1,79 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       BEAMER PREAMBLE - Tối ưu từ Luận văn - XeLaTeX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- XeLaTeX và Font ---
+\usepackage{fontspec}
+\usepackage{pifont}
+\usepackage{polyglossia}
+\setmainlanguage{vietnamese}
+\setotherlanguage{english}
+
+% Cấu hình font (ưu tiên sans-serif cho slide)
+\setsansfont{TeX Gyre Heros}[Ligatures=TeX, Scale=1.05] % Font chính cho slide
+\setmainfont{Cormorant Garamond}[Ligatures=TeX]         % Font phụ (in ấn)
+\setmonofont{Fira Code}[Scale=0.9, Ligatures=TeX]
+
+% Unicode math
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+
+% --- Các gói hỗ trợ nội dung ---
+\usepackage{xcolor}
+\usepackage{minted} % cần compile với -shell-escape
+\usepackage{graphicx}
+\graphicspath{{images/}} 
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usetikzlibrary{positioning, calc, arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{hyperref}
+
+% (Tuỳ chọn: chỉ dùng caption nếu cần subfigure)
+% \usepackage{caption}
+% \usepackage{subcaption}
+
+% Cấu hình màu và minted
+\definecolor{darkblue}{RGB}{0,0,139}
+\definecolor{lightgray}{gray}{0.95}
+\setminted{
+    frame=single,
+    linenos=true,
+    numbersep=10pt,
+    bgcolor=lightgray,
+    fontsize=\small,
+    breaklines=true,
+    tabsize=4,
+    xleftmargin=10pt,
+    escapeinside=||
+}
+
+% Cấu hình hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkblue,
+    urlcolor=darkblue,
+    citecolor=darkblue
+}
+
+% Macros
+\newcommand{\TENLUANVAN}{Hệ thống phát hiện và cảnh báo té ngã thời gian thực tích hợp cảm biến, xử lý ảnh và định vị}
+\newcommand{\THESISNAME}{Real-time fall detection and alert system integrating sensors, image processing, and positioning}
+\newcommand{\TENTACGIA}{Trần Đức Hảo}
+\newcommand{\MASOSV}{1734011}
+\newcommand{\BOMON}{Viễn thông}
+\newcommand{\TENNGUOIHUONGDAN}{PSG.TS Hà Hoàng Kha}
+\newcommand{\NAMBAOVE}{2025}
+\newcommand{\KHOA}{Khoa Điện – Điện tử}
+\newcommand{\TRUONG}{Trường Đại học BK.HCM}
+\newcommand{\DEPARTMENT}{\KHOA}
+\newcommand{\TENTACGIAFACULTY}{\TENTACGIA}
+\newcommand{\MSSV}{\MASOSV}
+\newcommand{\TENCANBO}{\TENNGUOIHUONGDAN}
+% --- Metadata Beamer ---
+\title[ESP32]{\TENLUANVAN}
+\author[Trần Đức Hảo]{\TENTACGIA}
+\date{\today}

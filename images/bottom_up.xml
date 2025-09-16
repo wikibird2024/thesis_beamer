@@ -1,0 +1,829 @@
+
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+<mxfile host="app.diagrams.net">
+  <diagram id="pose-estimation" name="Pose Estimation">
+    <mxGraphModel dx="900" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Top-Down Pipeline -->
+        <mxCell id="topDownLabel" value="Quy trình Top-Down" style="text;fillColor=#e3f2fd;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="200" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="td1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td2" value="Phát hiện người (Object Detection)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="40" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td3" value="Ước lượng dáng cho từng người (Single-Person Pose Estimation)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="td4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Top-Down arrows -->
+        <mxCell id="tdArrow1" edge="1" parent="1" source="td1" target="td2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow2" edge="1" parent="1" source="td2" target="td3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="tdArrow3" edge="1" parent="1" source="td3" target="td4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up Pipeline -->
+        <mxCell id="bottomUpLabel" value="Quy trình Bottom-Up" style="text;fillColor=#fce4ec;fontSize=16;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="250" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="bu1" value="Ảnh đầu vào" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu2" value="Phát hiện tất cả keypoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff9c4;strokeColor=#f9a825;" vertex="1" parent="1">
+          <mxGeometry x="400" y="180" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu3" value="Nhóm keypoints thành từng người (Part Grouping/PAFs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bbdefb;strokeColor=#1565c0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="280" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bu4" value="Kết quả đa người" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#6a1b9a;" vertex="1" parent="1">
+          <mxGeometry x="400" y="380" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Bottom-Up arrows -->
+        <mxCell id="buArrow1" edge="1" parent="1" source="bu1" target="bu2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow2" edge="1" parent="1" source="bu2" target="bu3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="buArrow3" edge="1" parent="1" source="bu3" target="bu4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

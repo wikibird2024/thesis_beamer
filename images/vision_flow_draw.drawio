@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="Page-1" id="jiFjAbwft_Gx8R87oCqq">
+    <mxGraphModel dx="727" dy="481" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="oLmSdcDbYxhSEMkT0wPk-66" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;fontColor=default;labelBackgroundColor=none;" edge="1" parent="1" source="oLmSdcDbYxhSEMkT0wPk-61" target="oLmSdcDbYxhSEMkT0wPk-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oLmSdcDbYxhSEMkT0wPk-61" value="Thu nhận Dữ liệu" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#909090;fontColor=#1A1A1A;fillColor=#F5AB50;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="30" y="65" width="130" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="oLmSdcDbYxhSEMkT0wPk-67" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;fontColor=default;labelBackgroundColor=none;" edge="1" parent="1" source="oLmSdcDbYxhSEMkT0wPk-62" target="oLmSdcDbYxhSEMkT0wPk-63">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oLmSdcDbYxhSEMkT0wPk-62" value="Tiền xử lý" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#909090;fontColor=#1A1A1A;fillColor=#F5AB50;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="180" y="65" width="120" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="oLmSdcDbYxhSEMkT0wPk-68" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#182E3E;fontColor=default;labelBackgroundColor=none;" edge="1" parent="1" source="oLmSdcDbYxhSEMkT0wPk-63" target="oLmSdcDbYxhSEMkT0wPk-64">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="oLmSdcDbYxhSEMkT0wPk-63" value="Trích xuất Đặc trưng" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#909090;fontColor=#1A1A1A;fillColor=#F5AB50;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="320" y="65" width="120" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="oLmSdcDbYxhSEMkT0wPk-64" value="Phân tích và Ra quyết định" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#909090;fontColor=#1A1A1A;fillColor=#F5AB50;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="470" y="65" width="120" height="65" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
