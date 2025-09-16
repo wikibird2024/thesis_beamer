@@ -1,0 +1,33 @@
+# ===== LaTeX temporary files =====
+*.aux
+*.bbl
+*.blg
+*.brf
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+
+# ===== PDF output =====
+*.pdf
+
+# ===== Editor backup files =====
+*~
+*.swp
+*.bak
+*.tmp
+
+# ===== OS-specific files =====
+.DS_Store
+Thumbs.db
+
+# ===== Build directories =====
+_build/
+
