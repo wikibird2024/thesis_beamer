@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYGZsh{} Asterisk extensions.conf
+[mqtt\PYGZhy{}alert]
+exten =\PYGZgt{} s,1,NoOp(Received MQTT Alert)
+exten =\PYGZgt{} s,n,Set(ALERT\PYGZus{}MSG=\PYGZdl{}\PYGZob{}ALERT\PYGZus{}INFO\PYGZcb{})
+exten =\PYGZgt{} s,n,Hangup()
+\end{Verbatim}
