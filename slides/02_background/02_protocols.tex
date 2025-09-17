@@ -17,17 +17,15 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \end{block}
 \end{frame}
 
-% Slide 2: Giao thức SIP
+% SIP
 \begin{frame}
 \frametitle{Giao thức SIP - Khởi tạo Phiên}
-
 \textbf{Chức năng chính:}
 \begin{itemize}
 \item Thiết lập cuộc gọi VoIP từ hệ thống cảnh báo
 \item Kết nối với Asterisk PBX để gọi điện thoại
 \item Truyền âm thanh cảnh báo qua RTP
 \end{itemize}
-
 \textbf{Các bước hoạt động:}
 \begin{enumerate}
 \item REGISTER: Đăng ký thiết bị với server
@@ -36,10 +34,159 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \item RTP: Truyền dữ liệu âm thanh
 \item BYE: Kết thúc cuộc gọi
 \end{enumerate}
-
 \begin{alertblock}{Lưu ý}
 Sử dụng ICE để xuyên NAT, TLS/SRTP để bảo mật
 \end{alertblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Phân biệt Đường tín hiệu và Đường truyền phương tiện}
+
+\begin{block}{Đường tín hiệu (Signaling Path)}
+\begin{itemize}
+\item Mang các tin nhắn SIP (INVITE, BYE, 200 OK, v.v.)
+\item Thiết lập, quản lý và kết thúc cuộc gọi
+\item Sử dụng TCP hoặc UDP
+\end{itemize}
+\end{block}
+
+\begin{block}{Đường truyền phương tiện (Media Path)}
+\begin{itemize}
+\item Mang dữ liệu thoại/video thực tế
+\item Sử dụng RTP qua UDP
+\item Truyền trực tiếp giữa các điểm cuối
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Sơ đồ Đường tín hiệu và Đường truyền phương tiện}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2.5em, align=center, fill=blue!10}, 
+    signal_arrow/.style={-Stealth, thick, blue!70!white, shorten >=1pt, shorten <=1pt}, 
+    media_arrow/.style={-Stealth, thick, red!70!white, shorten >=1pt, shorten <=1pt}, 
+    label_style/.style={font=\tiny, align=center, text=black},
+    node distance=1.8cm and 2.5cm 
+]
+    % Các Node
+    \node[box] (A) {SIP Endpoint A};
+    \node[box, right=of A] (Proxy) {SIP Proxy/PBX}; 
+    \node[box, right=of Proxy] (B) {SIP Endpoint B};
+    \node[box, below=1.5cm of Proxy] (MediaProxy) {Media Proxy}; 
+    
+    % Đường tín hiệu
+    \draw[signal_arrow] (A) -- node[above=1pt, label_style] {SIP (TCP/UDP)} (Proxy);
+    \draw[signal_arrow] (Proxy) -- node[above=1pt, label_style] {SIP (TCP/UDP)} (B);
+    
+    % Đường truyền phương tiện
+    \draw[media_arrow] (A) -- node[midway, left=1pt, label_style] {RTP (UDP)} (MediaProxy); 
+    \draw[media_arrow] (MediaProxy) -- node[midway, right=1pt, label_style] {RTP (UDP)} (B); 
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Giao thức ICE (Interactive Connectivity Establishment)}
+
+\begin{block}{Vấn đề}
+Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ liệu RTP trực tiếp
+\end{block}
+
+\begin{block}{Giải pháp ICE}
+\begin{itemize}
+\item \textbf{Local IP:} Địa chỉ IP nội bộ của thiết bị
+\item \textbf{STUN:} Phát hiện địa chỉ IP công cộng và cổng NAT
+\item \textbf{TURN:} Máy chủ chuyển tiếp khi STUN thất bại
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Lưu ý}
+Quá trình ICE thực hiện qua SDP trong thông điệp SIP
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{SIP trong Hệ Thống Cảnh Báo Asterisk}
+
+\begin{block}{Lợi ích}
+\begin{itemize}
+\item \textbf{Quản lý tập trung:} Đồng nhất cấu hình và quản lý thiết bị
+\item \textbf{Tương thích cao:} Hỗ trợ đa dạng nền tảng và thiết bị
+\item \textbf{Chuẩn mở:} Tích hợp dễ dàng với hạ tầng hiện có
+\item \textbf{Bảo mật:} Hỗ trợ TLS (SIP) và SRTP (RTP)
+\end{itemize}
+\end{block}
+
+\begin{block}{Vai trò của Asterisk}
+Đóng vai trò như SIP server, xử lý đăng ký và định tuyến cuộc gọi
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Luồng Phân Phối Cảnh Báo (1/2)}
+
+\begin{block}{1. Đăng ký}
+\begin{itemize}
+\item Thiết bị SIP gửi REGISTER tới Asterisk
+\item Xác thực qua username/password trong header Authorization
+\end{itemize}
+\end{block}
+
+\begin{block}{2. Thiết lập phiên}
+\begin{itemize}
+\item Ứng dụng Linux ra lệnh \texttt{Originate} qua AMI
+\item Asterisk gửi INVITE → 180 Ringing → 200 OK → ACK
+\item Sử dụng header \texttt{Alert-Info: ;info=alert-autoanswer}
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Luồng Phân Phối Cảnh Báo (2/2)}
+
+\begin{block}{3. Trao đổi dữ liệu}
+\begin{itemize}
+\item Dữ liệu cảnh báo truyền qua RTP
+\item TTS (Text-to-Speech) tạo âm thanh từ văn bản
+\item Sử dụng codec G.711 hoặc G.729
+\end{itemize}
+\end{block}
+
+\begin{block}{4. Kết thúc phiên}
+\begin{itemize}
+\item Một bên gửi BYE
+\item Bên kia phản hồi 200 OK
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Tích Hợp SMS qua SIP}
+
+\begin{block}{Cấu hình}
+\begin{itemize}
+\item Kích hoạt \texttt{textsupport=yes} trong \texttt{sip.conf}
+\item Định nghĩa logic xử lý trong \texttt{extensions.conf}
+\end{itemize}
+\end{block}
+
+\begin{block}{Thực hiện}
+\begin{itemize}
+\item Sử dụng lệnh \texttt{MessageSend}
+\item Gửi tin nhắn SIP MESSAGE
+\item Tích hợp SMS gateway để chuyển tiếp sang mạng di động
+\end{itemize}
+\end{block}
+
 \end{frame}
 
 % Slide 3: Giao thức MQTT
