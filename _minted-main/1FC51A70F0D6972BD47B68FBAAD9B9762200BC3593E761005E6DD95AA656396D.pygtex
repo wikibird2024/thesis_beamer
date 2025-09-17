@@ -1,0 +1,30 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}ArduinoJson.h\PYGZgt{}}
+
+\PYG{c+c1}{// Tạo JSON document}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{createSensorData}\PYG{p}{(}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{DynamicJsonDocument}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{(}\PYG{l+m+mi}{1024}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{doc}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{device\PYGZus{}id}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ESP32\PYGZus{}001}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{doc}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{timestamp}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{2024\PYGZhy{}03\PYGZhy{}15T10:30:00Z}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{n}{JsonObject}\PYG{+w}{ }\PYG{n}{readings}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{.}\PYG{n}{createNestedObject}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{readings}\PYG{l+s}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{readings}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{temperature}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{25.5}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{readings}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{humidity}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{60}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{readings}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{status}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{normal}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{n}{String}\PYG{+w}{ }\PYG{n}{jsonString}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{serializeJson}\PYG{p}{(}\PYG{n}{doc}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{jsonString}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{client}\PYG{p}{.}\PYG{n}{publish}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{sensor/data}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{jsonString}\PYG{p}{.}\PYG{n}{c\PYGZus{}str}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Gửi qua MQTT}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{// Phân tích JSON}
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{parseIncomingData}\PYG{p}{(}\PYG{n}{String}\PYG{+w}{ }\PYG{n}{payload}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{DynamicJsonDocument}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{(}\PYG{l+m+mi}{1024}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{deserializeJson}\PYG{p}{(}\PYG{n}{doc}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{payload}\PYG{p}{)}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{k+kt}{float}\PYG{+w}{ }\PYG{n}{temp}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{readings}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{temperature}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{;}
+\PYG{+w}{  }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{humidity}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{readings}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{humidity}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{n}{Serial}\PYG{p}{.}\PYG{n}{println}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{Temperature: }\PYG{l+s}{\PYGZdq{}}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{String}\PYG{p}{(}\PYG{n}{temp}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

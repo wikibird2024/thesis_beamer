@@ -1,0 +1,14 @@
+\frametitle{Ví dụ: ArduinoJson với ESP32}
+\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{cpp}
+#include <ArduinoJson.h>
+
+void createSensorData() {
+  DynamicJsonDocument doc(512);
+  doc["device_id"] = "ESP32_001";
+  doc["temperature"] = 25.5;
+
+  String jsonString;
+  serializeJson(doc, jsonString);
+  client.publish("sensor/data", jsonString.c_str()); // Gửi qua MQTT
+}
+\end{minted}

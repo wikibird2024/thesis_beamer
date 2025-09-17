@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{c+cp}{\PYGZsh{}}\PYG{c+cp}{include}\PYG{+w}{ }\PYG{c+cpf}{\PYGZlt{}ArduinoJson.h\PYGZgt{}}
+
+\PYG{k+kt}{void}\PYG{+w}{ }\PYG{n+nf}{createSensorData}\PYG{p}{(}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{\PYGZob{}}
+\PYG{+w}{  }\PYG{n}{DynamicJsonDocument}\PYG{+w}{ }\PYG{n}{doc}\PYG{p}{(}\PYG{l+m+mi}{512}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{doc}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{device\PYGZus{}id}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{ESP32\PYGZus{}001}\PYG{l+s}{\PYGZdq{}}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{doc}\PYG{p}{[}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{temperature}\PYG{l+s}{\PYGZdq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{25.5}\PYG{p}{;}
+
+\PYG{+w}{  }\PYG{n}{String}\PYG{+w}{ }\PYG{n}{jsonString}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{serializeJson}\PYG{p}{(}\PYG{n}{doc}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{jsonString}\PYG{p}{)}\PYG{p}{;}
+\PYG{+w}{  }\PYG{n}{client}\PYG{p}{.}\PYG{n}{publish}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}}\PYG{l+s}{sensor/data}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{jsonString}\PYG{p}{.}\PYG{n}{c\PYGZus{}str}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{;}\PYG{+w}{ }\PYG{c+c1}{// Gửi qua MQTT}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

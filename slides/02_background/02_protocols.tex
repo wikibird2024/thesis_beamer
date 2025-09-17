@@ -191,6 +191,196 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 
 % Slide 3: Giao thức MQTT
 \begin{frame}
+\frametitle{Giao thức MQTT - Tổng quan}
+
+\begin{block}{Định nghĩa}
+\begin{itemize}
+\item MQTT = Message Queuing Telemetry Transport
+\item Giao thức nhẹ, tối ưu cho IoT và M2M
+\item Hoạt động trên TCP/IP với cơ chế kết nối lâu dài
+\end{itemize}
+\end{block}
+
+\begin{block}{Đặc điểm}
+\begin{itemize}
+\item Thiết kế cho thiết bị có tài nguyên hạn chế
+\item Phù hợp với băng thông thấp
+\item Hỗ trợ kết nối không ổn định
+\item Tiêu chuẩn OASIS cho IoT messaging
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Kiến trúc Publish/Subscribe của MQTT}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    broker/.style={rectangle, draw, rounded corners, minimum height=2em, minimum width=3em, align=center, fill=green!20}, 
+    client/.style={rectangle, draw, rounded corners, minimum height=1.5em, minimum width=2.5em, align=center, fill=blue!10}, 
+    pub_arrow/.style={-Stealth, thick, orange!70!white, shorten >=1pt, shorten <=1pt}, 
+    sub_arrow/.style={-Stealth, thick, purple!70!white, shorten >=1pt, shorten <=1pt}, 
+    label_style/.style={font=\tiny, align=center, text=black},
+    node distance=2cm
+]
+    % Broker trung tâm
+    \node[broker] (broker) {MQTT Broker \\ (Mosquitto/HiveMQ)};
+    
+    % Publishers
+    \node[client, above left=of broker] (pub1) {Publisher 1};
+    \node[client, left=of broker] (pub2) {Publisher 2};
+    
+    % Subscribers
+    \node[client, above right=of broker] (sub1) {Subscriber 1};
+    \node[client, right=of broker] (sub2) {Subscriber 2};
+    \node[client, below right=of broker] (sub3) {Subscriber 3};
+    
+    % Publish arrows
+    \draw[pub_arrow] (pub1) -- node[above left, label_style] {PUBLISH \\ topic/data} (broker);
+    \draw[pub_arrow] (pub2) -- node[left, label_style] {PUBLISH} (broker);
+    
+    % Subscribe arrows
+    \draw[sub_arrow] (broker) -- node[above right, label_style] {SUBSCRIBE \\ topic} (sub1);
+    \draw[sub_arrow] (broker) -- node[right, label_style] {MESSAGE} (sub2);
+    \draw[sub_arrow] (broker) -- node[below right, label_style] {MESSAGE} (sub3);
+\end{tikzpicture}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Lợi ích của mô hình Publish/Subscribe}
+
+\begin{block}{Tách rời không gian (Space Decoupling)}
+\begin{itemize}
+\item Publisher và Subscriber không cần biết địa chỉ IP của nhau
+\item Giao tiếp thông qua broker trung tâm
+\end{itemize}
+\end{block}
+
+\begin{block}{Tách rời thời gian (Time Decoupling)}
+\begin{itemize}
+\item Không yêu cầu kết nối đồng thời
+\item Hỗ trợ \textbf{retained messages} cho subscriber mới
+\item Quản lý \textbf{clean session} cho trạng thái client
+\end{itemize}
+\end{block}
+
+\begin{block}{Tách rời đồng bộ (Synchronization Decoupling)}
+\begin{itemize}
+\item Truyền và nhận hoạt động độc lập
+\item Giảm độ trễ và tăng hiệu suất
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Quality of Service (QoS)}
+
+\begin{block}{QoS 0 - At most once}
+\begin{itemize}
+\item "Fire and forget" - không có xác nhận
+\item Nhanh nhất nhưng có thể mất message
+\item Phù hợp cho dữ liệu cảm biến thường xuyên
+\end{itemize}
+\end{block}
+
+\begin{block}{QoS 1 - At least once}
+\begin{itemize}
+\item Đảm bảo message được gửi ít nhất một lần
+\item Có thể trùng lặp message
+\item Cân bằng giữa độ tin cậy và hiệu suất
+\end{itemize}
+\end{block}
+
+\begin{block}{QoS 2 - Exactly once}
+\begin{itemize}
+\item Đảm bảo message được gửi đúng một lần
+\item Chậm nhất nhưng tin cậy nhất
+\item Sử dụng cho dữ liệu quan trọng
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bảo mật trong MQTT}
+
+\begin{block}{Mã hóa Transport Layer}
+\begin{itemize}
+\item Hỗ trợ TLS/SSL cho kết nối bảo mật
+\item MQTT over TLS (port 8883)
+\item Bảo vệ dữ liệu trong quá trình truyền
+\end{itemize}
+\end{block}
+
+\begin{block}{Xác thực và Ủy quyền}
+\begin{itemize}
+\item Username/Password authentication
+\item Client certificates cho xác thực mạnh
+\item Access Control Lists (ACL) kiểm soát quyền truy cập topic
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Các lệnh MQTT chính}
+
+\begin{block}{Connection Management}
+\begin{itemize}
+\item \texttt{CONNECT}: Khởi tạo kết nối với broker
+\item \texttt{CONNACK}: Xác nhận kết nối từ broker
+\item \texttt{DISCONNECT}: Ngắt kết nối một cách graceful
+\end{itemize}
+\end{block}
+
+\begin{block}{Messaging Operations}
+\begin{itemize}
+\item \texttt{PUBLISH}: Gửi message tới topic
+\item \texttt{PUBACK/PUBREC/PUBREL/PUBCOMP}: QoS acknowledgments
+\item \texttt{SUBSCRIBE}: Đăng ký nhận messages từ topic
+\item \texttt{SUBACK}: Xác nhận subscription
+\item \texttt{UNSUBSCRIBE}: Hủy đăng ký topic
+\end{itemize}
+\end{block}
+
+\begin{block}{Keep Alive}
+\begin{itemize}
+\item \texttt{PINGREQ/PINGRESP}: Duy trì kết nối
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{MQTT trong Hệ thống IoT và Cảnh báo}
+
+\begin{block}{Ứng dụng trong IoT}
+\begin{itemize}
+\item Thu thập dữ liệu từ sensors
+\item Điều khiển thiết bị từ xa
+\item Giám sát trạng thái hệ thống
+\item Gửi thông báo và cảnh báo
+\end{itemize}
+\end{block}
+
+\begin{block}{Lợi ích cho hệ thống cảnh báo}
+\begin{itemize}
+\item Kết nối đáng tin cậy với thiết bị IoT
+\item Truyền dữ liệu real-time
+\item Hỗ trợ offline messaging
+\item Scale tốt với nhiều thiết bị
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Giao thức MQTT - Truyền Dữ Liệu Cảm Biến}
 
 \textbf{Đặc điểm:}
@@ -209,6 +399,183 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 
 \textbf{Ví dụ topic:} \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}
 \end{frame}
+
+%----------------------JSON--------------------%
+% slides/02_background/07_background_json.tex
+
+\begin{frame}
+\frametitle{JSON - JavaScript Object Notation}
+\begin{block}{Định nghĩa}
+\begin{itemize}
+\item JSON: JavaScript Object Notation.
+\item Định dạng dữ liệu nhẹ, dễ đọc, dùng để trao đổi dữ liệu.
+\item Độc lập với ngôn ngữ, dựa trên cú pháp JavaScript.
+\end{itemize}
+\end{block}
+
+\begin{block}{Đặc điểm}
+\begin{itemize}
+\item Định dạng dễ đọc, dùng cho lưu trữ và truyền dữ liệu.
+\item Cấu trúc gồm cặp \texttt{key:value}, dùng \texttt{\{\}}.
+\item Chuẩn phổ biến trong ứng dụng IoT.
+\end{itemize}
+\end{block}
+
+\begin{block}{Tiêu chuẩn}
+RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Cấu trúc JSON cơ bản}
+\begin{block}{Cấu trúc dữ liệu}
+\begin{itemize}
+\item \textbf{Object}: \texttt{\{key: value\}}
+\item \textbf{Array}: \texttt{[value1, value2]}
+\item \textbf{Kiểu giá trị}: String, Number, Boolean, null, Object, Array.
+\end{itemize}
+\end{block}
+
+\begin{exampleblock}{Ví dụ JSON}
+\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{json}
+{
+  "device_id": "ESP32_001",
+  "temperature": 25.5,
+  "sensors": ["temp", "light"]
+}
+\end{minted}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ứng dụng JSON trong IoT}
+\begin{block}{Lưu cấu hình}
+\begin{itemize}
+\item Cấu hình thiết bị IoT (Wi-Fi, MQTT).
+\item Lưu thông số cảm biến và máy chủ.
+\end{itemize}
+\end{block}
+
+\begin{block}{Trao đổi dữ liệu}
+\begin{itemize}
+\item Định dạng payload cho MQTT, API.
+\item Gửi thông báo cảnh báo trong hệ thống.
+\end{itemize}
+\end{block}
+
+\begin{block}{Lợi ích}
+\begin{itemize}
+\item Tự mô tả, nhẹ hơn XML.
+\item Tương thích đa nền tảng.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ví dụ: Cấu hình ESP32}
+\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{json}
+{
+  "network": {
+    "ssid": "IoT_Network",
+    "mqtt_broker": "192.168.1.100"
+  },
+  "device": {
+    "id": "ESP32_001",
+    "update_interval": 30
+  }
+}
+\end{minted}
+\end{frame}
+
+\begin{frame}
+\frametitle{Thư viện JSON cho hệ thống nhúng}
+\begin{block}{ArduinoJson}
+\begin{itemize}
+\item Thư viện JSON cho ESP32, Arduino.
+\item Hỗ trợ serialization, deserialization.
+\item API đơn giản, tiết kiệm bộ nhớ.
+\end{itemize}
+\end{block}
+
+\begin{block}{json-c}
+\begin{itemize}
+\item Thư viện JSON cho C/C++.
+\item Hỗ trợ phân tích cú pháp, tạo JSON.
+\end{itemize}
+\end{block}
+
+\begin{block}{FirebaseJson}
+\begin{itemize}
+\item Thư viện dễ dùng, hỗ trợ JSON phức tạp.
+\item Dựa trên cJSON, phù hợp IoT.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tối ưu hóa JSON cho IoT}
+\begin{block}{Giảm kích thước Payload}
+\begin{itemize}
+\item Rút ngắn tên khóa: \texttt{"t"} thay cho \texttt{"temperature"}.
+\item Loại bỏ khoảng trắng, dùng array khi phù hợp.
+\item Nén dữ liệu với gzip.
+\end{itemize}
+\end{block}
+
+\begin{exampleblock}{Ví dụ JSON tối ưu}
+\begin{itemize}
+\item Gốc: \texttt{\{"temperature":25.5\}}
+\item Tối ưu: \texttt{\{"t":25.5\}}
+\end{itemize}
+\end{exampleblock}
+
+\begin{block}{Thực hành tốt}
+\begin{itemize}
+\item Kiểm tra định dạng JSON trước khi gửi.
+\item Xử lý lỗi parsing, gộp nhiều giá trị.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{JSON trong MQTT và SIP}
+\begin{block}{JSON với MQTT}
+\begin{itemize}
+\item Payload JSON trong topic \texttt{sensor/data}.
+\item Lưu cấu hình trong retained messages.
+\end{itemize}
+\end{block}
+
+\begin{block}{JSON với SIP}
+\begin{itemize}
+\item Dữ liệu JSON trong custom headers, SIP MESSAGE.
+\item Lưu cấu hình ứng dụng SIP.
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Lưu ý}
+JSON đảm bảo tương tác giữa các giao thức trong hệ sinh thái IoT.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ví dụ: ArduinoJson với ESP32}
+\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{cpp}
+#include <ArduinoJson.h>
+
+void createSensorData() {
+  DynamicJsonDocument doc(512);
+  doc["device_id"] = "ESP32_001";
+  doc["temperature"] = 25.5;
+  
+  String jsonString;
+  serializeJson(doc, jsonString);
+  client.publish("sensor/data", jsonString.c_str()); // Gửi qua MQTT
+}
+\end{minted}
+\end{frame}
+
+
 
 % Slide 4: JSON và Tích hợp Hệ thống
 \begin{frame}
