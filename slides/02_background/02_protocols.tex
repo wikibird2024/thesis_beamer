@@ -1,0 +1,109 @@
+
+% Slide 1: Tổng quan
+\begin{frame}
+\frametitle{Các Giao Thức Truyền Thông trong Hệ Thống Cảnh Báo IoT}
+\begin{center}
+\Large Hệ thống phát hiện ngã với ba giao thức cốt lõi
+\end{center}
+
+\begin{itemize}
+\item \textbf{SIP}: Truyền tải âm thanh/video cảnh báo thời gian thực
+\item \textbf{MQTT}: Vận chuyển dữ liệu cảm biến từ thiết bị IoT  
+\item \textbf{JSON}: Định dạng cấu trúc dữ liệu trao đổi
+\end{itemize}
+
+\begin{block}{Mục tiêu}
+Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp từ cảm biến đến cuộc gọi VoIP
+\end{block}
+\end{frame}
+
+% Slide 2: Giao thức SIP
+\begin{frame}
+\frametitle{Giao thức SIP - Khởi tạo Phiên}
+
+\textbf{Chức năng chính:}
+\begin{itemize}
+\item Thiết lập cuộc gọi VoIP từ hệ thống cảnh báo
+\item Kết nối với Asterisk PBX để gọi điện thoại
+\item Truyền âm thanh cảnh báo qua RTP
+\end{itemize}
+
+\textbf{Các bước hoạt động:}
+\begin{enumerate}
+\item REGISTER: Đăng ký thiết bị với server
+\item INVITE: Khởi tạo cuộc gọi cảnh báo
+\item ACK: Xác nhận kết nối thành công
+\item RTP: Truyền dữ liệu âm thanh
+\item BYE: Kết thúc cuộc gọi
+\end{enumerate}
+
+\begin{alertblock}{Lưu ý}
+Sử dụng ICE để xuyên NAT, TLS/SRTP để bảo mật
+\end{alertblock}
+\end{frame}
+
+% Slide 3: Giao thức MQTT
+\begin{frame}
+\frametitle{Giao thức MQTT - Truyền Dữ Liệu Cảm Biến}
+
+\textbf{Đặc điểm:}
+\begin{itemize}
+\item Nhẹ, tiết kiệm băng thông cho thiết bị IoT
+\item Mô hình Publish/Subscribe qua Broker
+\item Hỗ trợ 3 mức QoS đảm bảo độ tin cậy
+\end{itemize}
+
+\textbf{Mức QoS:}
+\begin{itemize}
+\item \textcolor{green}{\textbf{QoS 0}}: Gửi một lần (dữ liệu thường)
+\item \textcolor{orange}{\textbf{QoS 1}}: Ít nhất một lần (có xác nhận)
+\item \textcolor{red}{\textbf{QoS 2}}: Đúng một lần (cảnh báo quan trọng)
+\end{itemize}
+
+\textbf{Ví dụ topic:} \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}
+\end{frame}
+
+% Slide 4: JSON và Tích hợp Hệ thống
+\begin{frame}
+\frametitle{JSON và Tích Hợp Hệ Thống}
+
+\textbf{JSON - Định dạng dữ liệu:}
+\begin{itemize}
+\item Nhẹ, dễ đọc, tương thích đa nền tảng
+\item Cấu hình thiết bị và trao đổi dữ liệu cảm biến
+\item Tối ưu payload cho MQTT
+\end{itemize}
+
+\textbf{Luồng tích hợp hoàn chỉnh:}
+\begin{enumerate}
+\item ESP32 phát hiện ngã → tạo JSON payload
+\item Gửi qua MQTT topic với QoS phù hợp  
+\item Ứng dụng trung gian nhận và xử lý JSON
+\item Kích hoạt cuộc gọi SIP qua Asterisk AMI
+\item Phát cảnh báo âm thanh đến điện thoại
+\end{enumerate}
+\end{frame}
+
+% Slide 5: Kết luận và Tối ưu
+\begin{frame}
+\frametitle{Kết Luận và Tối Ưu Hóa}
+
+\textbf{Lợi ích của việc kết hợp 3 giao thức:}
+\begin{itemize}
+\item \textbf{MQTT}: Thu thập dữ liệu hiệu quả từ cảm biến
+\item \textbf{JSON}: Cấu trúc dữ liệu linh hoạt, dễ xử lý
+\item \textbf{SIP}: Cảnh báo âm thanh tức thì, đáng tin cậy
+\end{itemize}
+
+\textbf{Các biện pháp tối ưu:}
+\begin{itemize}
+\item Payload JSON nhỏ gọn tiết kiệm năng lượng
+\item QoS MQTT phù hợp với mức độ quan trọng
+\item Tự động kết nối lại khi mất kết nối
+\item Bảo mật TLS cho MQTT và SIP
+\end{itemize}
+
+\begin{block}{Kết quả}
+Hệ thống cảnh báo tự động, tin cậy từ thiết bị nhúng đến cuộc gọi VoIP
+\end{block}
+\end{frame}

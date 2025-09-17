@@ -1,0 +1,24 @@
+\begin{frame}{Tổng quan các phương pháp phát hiện té ngã}
+\scriptsize
+\begin{tabular}{|p{0.18\linewidth}|p{0.22\linewidth}|p{0.25\linewidth}|p{0.25\linewidth}|}
+\hline
+\textbf{Phương pháp} & \textbf{Cơ chế} & \textbf{Ưu điểm} & \textbf{Nhược điểm} \\
+\hline
+Đeo được & IMU (gia tốc kế, con quay hồi chuyển); phát hiện gia tốc/tư thế bất thường & Phản hồi nhanh; chính xác; chi phí thấp & Cần đeo liên tục; dễ false positive; pin/hiệu chuẩn \\
+\hline
+Môi trường & Cảm biến cố định: sàn áp suất, PIR, âm thanh; AI phân tích & Không xâm phạm; giám sát nhiều người; tích hợp smart home & Chi phí cao; phạm vi hạn chế; nhầm vật thể \\
+\hline
+Thị giác & Camera RGB/RGB-D/IR; pose estimation (OpenPose/MediaPipe) & Thông tin trực quan; không cần đeo; tích hợp giám sát & Quyền riêng tư; phụ thuộc ánh sáng; cần phần cứng mạnh \\
+\hline
+Đa phương thức & Kết hợp IMU + camera + môi trường; data fusion (Kalman/Deep Learning) & Độ chính xác cao; giảm cảnh báo sai; mở rộng phạm vi; kinh tế & Phức tạp; tốn năng lượng; đồng bộ khó \\
+\hline
+\end{tabular}
+
+\vspace{0.3em}
+\begin{itemize}\scriptsize
+    \item Kết hợp dữ liệu để xác nhận té ngã, giảm false positive.  
+    \item Chế độ linh hoạt: In-situ (cục bộ) + Mobile (edge device).  
+    \item Bảo mật: xử lý cục bộ, chỉ gửi dữ liệu tối thiểu, tùy chỉnh khu vực nhạy cảm.
+\end{itemize}
+\end{frame}
+

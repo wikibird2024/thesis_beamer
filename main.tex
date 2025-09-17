@@ -1,27 +1,77 @@
 \documentclass[aspectratio=169]{beamer}
 
-% Theme Beamer (gọn, chuyên nghiệp)
+% ========================
+% Beamer Theme (gọn, chuyên nghiệp)
+% ========================
 \usetheme{Madrid}
 \usecolortheme{default}
 
+% ========================
 % Import preamble riêng (nếu có)
+% ========================
 \input{preamble.tex}
 
-% --- Bắt đầu tài liệu ---
+% ========================
+% Metadata
+% ========================
+\title[Fall Detection]{Fall Detection System using ESP32 and 4G-GPS}
+\author{Your Name}
+\institute{Your University}
+\date{\today}
+
+% ========================
+% Bắt đầu tài liệu
+% ========================
 \begin{document}
 
-% Trang tiêu đề
-\begin{frame}
-    \titlepage
-\end{frame}
+% --- Title + Outline ---
+\input{slides/00_title/00_title}
+\input{slides/00_title/01_outline}
 
-% --- Nội dung các phần chính ---
-\input{slides/01_introduction.tex}
-\input{slides/02_background.tex}
-\input{slides/03_methodology.tex}
-\input{slides/04_results.tex}
-\input{slides/05_conclusion.tex}
+% --- Introduction ---
+\input{slides/01_introduction/01_motivation}
+\input{slides/01_introduction/02_status}
+\input{slides/01_introduction/03_objectives}
+\input{slides/01_introduction/04_scope}
+\input{slides/01_introduction/05_intro_summary}
 
-% --- Kết thúc tài liệu ---
+% --- Background ---
+\input{slides/02_background/01_fall_overview}
+\input{slides/02_background/02_protocols}
+\input{slides/02_background/03_cv_intro}
+\input{slides/02_background/04_pose_estimation}
+\input{slides/02_background/05_sensors}
+\input{slides/02_background/06_background_summary}
+
+% --- Methodology ---
+\input{slides/03_methodology/01_architecture}
+\input{slides/03_methodology/02_hardware}
+\input{slides/03_methodology/03_software_overview}
+\input{slides/03_methodology/04_module_ast}
+\input{slides/03_methodology/05_module_i}
+\input{slides/03_methodology/06_module_ii}
+\input{slides/03_methodology/07_server}
+\input{slides/03_methodology/08_method_summary}
+
+% --- Results ---
+\input{slides/04_results/01_setup}
+\input{slides/04_results/02_results_detection}
+\input{slides/04_results/03_latency}
+\input{slides/04_results/04_stability}
+\input{slides/04_results/05_results_summary}
+
+% --- Conclusion ---
+\input{slides/05_conclusion/01_summary}
+\input{slides/05_conclusion/02_contribution}
+\input{slides/05_conclusion/03_limitations}
+\input{slides/05_conclusion/04_futurework}
+\input{slides/05_conclusion/05_overall}
+
+% --- Thank you ---
+\input{slides/06_thankyou/01_thankyou}
+
+% ========================
+% Kết thúc tài liệu
+% ========================
 \end{document}
 
