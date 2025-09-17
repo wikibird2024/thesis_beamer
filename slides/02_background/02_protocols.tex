@@ -489,13 +489,6 @@ RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 
 \begin{frame}
 \frametitle{Thư viện JSON cho hệ thống nhúng}
-\begin{block}{ArduinoJson}
-\begin{itemize}
-\item Thư viện JSON cho ESP32, Arduino.
-\item Hỗ trợ serialization, deserialization.
-\item API đơn giản, tiết kiệm bộ nhớ.
-\end{itemize}
-\end{block}
 
 \begin{block}{json-c}
 \begin{itemize}
@@ -512,30 +505,7 @@ RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 \end{block}
 \end{frame}
 
-\begin{frame}
-\frametitle{Tối ưu hóa JSON cho IoT}
-\begin{block}{Giảm kích thước Payload}
-\begin{itemize}
-\item Rút ngắn tên khóa: \texttt{"t"} thay cho \texttt{"temperature"}.
-\item Loại bỏ khoảng trắng, dùng array khi phù hợp.
-\item Nén dữ liệu với gzip.
-\end{itemize}
-\end{block}
 
-\begin{exampleblock}{Ví dụ JSON tối ưu}
-\begin{itemize}
-\item Gốc: \texttt{\{"temperature":25.5\}}
-\item Tối ưu: \texttt{\{"t":25.5\}}
-\end{itemize}
-\end{exampleblock}
-
-\begin{block}{Thực hành tốt}
-\begin{itemize}
-\item Kiểm tra định dạng JSON trước khi gửi.
-\item Xử lý lỗi parsing, gộp nhiều giá trị.
-\end{itemize}
-\end{block}
-\end{frame}
 
 \begin{frame}
 \frametitle{JSON trong MQTT và SIP}
@@ -557,24 +527,6 @@ RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 JSON đảm bảo tương tác giữa các giao thức trong hệ sinh thái IoT.
 \end{alertblock}
 \end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Ví dụ: ArduinoJson với ESP32}
-\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{cpp}
-#include <ArduinoJson.h>
-
-void createSensorData() {
-  DynamicJsonDocument doc(512);
-  doc["device_id"] = "ESP32_001";
-  doc["temperature"] = 25.5;
-  
-  String jsonString;
-  serializeJson(doc, jsonString);
-  client.publish("sensor/data", jsonString.c_str()); // Gửi qua MQTT
-}
-\end{minted}
-\end{frame}
-
 
 
 % Slide 4: JSON và Tích hợp Hệ thống
@@ -600,7 +552,7 @@ void createSensorData() {
 
 % Slide 5: Kết luận và Tối ưu
 \begin{frame}
-\frametitle{Kết Luận và Tối Ưu Hóa}
+\frametitle{Kết Luận và Tối Ưu Hóa kết hợp cá phương thức}
 
 \textbf{Lợi ích của việc kết hợp 3 giao thức:}
 \begin{itemize}
