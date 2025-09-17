@@ -1,15 +1,13 @@
-% slides/02_background/03_cv_intro.tex
-
 \section{Cơ sở lý thuyết về Thị giác Máy tính (CV)}
 \begin{frame}
 \frametitle{Định nghĩa và Mục tiêu}
 \begin{block}{Định nghĩa}
-\textbf{Thị giác Máy tính (CV)}: Lĩnh vực AI cho phép máy tính xử lý, phân tích, và diễn giải hình ảnh/video, mô phỏng thị giác con người.
+\textbf{Thị giác Máy tính (CV)}: Lĩnh vực AI cho phép máy tính xử lý, phân tích và diễn giải hình ảnh/video, mô phỏng thị giác con người.
 \end{block}
 
 \begin{block}{Mục tiêu}
 \begin{itemize}
-\item Tái tạo khả năng nhận thức thị giác với tốc độ, độ chính xác, và quy mô vượt trội.
+\item Tái tạo khả năng nhận thức thị giác với tốc độ, độ chính xác và quy mô vượt trội.
 \item Ứng dụng trong \TENLUANVAN, đặc biệt là \textbf{Ước lượng Tư thế Người (HPE)}.
 \end{itemize}
 \end{block}
@@ -22,7 +20,7 @@
 \item \textbf{Thu nhận dữ liệu}: Thu thập ảnh/video từ camera.
 \item \textbf{Tiền xử lý}: Chuẩn hóa kích thước, điều chỉnh sáng/tương phản, giảm nhiễu.
 \item \textbf{Trích xuất đặc trưng}: Chuyển pixel thành đặc trưng trừu tượng (cạnh, góc, kết cấu).
-\item \textbf{Phân tích và quyết định}: Phân loại, nhận dạng, hoặc ước lượng tư thế.
+\item \textbf{Phân tích và quyết định}: Phân loại, nhận dạng hoặc ước lượng tư thế.
 \end{enumerate}
 \end{block}
 
@@ -50,8 +48,6 @@
 \end{itemize}
 \end{block}
 \end{frame}
-
-% slides/02_background/03_cv_intro.tex (chỉ hai slide CNN và ViT)
 
 \begin{frame}
 \frametitle{Mô hình Học sâu: CNN}
@@ -90,7 +86,7 @@
 \footnotesize
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 \end{equation}
-\item Học quan hệ toàn cục, vượt giới hạn CNN.
+\item Học quan hệ toàn cục, vượt giới hạn của CNN.
 \end{itemize}
 \end{column}
 
@@ -104,6 +100,7 @@
 \end{column}
 \end{columns}
 \end{frame}
+
 \begin{frame}
 \frametitle{Tập dữ liệu và Metrics Đánh giá}
 \begin{block}{Tập dữ liệu}
@@ -116,7 +113,7 @@
 
 \begin{block}{Metrics đánh giá}
 \begin{itemize}
-\item \textbf{IoU}: Đo trùng khớp hộp giới hạn.
+\item \textbf{IoU}: Đo độ trùng khớp hộp giới hạn.
 \item \textbf{mAP}: Trung bình độ chính xác cho phát hiện đối tượng.
 \item \textbf{F1-score}: Cân bằng Precision và Recall.
 \item \textbf{OKS}: Đo độ chính xác khớp trong HPE.

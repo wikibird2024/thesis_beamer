@@ -3,7 +3,7 @@
 \begin{frame}
 \frametitle{Các Giao Thức Truyền Thông trong Hệ Thống Cảnh Báo IoT}
 \begin{center}
-\Large Hệ thống phát hiện ngã với ba giao thức cốt lõi
+\Large Hệ thống phát hiện ngã với ba giao thức chính. 
 \end{center}
 
 \begin{itemize}
@@ -26,7 +26,7 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \item Kết nối với Asterisk PBX để gọi điện thoại
 \item Truyền âm thanh cảnh báo qua RTP
 \end{itemize}
-\textbf{Các bước hoạt động:}
+\textbf{Các bước thiết lập hoạt động:}
 \begin{enumerate}
 \item REGISTER: Đăng ký thiết bị với server
 \item INVITE: Khởi tạo cuộc gọi cảnh báo
@@ -34,13 +34,10 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \item RTP: Truyền dữ liệu âm thanh
 \item BYE: Kết thúc cuộc gọi
 \end{enumerate}
-\begin{alertblock}{Lưu ý}
-Sử dụng ICE để xuyên NAT, TLS/SRTP để bảo mật
-\end{alertblock}
 \end{frame}
 
 \begin{frame}
-\frametitle{Phân biệt Đường tín hiệu và Đường truyền phương tiện}
+\frametitle{Phân biệt Đường tín hiệu và Đường truyền phương tiện trong SIP}
 
 \begin{block}{Đường tín hiệu (Signaling Path)}
 \begin{itemize}
@@ -105,14 +102,10 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 \end{itemize}
 \end{block}
 
-\begin{alertblock}{Lưu ý}
-Quá trình ICE thực hiện qua SDP trong thông điệp SIP
-\end{alertblock}
-
 \end{frame}
 
 \begin{frame}
-\frametitle{SIP trong Hệ Thống Cảnh Báo Asterisk}
+\frametitle{SIP trong phần mềm mã nguồn mở Asterisk}
 
 \begin{block}{Lợi ích}
 \begin{itemize}
@@ -130,48 +123,7 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \end{frame}
 
 \begin{frame}
-\frametitle{Luồng Phân Phối Cảnh Báo (1/2)}
-
-\begin{block}{1. Đăng ký}
-\begin{itemize}
-\item Thiết bị SIP gửi REGISTER tới Asterisk
-\item Xác thực qua username/password trong header Authorization
-\end{itemize}
-\end{block}
-
-\begin{block}{2. Thiết lập phiên}
-\begin{itemize}
-\item Ứng dụng Linux ra lệnh \texttt{Originate} qua AMI
-\item Asterisk gửi INVITE → 180 Ringing → 200 OK → ACK
-\item Sử dụng header \texttt{Alert-Info: ;info=alert-autoanswer}
-\end{itemize}
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Luồng Phân Phối Cảnh Báo (2/2)}
-
-\begin{block}{3. Trao đổi dữ liệu}
-\begin{itemize}
-\item Dữ liệu cảnh báo truyền qua RTP
-\item TTS (Text-to-Speech) tạo âm thanh từ văn bản
-\item Sử dụng codec G.711 hoặc G.729
-\end{itemize}
-\end{block}
-
-\begin{block}{4. Kết thúc phiên}
-\begin{itemize}
-\item Một bên gửi BYE
-\item Bên kia phản hồi 200 OK
-\end{itemize}
-\end{block}
-
-\end{frame}
-
-\begin{frame}
 \frametitle{Tích Hợp SMS qua SIP}
-
 \begin{block}{Cấu hình}
 \begin{itemize}
 \item Kích hoạt \texttt{textsupport=yes} trong \texttt{sip.conf}
@@ -193,7 +145,7 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \begin{frame}
 \frametitle{Giao thức MQTT - Tổng quan}
 
-\begin{block}{Định nghĩa}
+\begin{block}{Định nghĩa MQTT}
 \begin{itemize}
 \item MQTT = Message Queuing Telemetry Transport
 \item Giao thức nhẹ, tối ưu cho IoT và M2M
@@ -201,7 +153,7 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \end{itemize}
 \end{block}
 
-\begin{block}{Đặc điểm}
+\begin{block}{Đặc điểm MQTT}
 \begin{itemize}
 \item Thiết kế cho thiết bị có tài nguyên hạn chế
 \item Phù hợp với băng thông thấp
@@ -253,14 +205,14 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \begin{frame}
 \frametitle{Lợi ích của mô hình Publish/Subscribe}
 
-\begin{block}{Tách rời không gian (Space Decoupling)}
+\begin{block}{Tách rời không gian}
 \begin{itemize}
 \item Publisher và Subscriber không cần biết địa chỉ IP của nhau
 \item Giao tiếp thông qua broker trung tâm
 \end{itemize}
 \end{block}
 
-\begin{block}{Tách rời thời gian (Time Decoupling)}
+\begin{block}{Tách rời thời gian}
 \begin{itemize}
 \item Không yêu cầu kết nối đồng thời
 \item Hỗ trợ \textbf{retained messages} cho subscriber mới
@@ -268,7 +220,7 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \end{itemize}
 \end{block}
 
-\begin{block}{Tách rời đồng bộ (Synchronization Decoupling)}
+\begin{block}{Tách rời đồng bộ}
 \begin{itemize}
 \item Truyền và nhận hoạt động độc lập
 \item Giảm độ trễ và tăng hiệu suất
@@ -281,7 +233,7 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \begin{frame}
 \frametitle{Quality of Service (QoS)}
 
-\begin{block}{QoS 0 - At most once}
+\begin{block}{QoS 0}
 \begin{itemize}
 \item "Fire and forget" - không có xác nhận
 \item Nhanh nhất nhưng có thể mất message
@@ -289,7 +241,7 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \end{itemize}
 \end{block}
 
-\begin{block}{QoS 1 - At least once}
+\begin{block}{QoS 1}
 \begin{itemize}
 \item Đảm bảo message được gửi ít nhất một lần
 \item Có thể trùng lặp message
@@ -297,7 +249,7 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \end{itemize}
 \end{block}
 
-\begin{block}{QoS 2 - Exactly once}
+\begin{block}{QoS 2}
 \begin{itemize}
 \item Đảm bảo message được gửi đúng một lần
 \item Chậm nhất nhưng tin cậy nhất
@@ -413,16 +365,12 @@ Quá trình ICE thực hiện qua SDP trong thông điệp SIP
 \end{itemize}
 \end{block}
 
-\begin{block}{Đặc điểm}
+\begin{block}{Đặc điểm JSON}
 \begin{itemize}
 \item Định dạng dễ đọc, dùng cho lưu trữ và truyền dữ liệu.
 \item Cấu trúc gồm cặp \texttt{key:value}, dùng \texttt{\{\}}.
 \item Chuẩn phổ biến trong ứng dụng IoT.
 \end{itemize}
-\end{block}
-
-\begin{block}{Tiêu chuẩn}
-RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 \end{block}
 \end{frame}
 
@@ -462,13 +410,6 @@ RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 \item Gửi thông báo cảnh báo trong hệ thống.
 \end{itemize}
 \end{block}
-
-\begin{block}{Lợi ích}
-\begin{itemize}
-\item Tự mô tả, nhẹ hơn XML.
-\item Tương thích đa nền tảng.
-\end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -488,7 +429,7 @@ RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 \end{frame}
 
 \begin{frame}
-\frametitle{Thư viện JSON cho hệ thống nhúng}
+\frametitle{Một số Thư viện JSON cho hệ thống nhúng}
 
 \begin{block}{json-c}
 \begin{itemize}
@@ -504,8 +445,6 @@ RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 \end{itemize}
 \end{block}
 \end{frame}
-
-
 
 \begin{frame}
 \frametitle{JSON trong MQTT và SIP}
@@ -523,9 +462,9 @@ RFC 8259: Chuẩn Internet cho định dạng trao đổi dữ liệu JSON.
 \end{itemize}
 \end{block}
 
-\begin{alertblock}{Lưu ý}
+\begin{block}
 JSON đảm bảo tương tác giữa các giao thức trong hệ sinh thái IoT.
-\end{alertblock}
+\end{block}
 \end{frame}
 
 
@@ -552,7 +491,7 @@ JSON đảm bảo tương tác giữa các giao thức trong hệ sinh thái IoT
 
 % Slide 5: Kết luận và Tối ưu
 \begin{frame}
-\frametitle{Kết Luận và Tối Ưu Hóa kết hợp cá phương thức}
+\frametitle{Kết Luận và Tối Ưu Hóa kết hợp các phương thức}
 
 \textbf{Lợi ích của việc kết hợp 3 giao thức:}
 \begin{itemize}
@@ -569,8 +508,5 @@ JSON đảm bảo tương tác giữa các giao thức trong hệ sinh thái IoT
 \item Bảo mật TLS cho MQTT và SIP
 \end{itemize}
 
-\begin{block}{Kết quả}
-Hệ thống cảnh báo tự động, tin cậy từ thiết bị nhúng đến cuộc gọi VoIP
-\end{block}
 \end{frame}
 
