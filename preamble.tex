@@ -32,7 +32,19 @@
 \pgfplotsset{compat=1.18}
 \usepackage{hyperref}
 \usepackage{adjustbox}
-% (Tuỳ chọn: chỉ dùng caption nếu cần subfigure)
+
+% set table of content
+
+
+% Mini TOC ở đầu mỗi section
+% --- Mục lục nhỏ gọn ở đầu mỗi section ---
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection, hideothersubsections]
+  \end{frame}
+}
 % \usepackage{caption}
 % \usepackage{subcaption}
 
