@@ -1,17 +1,22 @@
-\frametitle{Máy chủ: Cấu trúc thư mục dự án}
-\renewcommand{\baselinestretch}{0.8}
-    \begin{minted}[fontsize=\scriptsize, breaklines, bgcolor=lightgray]{text}
-intergrate_fall/
-├── comm/ (MQTT, Telegram, AMI)
-├── config/ (cấu hình)
-├── database/ (fall_events.db)
-├── detection/ (human, tracker)
-├── fall/ (fall_detector.py)
-├── processing/ (detection_processor.py)
-├── utils/ (draw_utils.py)
-├── models/ (yolov8n.pt)
-├── tests/ (test_fall.py)
-├── main.py
+\frametitle{Hệ thống Xử lý Té ngã: Lưu trữ và Cảnh báo}
+\begin{block}{Cơ chế}
+        \begin{itemize}
+            \item \textbf{Lưu trữ}: SQLite \texttt{fall\_events.db} (timestamp, source, entity\_id, GPS).
+            \item \textbf{Cảnh báo}: AMI, Telegram khi phát hiện té ngã.
+            \item \textbf{Vòng lặp}: Thu thập → Xử lý → Tích hợp → Cảnh báo.
+        \end{itemize}
+    \end{block}
+    \begin{minted}[fontsize=\scriptsize, breaklines, bgcolor=lightgray]{sql}
+CREATE TABLE fall_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    source TEXT NOT NULL,
+    entity_id TEXT NOT NULL,
+    fall_detected BOOLEAN NOT NULL,
+    latitude REAL,
+    longitude REAL,
+    has_gps_fix BOOLEAN,
+    alert_status INTEGER DEFAULT 0
+);
     \end{minted}
-    \renewcommand{\baselinestretch}{1.0}
-    \label{subsubsec:project_structure}
+    \label{subsubsec:data_storage_alerts}
