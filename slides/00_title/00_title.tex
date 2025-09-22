@@ -1,19 +1,81 @@
 
-% --- Slide 1: Trang tiêu đề ---
-\begin{frame}
-    \titlepage
+\begin{frame}[fragile]
+    \centering
+
+    % --- Màu xanh BKHCM cho khung tiêu đề ---
+    \definecolor{bkhcmBlue}{HTML}{005DAA}
+    \setbeamercolor{titlebox}{fg=white,bg=bkhcmBlue}
+
+    % --- Logo thu nhỏ (10% chiều cao) ---
+    \includegraphics[height=0.10\paperheight]{logo_hcmut.png}
+
+    \vspace{0.2em}
+
+    % --- Tên Khoa căn giữa dưới logo ---
+    {\footnotesize\KHOA}
+
+    \vspace{0.2em}
+
+    % --- Tên Bộ môn căn giữa dưới Khoa ---
+    {\footnotesize Bộ môn - Viễn Thông}
+
+    \vspace{0.5em}
+
+    % --- Tiêu đề luận văn tiếng Việt (cân đối, wrap text) ---
+    \begin{beamercolorbox}[rounded=true,shadow=true,sep=1em,center]{titlebox}
+        \parbox{0.9\textwidth}{\centering\Large\bfseries \TENLUANVAN}
+    \end{beamercolorbox}
+
+    \vspace{0.3em}
+
+    % --- Tiêu đề luận văn tiếng Anh ---
+    \parbox{0.85\textwidth}{\centering\large\emph{\THESISNAME}}
+
+    \vfill % đẩy phần thông tin xuống cuối slide
+
+    % --- Thông tin Sinh viên và Người hướng dẫn (chia 2 cột, font nhỏ) ---
+    \begin{columns}[T, totalwidth=\textwidth]
+        \begin{column}{0.48\textwidth}
+            \raggedright
+            {\scriptsize
+            \textbf{Sinh viên:} \\
+            \TENTACGIA
+            }
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \raggedleft
+            {\scriptsize
+            \textbf{Người hướng dẫn:} \\
+            \TENNGUOIHUONGDAN
+            }
+        \end{column}
+    \end{columns}
+
+    \vspace{0.5cm}
+
+    % --- Ngày tháng ở dưới cùng, căn giữa ---
+    {\scriptsize \centering \today}
+
 \end{frame}
 
-% --- Slide 2: Thông tin tác giả & người hướng dẫn ---
-\begin{frame}
-    \centering
-    {\Large \textbf{Tác giả:} \TENTACGIA \par}
-    {\Large \textbf{Người hướng dẫn:} \TENNGUOIHUONGDAN \par}
-    \vspace{0.5cm}
-    {\small Khoa: \KHOA \par}
-    {\small Trường: \TRUONG \par}
-    \vfill
-    {\footnotesize \today}
+%-- Slide 3: Loi cam on------------
+\begin{frame}{Lời cảm ơn}
+\small
+Trước hết, tôi xin bày tỏ lòng biết ơn sâu sắc đến 
+\textbf{PGS.TS. Hà Hoàng Kha}, người đã tận tâm hướng dẫn và đồng hành cùng tôi 
+trong suốt quá trình thực hiện đồ án. Thầy đã chỉ bảo từng bước, nhắc nhở về 
+thái độ học tập và khuyến khích tôi tiếp cận vấn đề một cách thực chất, từ đó 
+tích lũy kiến thức và kỹ năng nghiên cứu chuyên nghiệp hơn. \\[0.3cm]
+
+Tôi cũng xin cảm ơn các thầy cô trong 
+\textbf{Bộ môn Viễn Thông, Khoa Điện – Điện tử, Trường ĐH Bách khoa – ĐHQG TP.HCM} 
+đã trang bị nền tảng kiến thức vững chắc và tạo điều kiện thuận lợi để tôi phát triển 
+chuyên môn toàn diện. \\[0.3cm]
+
+Đặc biệt, tôi xin gửi lời tri ân đến \textbf{gia đình} – điểm tựa tinh thần vững chắc, 
+nguồn động lực to lớn để tôi kiên trì và hoàn thành luận văn. \\[0.3cm]
+
+Cuối cùng, tôi xin cảm ơn tất cả những người đã hỗ trợ tôi trong quá trình học tập và nghiên cứu.
 \end{frame}
 
 % --- Slide  Trang  table of content---

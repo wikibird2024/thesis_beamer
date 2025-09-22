@@ -1,22 +1,56 @@
-\frametitle{Hệ thống Xử lý Té ngã: Lưu trữ và Cảnh báo}
-\begin{block}{Cơ chế}
-        \begin{itemize}
-            \item \textbf{Lưu trữ}: SQLite \texttt{fall\_events.db} (timestamp, source, entity\_id, GPS).
-            \item \textbf{Cảnh báo}: AMI, Telegram khi phát hiện té ngã.
-            \item \textbf{Vòng lặp}: Thu thập → Xử lý → Tích hợp → Cảnh báo.
-        \end{itemize}
-    \end{block}
-    \begin{minted}[fontsize=\scriptsize, breaklines, bgcolor=lightgray]{sql}
-CREATE TABLE fall_events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    source TEXT NOT NULL,
-    entity_id TEXT NOT NULL,
-    fall_detected BOOLEAN NOT NULL,
-    latitude REAL,
-    longitude REAL,
-    has_gps_fix BOOLEAN,
-    alert_status INTEGER DEFAULT 0
-);
-    \end{minted}
-    \label{subsubsec:data_storage_alerts}
+\centering
+
+    % --- Màu xanh BKHCM cho khung tiêu đề ---
+    \definecolor{bkhcmBlue}{HTML}{005DAA}
+    \setbeamercolor{titlebox}{fg=white,bg=bkhcmBlue}
+
+    % --- Logo thu nhỏ (10% chiều cao) ---
+    \includegraphics[height=0.10\paperheight]{logo_hcmut.png}
+
+    \vspace{0.2em}
+
+    % --- Tên Khoa căn giữa dưới logo ---
+    {\footnotesize\KHOA}
+
+    \vspace{0.2em}
+
+    % --- Tên Bộ môn căn giữa dưới Khoa ---
+    {\footnotesize Bộ môn - Viễn Thông}
+
+    \vspace{0.5em}
+
+    % --- Tiêu đề luận văn tiếng Việt (cân đối, wrap text) ---
+    \begin{beamercolorbox}[rounded=true,shadow=true,sep=1em,center]{titlebox}
+        \parbox{0.9\textwidth}{\centering\Large\bfseries \TENLUANVAN}
+    \end{beamercolorbox}
+
+    \vspace{0.3em}
+
+    % --- Tiêu đề luận văn tiếng Anh ---
+    \parbox{0.85\textwidth}{\centering\large\emph{\THESISNAME}}
+
+    \vfill % đẩy phần thông tin xuống cuối slide
+
+    % --- Thông tin Sinh viên và Người hướng dẫn (chia 2 cột, font nhỏ) ---
+    \begin{columns}[T, totalwidth=\textwidth]
+        \begin{column}{0.48\textwidth}
+            \raggedright
+            {\scriptsize
+            \textbf{Sinh viên:} \\
+            \TENTACGIA
+            }
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \raggedleft
+            {\scriptsize
+            \textbf{Người hướng dẫn:} \\
+            \TENNGUOIHUONGDAN
+            }
+        \end{column}
+    \end{columns}
+
+    \vspace{0.5cm}
+
+    % --- Ngày tháng ở dưới cùng, căn giữa ---
+    {\scriptsize \centering \today}
+

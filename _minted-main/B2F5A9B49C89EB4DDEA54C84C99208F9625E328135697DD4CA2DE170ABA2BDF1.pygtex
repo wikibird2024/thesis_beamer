@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
-\PYG{p}{\PYGZob{}}
-\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}device\PYGZus{}id\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}ESP32\PYGZus{}001\PYGZdq{}}\PYG{p}{,}
-\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}temperature\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{l+m+mf}{25.5}\PYG{p}{,}
-\PYG{+w}{  }\PYG{n+nt}{\PYGZdq{}sensors\PYGZdq{}}\PYG{p}{:}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}temp\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}light\PYGZdq{}}\PYG{p}{]}
-\PYG{p}{\PYGZcb{}}
-\end{Verbatim}
