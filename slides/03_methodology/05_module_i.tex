@@ -1,5 +1,4 @@
-
-% Slide: Luồng làm việc
+% Slide: Luồng làm việc (OK - không cần sửa)
 \begin{frame}[fragile]{Module cảm biến đeo: Luồng làm việc}
     \begin{block}{Quy trình}
         \begin{itemize}
@@ -15,7 +14,7 @@
     \end{figure}
 \end{frame}
 
-% Slide: Tổng quan mô-đun nhúng
+% Slide: Tổng quan mô-đun nhúng (OK - không cần sửa)
 \begin{frame}{Module cảm biến đeo: Tổng quan mô-đun nhúng}
     \begin{block}{Tổng quan}
         \begin{itemize}
@@ -30,7 +29,7 @@
     \end{block}
 \end{frame}
 
-% Slide: Môi trường phát triển
+% Slide: Môi trường phát triển (OK - không cần sửa)
 \begin{frame}{Module cảm biến đeo: Môi trường phát triển}
     \begin{block}{Chi tiết}
         \begin{itemize}
@@ -44,10 +43,9 @@
 \end{frame}
 
 % Slide: Cấu trúc phần mềm
-\begin{frame}[fragile]{Module cảm biến đeo: Cấu trúc phần mềm}
-    \begin{columns}[t]
-        \begin{column}{0.55\textwidth}
-            \begin{minted}[fontsize=\footnotesize, frame=single, breaklines]{text}
+\begin{frame}[fragile]{Module cảm biến đeo: Cấu trúc project}
+    \renewcommand{\baselinestretch}{0.8}
+    \begin{minted}[fontsize=\scriptsize, breaklines, bgcolor=lightgray]{text}
 mainproject/
 ├── main/
 │   ├── main.c
@@ -65,29 +63,20 @@ mainproject/
 │   ├── sim4g_gps/
 │   ├── user_mqtt/
 │   └── wifi_connect/
-            \end{minted}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \begin{block}{Kiến trúc}
-                \begin{itemize}
-                    \item \textbf{Mô-đun} và \textbf{phân lớp}.
-                    \item Linh hoạt, dễ mở rộng, bảo trì.
-                \end{itemize}
-            \end{block}
-        \end{column}
-    \end{columns}
+    \end{minted}
+    \renewcommand{\baselinestretch}{1.0}
 \end{frame}
 
-% Slide: Mô tả các thành phần
+% Slide: Mô tả các thành phần (SỬA LẠI - tách thành 2 slide nếu cần)
 \begin{frame}{Module cảm biến đeo: Mô tả các thành phần}
     \begin{columns}[t]
         \begin{column}{0.48\textwidth}
             \begin{block}{Thành phần chính}
                 \begin{itemize}
                     \item \textbf{main.c}: Gọi \texttt{app\_main()}.
-                    \item \textbf{app\_main.c/h}: Điều phối, khởi tạo mô-đun.
-                    \item \textbf{fall\_logic}: Thuật toán phát hiện té ngã (MPU6050).
-                    \item \textbf{event\_handler}: Phản ứng (buzzer, LED, MQTT, SMS).
+                    \item \textbf{app\_main.c/h}: Điều phối, khởi tạo.
+                    \item \textbf{fall\_logic}: Thuật toán phát hiện té ngã.
+                    \item \textbf{event\_handler}: Phản ứng sự kiện.
                     \item \textbf{mpu6050}: Driver cảm biến.
                 \end{itemize}
             \end{block}
@@ -96,21 +85,20 @@ mainproject/
             \begin{block}{Thành phần khác}
                 \begin{itemize}
                     \item \textbf{buzzer, led\_indicator}: Cảnh báo cục bộ.
-                    \item \textbf{sim4g\_gps, wifi\_connect}: Kết nối từ xa, gửi dữ liệu/SMS.
-                    \item \textbf{user_mqtt}: Giao tiếp MQTT.
-                    \item \textbf{comm, data\_manager}: Quản lý giao tiếp/dữ liệu.
-                    \item \textbf{json\_wrapper}: Chuẩn hóa dữ liệu.
+                    \item \textbf{sim4g\_gps, wifi\_connect}: Kết nối từ xa.
+                    \item \textbf{user\_mqtt}: Giao tiếp MQTT.
+                    \item \textbf{comm, data\_manager}: Quản lý giao tiếp.
                 \end{itemize}
             \end{block}
         \end{column}
     \end{columns}
 \end{frame}
 
-% Slide: Sơ đồ khối phần mềm
+% Slide: Sơ đồ khối phần mềm (OK - nhưng có thể điều chỉnh height nếu cần)
 \begin{frame}[fragile]{Module cảm biến đeo: Sơ đồ khối phần mềm}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth,height=0.8\textheight,keepaspectratio]{images/module1_software_block-crop.pdf}
+        \includegraphics[width=0.85\textwidth,height=0.7\textheight,keepaspectratio]{images/module1_software_block-crop.pdf}
         \caption{Sơ đồ khối phần mềm của mô-đun nhúng ESP32.}
         \label{fig:module1_software_block}
     \end{figure}
@@ -137,12 +125,12 @@ mainproject/
     \end{enumerate}
 \end{frame}
 
-% Slide: Lưu đồ thuật toán
-\begin{frame}[fragile]{Module cảm biến đeo: Lưu đồ thuật toán}
+% Slide: Lưu đồ thuật toán (OK - nhưng có thể điều chỉnh height)
+\begin{frame}[fragile]{Module cảm biến đeo: Lưu đồ thuật toán chứa trong component fall\_logic}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth,height=0.8\textheight,keepaspectratio]{images/module1_fall_logic_diagram.pdf}
-        \caption{Lưu đồ thuật toán phát hiện té ngã trong mô-đun \texttt{fall\_logic}.}
+        \includegraphics[width=0.85\textwidth,height=0.7\textheight,keepaspectratio]{images/module1_fall_logic_diagram.pdf}
+        \caption{Lưu đồ thuật toán phát hiện té ngã.}
         \label{fig:fall_logic_flow}
     \end{figure}
 \end{frame}
