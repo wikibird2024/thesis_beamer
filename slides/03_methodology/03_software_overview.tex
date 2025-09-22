@@ -1,54 +1,52 @@
-\subsection{Triển khai thực hiện phần mềm cho hệ thống}
+\subsection{Triển khai phần mềm}
 \begin{frame}
-\frametitle{Kiến trúc Phần mềm Hệ thống Phát hiện Té ngã}
+\frametitle{Tổng quan Triển khai Phần mềm Hệ thống}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Thành phần} & \textbf{Nền tảng} & \textbf{Công nghệ chính} & \textbf{Chức năng} \\
+\hline
+\textbf{Module I} & ESP32 & ESP-IDF, C/C++ & Cảm biến đeo, phát hiện ngã \\
+\hline
+\textbf{Module II} & ESP32 & ESP-IDF, OpenCV & Camera giám sát \\
+\hline
+\textbf{Server} & Linux & Python, MQTT & Xử lý trung tâm, AI \\
+\hline
+\textbf{Asterisk} & Linux Mint 21 & PJSIP, AMI & Hệ thống VoIP \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.3cm}
 
 \begin{columns}[t]
-\begin{column}{0.5\textwidth}
-\begin{block}{Nguyên tắc Thiết kế}
-Triển khai theo \textbf{kiến trúc mô-đun}:
+\begin{column}{0.48\textwidth}
+\begin{block}{Kiến trúc Phân tán}
 \begin{itemize}
-\item Tính linh hoạt cao
-\item Dễ bảo trì và nâng cấp
-\item Tách biệt chức năng
+\item 4 thành phần độc lập
+\item Giao tiếp qua giao thức chuẩn
+\item Xử lý song song thời gian thực
 \end{itemize}
 \end{block}
-
-\begin{alertblock}{Thành phần chính}
-\begin{itemize}
-    \item Mã nhúng thiết bị
-    \item Xử lý trung tâm server  
-    \item Hệ thống cảnh báo
-\end{itemize}
-\end{alertblock}
 \end{column}
 
-\begin{column}{0.5\textwidth}
-\begin{exampleblock}{Chi tiết Module}
-\textbf{Server trung tâm:}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{Nguyên tắc Thiết kế}
 \begin{itemize}
-\item Công nghệ: Python
-\item Xử lý logic chung toàn hệ thống
-\item Xử lý ảnh từ camera
+\item Kiến trúc mô-đun
+\item Khả năng mở rộng cao
+\item Dễ bảo trì và nâng cấp
 \end{itemize}
-
-\textbf{Module 1 - Cảm biến đeo:}
-\begin{itemize}
-\item Công nghệ: ESP-IDF + C
-\item Thu thập dữ liệu chuyển động
-\end{itemize}
-
-\textbf{Module 2 - Camera:}
-\begin{itemize}
-\item Công nghệ: ESP-IDF + C  
-\item Ghi hình và phát hiện bất thường
-\end{itemize}
-\end{exampleblock}
+\end{alertblock}
 \end{column}
 \end{columns}
 
 \vspace{0.3cm}
 \begin{center}
-\textit{\small Mỗi thành phần thực hiện chức năng cụ thể và giao tiếp với nhau\\tạo thành hệ thống phát hiện té ngã hoàn chỉnh}
+\textit{\small Hệ thống tích hợp với khả năng cảnh báo đa dạng và xử lý thông minh}
 \end{center}
 
 \end{frame}

@@ -1,3 +1,179 @@
-\begin{frame}{04_module_ast}
-  % TODO: Add content for 04_module_ast
+% Slide 1: Tổng quan Asterisk
+\begin{frame}
+\frametitle{Asterisk: Hệ thống Liên lạc và Xử lý Cuộc gọi}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{block}{Vai trò chính}
+\begin{itemize}
+\item Thiết lập và quản lý kênh giao tiếp thoại
+\item Hỗ trợ thông báo, cảnh báo bằng giọng nói
+\item Tích hợp với các module phần mềm khác
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Cấu hình hệ thống}
+\begin{itemize}
+\item \textbf{Phiên bản:} Asterisk 22.5.1
+\item \textbf{Hệ điều hành:} Linux Mint 21
+\item \textbf{Vai trò:} Tổng đài VoIP nội bộ
+\end{itemize}
+\end{alertblock}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\begin{exampleblock}{Tệp cấu hình chính}
+\textbf{pjsip.conf:} Quản lý endpoint và xác thực
+
+\textbf{extensions.conf:} Định nghĩa Dial Plan và kịch bản xử lý
+
+\textbf{manager.conf:} Cấu hình AMI cho tương tác Python
+\end{exampleblock}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{center}
+\textit{\small Asterisk đóng vai trò kênh kết nối, tiếp nhận tín hiệu và chuyển giao xử lý cho máy chủ}
+\end{center}
+
+\end{frame}
+
+% Slide 2: Cấu hình PJSIP
+\begin{frame}[fragile]
+\frametitle{Cấu hình PJSIP và Endpoint}
+
+\begin{columns}[t]
+\begin{column}{0.55\textwidth}
+\begin{minted}[fontsize=\tiny, frame=single, breaklines]{ini}
+[transport-udp]
+type=transport
+protocol=udp
+bind=0.0.0.0
+
+[6001]
+type=endpoint
+disallow=all
+allow=ulaw
+auth=auth6001
+aors=6001
+context=internal
+
+[auth6001]
+type=auth
+auth_type=userpass
+username=6001
+password=1234
+\end{minted}
+\end{column}
+
+\begin{column}{0.4\textwidth}
+\begin{block}{Thành phần chính}
+\textbf{Endpoint [6001]:}
+\begin{itemize}
+\item Thiết bị cuối nhận tin báo
+\item Context: internal
+\item Codec: ulaw
+\end{itemize}
+
+\textbf{Endpoint [server]:}
+\begin{itemize}
+\item Điều phối SIP messages
+\item Kết nối với Python server
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+
+\vspace{0.2cm}
+\begin{alertblock}{Chức năng}
+PJSIP đảm bảo chỉ thiết bị hợp lệ kết nối và định nghĩa thông tin xác thực
+\end{alertblock}
+
+\end{frame}
+
+% Slide 3: Dial Plan
+\begin{frame}[fragile]
+\frametitle{Cấu hình Dial Plan}
+
+\begin{columns}[t]
+\begin{column}{0.6\textwidth}
+\begin{minted}[fontsize=\tiny, frame=single, breaklines]{ini}
+[internal]
+exten => 6001,1,Answer()
+same => n,Dial(PJSIP/6001,20)
+same => n,Hangup()
+
+exten => 6000,1,Dial(PJSIP/6001&PJSIP/6002&PJSIP/6003,20)
+same => n,Hangup()
+
+[messages]
+exten => _X.,1,NoOp(===> SIP MESSAGE from ${MESSAGE(from)})
+same => n,MessageSend(pjsip:${EXTEN},pjsip:server)
+same => n,NoOp(===> Send status: ${MESSAGE_SEND_STATUS})
+same => n,Hangup()
+\end{minted}
+\end{column}
+
+\begin{column}{0.35\textwidth}
+\begin{block}{Context [internal]}
+\begin{itemize}
+\item Xử lý cuộc gọi nội bộ
+\item Extension 6001: thiết bị đơn
+\item Extension 6000: gọi nhóm
+\end{itemize}
+\end{block}
+
+\begin{exampleblock}{Context [messages]}
+\begin{itemize}
+\item Xử lý tin nhắn SIP
+\item Chuyển tiếp đến server
+\item Kích hoạt xử lý Python
+\end{itemize}
+\end{exampleblock}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% Slide 4: AMI Configuration
+\begin{frame}[fragile]
+\frametitle{Cấu hình Asterisk Manager Interface (AMI)}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{minted}[fontsize=\small, frame=single, breaklines]{ini}
+[general]
+enabled = yes
+port = 5038
+bindaddr = 127.0.0.1
+
+[hx]
+secret = 123
+read = all
+write = all
+\end{minted}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\begin{block}{Chức năng AMI}
+\begin{itemize}
+\item Giao diện lập trình cho ứng dụng ngoài
+\item Cho phép Python điều khiển Asterisk
+\item Lấy thông tin trạng thái cuộc gọi
+\item Gửi lệnh từ máy chủ
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Bảo mật}
+\textbf{bindaddr = 127.0.0.1}
+\begin{itemize}
+\item Chỉ cho phép kết nối cục bộ
+\item Ngăn chặn truy cập trái phép
+\item Tài khoản riêng biệt [hx]
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+
 \end{frame}

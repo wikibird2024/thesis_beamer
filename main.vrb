@@ -1,13 +1,38 @@
-\frametitle{Ví dụ: Cấu hình ESP32 và Payload MQTT}
-\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{json}
-{
-  "network": {
-    "ssid": "IoT_Network",
-    "mqtt_broker": "192.168.1.100"
-  },
-  "alert": {
-    "fall_detected": true,
-    "timestamp": "2025-09-17T12:00:00"
-  }
-}
+\frametitle{Cấu hình Asterisk Manager Interface (AMI)}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{minted}[fontsize=\small, frame=single, breaklines]{ini}
+[general]
+enabled = yes
+port = 5038
+bindaddr = 127.0.0.1
+
+[hx]
+secret = 123
+read = all
+write = all
 \end{minted}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\begin{block}{Chức năng AMI}
+\begin{itemize}
+\item Giao diện lập trình cho ứng dụng ngoài
+\item Cho phép Python điều khiển Asterisk
+\item Lấy thông tin trạng thái cuộc gọi
+\item Gửi lệnh từ máy chủ
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Bảo mật}
+\textbf{bindaddr = 127.0.0.1}
+\begin{itemize}
+\item Chỉ cho phép kết nối cục bộ
+\item Ngăn chặn truy cập trái phép
+\item Tài khoản riêng biệt [hx]
+\end{itemize}
+\end{alertblock}
+\end{column}
+\end{columns}
+
