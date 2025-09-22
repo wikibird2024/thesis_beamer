@@ -1,13 +1,13 @@
-\frametitle{Ví dụ: Cấu hình ESP32}
+\frametitle{Ví dụ: Cấu hình ESP32 và Payload MQTT}
 \begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{json}
 {
   "network": {
     "ssid": "IoT_Network",
     "mqtt_broker": "192.168.1.100"
   },
-  "device": {
-    "id": "ESP32_001",
-    "update_interval": 30
+  "alert": {
+    "fall_detected": true,
+    "timestamp": "2025-09-17T12:00:00"
   }
 }
 \end{minted}

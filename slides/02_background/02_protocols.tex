@@ -1,14 +1,15 @@
 \subsection{Lý thuyết về các phương thức truyền thông sử dụng trong hệ thống}
+
 % Slide 1: Tổng quan
 \begin{frame}
 \frametitle{Các Giao Thức Truyền Thông trong Hệ Thống Cảnh Báo IoT}
 \begin{center}
-\Large Hệ thống phát hiện ngã với ba giao thức chính. 
+\Large Hệ thống phát hiện ngã với ba giao thức chính.
 \end{center}
 
 \begin{itemize}
 \item \textbf{SIP}: Truyền tải âm thanh/video cảnh báo thời gian thực
-\item \textbf{MQTT}: Vận chuyển dữ liệu cảm biến từ thiết bị IoT  
+\item \textbf{MQTT}: Vận chuyển dữ liệu cảm biến từ thiết bị IoT
 \item \textbf{JSON}: Định dạng cấu trúc dữ liệu trao đổi
 \end{itemize}
 
@@ -26,7 +27,8 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \item Kết nối với Asterisk PBX để gọi điện thoại
 \item Truyền âm thanh cảnh báo qua RTP
 \end{itemize}
-\textbf{Các bước thiết lập hoạt động:}
+
+\textbf{Các bước hoạt động:}
 \begin{enumerate}
 \item REGISTER: Đăng ký thiết bị với server
 \item INVITE: Khởi tạo cuộc gọi cảnh báo
@@ -63,25 +65,25 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2.5em, align=center, fill=blue!10}, 
-    signal_arrow/.style={-Stealth, thick, blue!70!white, shorten >=1pt, shorten <=1pt}, 
-    media_arrow/.style={-Stealth, thick, red!70!white, shorten >=1pt, shorten <=1pt}, 
+    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2.5em, align=center, fill=blue!10},
+    signal_arrow/.style={-Stealth, thick, blue!70!white, shorten >=1pt, shorten <=1pt},
+    media_arrow/.style={-Stealth, thick, red!70!white, shorten >=1pt, shorten <=1pt},
     label_style/.style={font=\tiny, align=center, text=black},
-    node distance=1.8cm and 2.5cm 
+    node distance=1.8cm and 2.5cm
 ]
     % Các Node
     \node[box] (A) {SIP Endpoint A};
-    \node[box, right=of A] (Proxy) {SIP Proxy/PBX}; 
+    \node[box, right=of A] (Proxy) {SIP Proxy/PBX};
     \node[box, right=of Proxy] (B) {SIP Endpoint B};
-    \node[box, below=1.5cm of Proxy] (MediaProxy) {Media Proxy}; 
-    
+    \node[box, below=1.5cm of Proxy] (MediaProxy) {Media Proxy};
+
     % Đường tín hiệu
     \draw[signal_arrow] (A) -- node[above=1pt, label_style] {SIP (TCP/UDP)} (Proxy);
     \draw[signal_arrow] (Proxy) -- node[above=1pt, label_style] {SIP (TCP/UDP)} (B);
-    
+
     % Đường truyền phương tiện
-    \draw[media_arrow] (A) -- node[midway, left=1pt, label_style] {RTP (UDP)} (MediaProxy); 
-    \draw[media_arrow] (MediaProxy) -- node[midway, right=1pt, label_style] {RTP (UDP)} (B); 
+    \draw[media_arrow] (A) -- node[midway, left=1pt, label_style] {RTP (UDP)} (MediaProxy);
+    \draw[media_arrow] (MediaProxy) -- node[midway, right=1pt, label_style] {RTP (UDP)} (B);
 \end{tikzpicture}
 \end{figure}
 
@@ -141,7 +143,7 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \end{frame}
 
-% Slide 3: Giao thức MQTT
+% MQTT
 \begin{frame}
 \frametitle{Giao thức MQTT - Tổng quan}
 
@@ -156,8 +158,7 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 \begin{block}{Đặc điểm MQTT}
 \begin{itemize}
 \item Thiết kế cho thiết bị có tài nguyên hạn chế
-\item Phù hợp với băng thông thấp
-\item Hỗ trợ kết nối không ổn định
+\item Phù hợp với băng thông thấp, kết nối không ổn định
 \item Tiêu chuẩn OASIS cho IoT messaging
 \end{itemize}
 \end{block}
@@ -170,29 +171,29 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-    broker/.style={rectangle, draw, rounded corners, minimum height=2em, minimum width=3em, align=center, fill=green!20}, 
-    client/.style={rectangle, draw, rounded corners, minimum height=1.5em, minimum width=2.5em, align=center, fill=blue!10}, 
-    pub_arrow/.style={-Stealth, thick, orange!70!white, shorten >=1pt, shorten <=1pt}, 
-    sub_arrow/.style={-Stealth, thick, purple!70!white, shorten >=1pt, shorten <=1pt}, 
+    broker/.style={rectangle, draw, rounded corners, minimum height=2em, minimum width=3em, align=center, fill=green!20},
+    client/.style={rectangle, draw, rounded corners, minimum height=1.5em, minimum width=2.5em, align=center, fill=blue!10},
+    pub_arrow/.style={-Stealth, thick, orange!70!white, shorten >=1pt, shorten <=1pt},
+    sub_arrow/.style={-Stealth, thick, purple!70!white, shorten >=1pt, shorten <=1pt},
     label_style/.style={font=\tiny, align=center, text=black},
     node distance=2cm
 ]
     % Broker trung tâm
     \node[broker] (broker) {MQTT Broker \\ (Mosquitto/HiveMQ)};
-    
+
     % Publishers
     \node[client, above left=of broker] (pub1) {Publisher 1};
     \node[client, left=of broker] (pub2) {Publisher 2};
-    
+
     % Subscribers
     \node[client, above right=of broker] (sub1) {Subscriber 1};
     \node[client, right=of broker] (sub2) {Subscriber 2};
     \node[client, below right=of broker] (sub3) {Subscriber 3};
-    
+
     % Publish arrows
     \draw[pub_arrow] (pub1) -- node[above left, label_style] {PUBLISH \\ topic/data} (broker);
     \draw[pub_arrow] (pub2) -- node[left, label_style] {PUBLISH} (broker);
-    
+
     % Subscribe arrows
     \draw[sub_arrow] (broker) -- node[above right, label_style] {SUBSCRIBE \\ topic} (sub1);
     \draw[sub_arrow] (broker) -- node[right, label_style] {MESSAGE} (sub2);
@@ -205,60 +206,38 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 \begin{frame}
 \frametitle{Lợi ích của mô hình Publish/Subscribe}
 
-\begin{block}{Tách rời không gian}
-\begin{itemize}
-\item Publisher và Subscriber không cần biết địa chỉ IP của nhau
-\item Giao tiếp thông qua broker trung tâm
-\end{itemize}
-\end{block}
-
-\begin{block}{Tách rời thời gian}
-\begin{itemize}
-\item Không yêu cầu kết nối đồng thời
-\item Hỗ trợ \textbf{retained messages} cho subscriber mới
-\item Quản lý \textbf{clean session} cho trạng thái client
-\end{itemize}
-\end{block}
-
-\begin{block}{Tách rời đồng bộ}
-\begin{itemize}
-\item Truyền và nhận hoạt động độc lập
-\item Giảm độ trễ và tăng hiệu suất
-\end{itemize}
-\end{block}
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+Tách rời & Lợi ích \\
+\midrule
+Không gian & Publisher và Subscriber không cần biết địa chỉ IP của nhau, giao tiếp qua broker \\
+Thời gian & Không yêu cầu kết nối đồng thời, hỗ trợ retained messages và clean session \\
+Đồng bộ & Truyền/nhận độc lập, giảm độ trễ và tăng hiệu suất \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{frame}
-
 
 \begin{frame}
 \frametitle{Quality of Service (QoS)}
 
-\begin{block}{QoS 0}
-\begin{itemize}
-\item "Fire and forget" - không có xác nhận
-\item Nhanh nhất nhưng có thể mất message
-\item Phù hợp cho dữ liệu cảm biến thường xuyên
-\end{itemize}
-\end{block}
-
-\begin{block}{QoS 1}
-\begin{itemize}
-\item Đảm bảo message được gửi ít nhất một lần
-\item Có thể trùng lặp message
-\item Cân bằng giữa độ tin cậy và hiệu suất
-\end{itemize}
-\end{block}
-
-\begin{block}{QoS 2}
-\begin{itemize}
-\item Đảm bảo message được gửi đúng một lần
-\item Chậm nhất nhưng tin cậy nhất
-\item Sử dụng cho dữ liệu quan trọng
-\end{itemize}
-\end{block}
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+Mức & Đặc điểm & Ứng dụng \\
+\midrule
+QoS 0 & "Fire and forget", nhanh nhưng có thể mất message & Dữ liệu cảm biến thường xuyên \\
+QoS 1 & Đảm bảo gửi ít nhất một lần, có thể trùng lặp & Cân bằng độ tin cậy và hiệu suất \\
+QoS 2 & Đảm bảo gửi đúng một lần, tin cậy nhất nhưng chậm & Dữ liệu quan trọng \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{frame}
-
 
 \begin{frame}
 \frametitle{Bảo mật trong MQTT}
@@ -285,9 +264,8 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \begin{block}{Connection Management}
 \begin{itemize}
-\item \texttt{CONNECT}: Khởi tạo kết nối với broker
-\item \texttt{CONNACK}: Xác nhận kết nối từ broker
-\item \texttt{DISCONNECT}: Ngắt kết nối một cách graceful
+\item \texttt{CONNECT/CONNACK}: Khởi tạo và xác nhận kết nối
+\item \texttt{DISCONNECT}: Ngắt kết nối graceful
 \end{itemize}
 \end{block}
 
@@ -295,16 +273,13 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 \begin{itemize}
 \item \texttt{PUBLISH}: Gửi message tới topic
 \item \texttt{PUBACK/PUBREC/PUBREL/PUBCOMP}: QoS acknowledgments
-\item \texttt{SUBSCRIBE}: Đăng ký nhận messages từ topic
-\item \texttt{SUBACK}: Xác nhận subscription
+\item \texttt{SUBSCRIBE/SUBACK}: Đăng ký và xác nhận topic
 \item \texttt{UNSUBSCRIBE}: Hủy đăng ký topic
 \end{itemize}
 \end{block}
 
 \begin{block}{Keep Alive}
-\begin{itemize}
-\item \texttt{PINGREQ/PINGRESP}: Duy trì kết nối
-\end{itemize}
+\texttt{PINGREQ/PINGRESP}: Duy trì kết nối
 \end{block}
 
 \end{frame}
@@ -314,19 +289,15 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \begin{block}{Ứng dụng trong IoT}
 \begin{itemize}
-\item Thu thập dữ liệu từ sensors
-\item Điều khiển thiết bị từ xa
-\item Giám sát trạng thái hệ thống
-\item Gửi thông báo và cảnh báo
+\item Thu thập dữ liệu sensors, điều khiển thiết bị
+\item Giám sát hệ thống, gửi thông báo
 \end{itemize}
 \end{block}
 
 \begin{block}{Lợi ích cho hệ thống cảnh báo}
 \begin{itemize}
-\item Kết nối đáng tin cậy với thiết bị IoT
-\item Truyền dữ liệu real-time
-\item Hỗ trợ offline messaging
-\item Scale tốt với nhiều thiết bị
+\item Kết nối đáng tin cậy, truyền real-time
+\item Hỗ trợ offline messaging, scale tốt
 \end{itemize}
 \end{block}
 
@@ -337,50 +308,36 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \textbf{Đặc điểm:}
 \begin{itemize}
-\item Nhẹ, tiết kiệm băng thông cho thiết bị IoT
+\item Nhẹ, tiết kiệm băng thông cho IoT
 \item Mô hình Publish/Subscribe qua Broker
 \item Hỗ trợ 3 mức QoS đảm bảo độ tin cậy
-\end{itemize}
-
-\textbf{Mức QoS:}
-\begin{itemize}
-\item \textcolor{green}{\textbf{QoS 0}}: Gửi một lần (dữ liệu thường)
-\item \textcolor{orange}{\textbf{QoS 1}}: Ít nhất một lần (có xác nhận)
-\item \textcolor{red}{\textbf{QoS 2}}: Đúng một lần (cảnh báo quan trọng)
 \end{itemize}
 
 \textbf{Ví dụ topic:} \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}
 \end{frame}
 
-%----------------------JSON--------------------%
-% slides/02_background/07_background_json.tex
-
+% JSON
 \begin{frame}
 \frametitle{JSON - JavaScript Object Notation}
-\begin{block}{Định nghĩa}
+
+\begin{block}{Định nghĩa và Đặc điểm}
 \begin{itemize}
-\item JSON: JavaScript Object Notation.
-\item Định dạng dữ liệu nhẹ, dễ đọc, dùng để trao đổi dữ liệu.
-\item Độc lập với ngôn ngữ, dựa trên cú pháp JavaScript.
+\item Định dạng dữ liệu nhẹ, dễ đọc, độc lập ngôn ngữ
+\item Cấu trúc cặp \texttt{key:value}, dùng cho trao đổi dữ liệu
+\item Phổ biến trong IoT cho lưu trữ và truyền
 \end{itemize}
 \end{block}
 
-\begin{block}{Đặc điểm JSON}
-\begin{itemize}
-\item Định dạng dễ đọc, dùng cho lưu trữ và truyền dữ liệu.
-\item Cấu trúc gồm cặp \texttt{key:value}, dùng \texttt{\{\}}.
-\item Chuẩn phổ biến trong ứng dụng IoT.
-\end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Cấu trúc JSON cơ bản}
+
 \begin{block}{Cấu trúc dữ liệu}
 \begin{itemize}
 \item \textbf{Object}: \texttt{\{key: value\}}
 \item \textbf{Array}: \texttt{[value1, value2]}
-\item \textbf{Kiểu giá trị}: String, Number, Boolean, null, Object, Array.
+\item \textbf{Kiểu giá trị}: String, Number, Boolean, null, Object, Array
 \end{itemize}
 \end{block}
 
@@ -397,32 +354,27 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \begin{frame}
 \frametitle{Ứng dụng JSON trong IoT}
-\begin{block}{Lưu cấu hình}
+
+\begin{block}{Lưu cấu hình và Trao đổi dữ liệu}
 \begin{itemize}
-\item Cấu hình thiết bị IoT (Wi-Fi, MQTT).
-\item Lưu thông số cảm biến và máy chủ.
+\item Cấu hình thiết bị (Wi-Fi, MQTT), thông số cảm biến
+\item Định dạng payload cho MQTT, API, gửi cảnh báo
 \end{itemize}
 \end{block}
 
-\begin{block}{Trao đổi dữ liệu}
-\begin{itemize}
-\item Định dạng payload cho MQTT, API.
-\item Gửi thông báo cảnh báo trong hệ thống.
-\end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Ví dụ: Cấu hình ESP32}
+\frametitle{Ví dụ: Cấu hình ESP32 và Payload MQTT}
 \begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{json}
 {
   "network": {
     "ssid": "IoT_Network",
     "mqtt_broker": "192.168.1.100"
   },
-  "device": {
-    "id": "ESP32_001",
-    "update_interval": 30
+  "alert": {
+    "fall_detected": true,
+    "timestamp": "2025-09-17T12:00:00"
   }
 }
 \end{minted}
@@ -431,82 +383,77 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 \begin{frame}
 \frametitle{Một số Thư viện JSON cho hệ thống nhúng}
 
-\begin{block}{json-c}
+\begin{block}{json-c và FirebaseJson}
 \begin{itemize}
-\item Thư viện JSON cho C/C++.
-\item Hỗ trợ phân tích cú pháp, tạo JSON.
+\item json-c: Phân tích cú pháp, tạo JSON cho C/C++
+\item FirebaseJson: Dễ dùng, hỗ trợ JSON phức tạp cho IoT
 \end{itemize}
 \end{block}
 
-\begin{block}{FirebaseJson}
-\begin{itemize}
-\item Thư viện dễ dùng, hỗ trợ JSON phức tạp.
-\item Dựa trên cJSON, phù hợp IoT.
-\end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}
 \frametitle{JSON trong MQTT và SIP}
-\begin{block}{JSON với MQTT}
+
+\begin{block}{Tích hợp}
 \begin{itemize}
-\item Payload JSON trong topic \texttt{sensor/data}.
-\item Lưu cấu hình trong retained messages.
+\item Payload JSON trong MQTT topic \texttt{sensor/data}
+\item Dữ liệu JSON trong SIP MESSAGE hoặc custom headers
+\item Đảm bảo tương tác giữa các giao thức IoT
 \end{itemize}
 \end{block}
 
-\begin{block}{JSON với SIP}
-\begin{itemize}
-\item Dữ liệu JSON trong custom headers, SIP MESSAGE.
-\item Lưu cấu hình ứng dụng SIP.
-\end{itemize}
-\end{block}
-
-\begin{block}
-JSON đảm bảo tương tác giữa các giao thức trong hệ sinh thái IoT.
-\end{block}
 \end{frame}
 
-
-% Slide 4: JSON và Tích hợp Hệ thống
+% Tích hợp
 \begin{frame}
 \frametitle{JSON và Tích Hợp Hệ Thống}
 
-\textbf{JSON - Định dạng dữ liệu:}
+\textbf{Vai trò JSON:}
 \begin{itemize}
-\item Nhẹ, dễ đọc, tương thích đa nền tảng
-\item Cấu hình thiết bị và trao đổi dữ liệu cảm biến
-\item Tối ưu payload cho MQTT
+\item Định dạng nhẹ, tương thích, tối ưu payload
 \end{itemize}
 
-\textbf{Luồng tích hợp hoàn chỉnh:}
-\begin{enumerate}
-\item ESP32 phát hiện ngã → tạo JSON payload
-\item Gửi qua MQTT topic với QoS phù hợp  
-\item Ứng dụng trung gian nhận và xử lý JSON
-\item Kích hoạt cuộc gọi SIP qua Asterisk AMI
-\item Phát cảnh báo âm thanh đến điện thoại
-\end{enumerate}
+\textbf{Luồng tích hợp:}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[
+    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2.5em, align=center, fill=blue!10},
+    arrow/.style={-Stealth, thick, shorten >=1pt, shorten <=1pt},
+    node distance=1.5cm
+]
+    \node[box] (sensor) {ESP32};
+    \node[box, right=of sensor] (mqtt) {MQTT Broker};
+    \node[box, right=of mqtt] (app) {Ứng dụng};
+    \node[box, right=of app] (sip) {SIP Server};
+    \node[box, right=of sip] (phone) {Điện thoại};
+
+    \draw[arrow] (sensor) -- node[above, font=\tiny] {JSON Payload} (mqtt);
+    \draw[arrow] (mqtt) -- node[above, font=\tiny] {Publish} (app);
+    \draw[arrow] (app) -- node[above, font=\tiny] {SIP INVITE} (sip);
+    \draw[arrow] (sip) -- node[above, font=\tiny] {RTP} (phone);
+\end{tikzpicture}
+\caption{Luồng dữ liệu từ cảm biến đến cảnh báo}
+\end{figure}
 \end{frame}
 
-% Slide 5: Kết luận và Tối ưu
+% Kết luận
 \begin{frame}
-\frametitle{Kết Luận và Tối Ưu Hóa kết hợp các phương thức}
+\frametitle{Kết Luận và Tối Ưu Hóa}
 
-\textbf{Lợi ích của việc kết hợp 3 giao thức:}
+\textbf{Lợi ích kết hợp:}
 \begin{itemize}
-\item \textbf{MQTT}: Thu thập dữ liệu hiệu quả từ cảm biến
-\item \textbf{JSON}: Cấu trúc dữ liệu linh hoạt, dễ xử lý
-\item \textbf{SIP}: Cảnh báo âm thanh tức thì, đáng tin cậy
+\item MQTT: Thu thập dữ liệu hiệu quả
+\item JSON: Cấu trúc linh hoạt
+\item SIP: Cảnh báo âm thanh tức thì
 \end{itemize}
 
-\textbf{Các biện pháp tối ưu:}
+\textbf{Tối ưu:}
 \begin{itemize}
-\item Payload JSON nhỏ gọn tiết kiệm năng lượng
-\item QoS MQTT phù hợp với mức độ quan trọng
-\item Tự động kết nối lại khi mất kết nối
-\item Bảo mật TLS cho MQTT và SIP
+\item Payload JSON nhỏ gọn
+\item QoS MQTT phù hợp
+\item Tự động reconnect
+\item Bảo mật TLS
 \end{itemize}
 
 \end{frame}
-
