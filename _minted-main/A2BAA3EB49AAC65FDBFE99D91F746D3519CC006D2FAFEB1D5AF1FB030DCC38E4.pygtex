@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{[internal]}
+\PYG{n+na}{exten}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} 6001,1,Answer()}
+\PYG{n+na}{same}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} n,Dial(PJSIP/6001,20)}
+\PYG{n+na}{same}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} n,Hangup()}
+
+\PYG{n+na}{exten}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} 6000,1,Dial(PJSIP/6001\PYGZam{}PJSIP/6002\PYGZam{}PJSIP/6003,20)}
+\PYG{n+na}{same}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} n,Hangup()}
+
+\PYG{k}{[messages]}
+\PYG{n+na}{exten}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} \PYGZus{}X.,1,NoOp(===\PYGZgt{} SIP MESSAGE from \PYGZdl{}\PYGZob{}MESSAGE(from)\PYGZcb{})}
+\PYG{n+na}{same}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} n,MessageSend(pjsip:\PYGZdl{}\PYGZob{}EXTEN\PYGZcb{},pjsip:server)}
+\PYG{n+na}{same}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} n,NoOp(===\PYGZgt{} Send status: \PYGZdl{}\PYGZob{}MESSAGE\PYGZus{}SEND\PYGZus{}STATUS\PYGZcb{})}
+\PYG{n+na}{same}\PYG{+w}{ }\PYG{o}{=}\PYG{l+s}{\PYGZgt{} n,Hangup()}
+\end{Verbatim}

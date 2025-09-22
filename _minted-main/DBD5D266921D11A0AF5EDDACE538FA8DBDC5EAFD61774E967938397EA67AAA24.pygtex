@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+intergrate\PYGZus{}fall/
+├── comm/ (MQTT, Telegram, AMI)
+├── config/ (cấu hình)
+├── database/ (fall\PYGZus{}events.db)
+├── detection/ (human, tracker)
+├── fall/ (fall\PYGZus{}detector.py)
+├── processing/ (detection\PYGZus{}processor.py)
+├── utils/ (draw\PYGZus{}utils.py)
+├── models/ (yolov8n.pt)
+├── tests/ (test\PYGZus{}fall.py)
+├── main.py
+\end{Verbatim}

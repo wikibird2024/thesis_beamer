@@ -39,13 +39,15 @@
 
 % Mini TOC ở đầu mỗi section
 % --- Mục lục nhỏ gọn ở đầu mỗi section ---
+
 \AtBeginSection[]
 {
   \begin{frame}
-    \frametitle{Table of Contents}
+    \frametitle{Mục lục chương: \insertsection}
     \tableofcontents[currentsection, hideothersubsections]
   \end{frame}
 }
+
 % \usepackage{caption}
 % \usepackage{subcaption}
 
