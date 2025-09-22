@@ -1,3 +1,54 @@
-\begin{frame}{03_software_overview}
-  % TODO: Add content for 03_software_overview
+\subsection{Triển khai thực hiện phần mềm cho hệ thống}
+\begin{frame}
+\frametitle{Kiến trúc Phần mềm Hệ thống Phát hiện Té ngã}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\begin{block}{Nguyên tắc Thiết kế}
+Triển khai theo \textbf{kiến trúc mô-đun}:
+\begin{itemize}
+\item Tính linh hoạt cao
+\item Dễ bảo trì và nâng cấp
+\item Tách biệt chức năng
+\end{itemize}
+\end{block}
+
+\begin{alertblock}{Thành phần chính}
+\begin{itemize}
+    \item Mã nhúng thiết bị
+    \item Xử lý trung tâm server  
+    \item Hệ thống cảnh báo
+\end{itemize}
+\end{alertblock}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{exampleblock}{Chi tiết Module}
+\textbf{Server trung tâm:}
+\begin{itemize}
+\item Công nghệ: Python
+\item Xử lý logic chung toàn hệ thống
+\item Xử lý ảnh từ camera
+\end{itemize}
+
+\textbf{Module 1 - Cảm biến đeo:}
+\begin{itemize}
+\item Công nghệ: ESP-IDF + C
+\item Thu thập dữ liệu chuyển động
+\end{itemize}
+
+\textbf{Module 2 - Camera:}
+\begin{itemize}
+\item Công nghệ: ESP-IDF + C  
+\item Ghi hình và phát hiện bất thường
+\end{itemize}
+\end{exampleblock}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{center}
+\textit{\small Mỗi thành phần thực hiện chức năng cụ thể và giao tiếp với nhau\\tạo thành hệ thống phát hiện té ngã hoàn chỉnh}
+\end{center}
+
 \end{frame}
