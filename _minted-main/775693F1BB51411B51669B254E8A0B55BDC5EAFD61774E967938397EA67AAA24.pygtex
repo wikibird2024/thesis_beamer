@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}
+    \PYGZbs{}frametitle\PYGZob{}Thuật toán Phát hiện Té ngã\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}itemize\PYGZcb{}
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}Cơ sở\PYGZcb{}: Gia tốc tổng hợp (\PYGZdl{}a\PYGZus{}\PYGZob{}\PYGZbs{}text\PYGZob{}total\PYGZcb{}\PYGZcb{}\PYGZdl{}) từ MPU6050:
+        \PYGZbs{}[
+            a\PYGZus{}\PYGZob{}\PYGZbs{}text\PYGZob{}total\PYGZcb{}\PYGZcb{} = \PYGZbs{}sqrt\PYGZob{}a\PYGZus{}x\PYGZca{}2 + a\PYGZus{}y\PYGZca{}2 + a\PYGZus{}z\PYGZca{}2\PYGZcb{}
+        \PYGZbs{}]
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}Ngưỡng phát hiện\PYGZcb{}: Khi \PYGZdl{}a\PYGZus{}\PYGZob{}\PYGZbs{}text\PYGZob{}total\PYGZcb{}\PYGZcb{}\PYGZdl{} giảm dưới \PYGZbs{}texttt\PYGZob{}FALL\PYGZbs{}\PYGZus{}THRESHOLD\PYGZcb{}.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}Thực thi\PYGZcb{}: Chạy trong tác vụ \PYGZbs{}textbf\PYGZob{}FreeRTOS riêng biệt\PYGZcb{}.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}Quy trình\PYGZcb{}:
+        \PYGZbs{}begin\PYGZob{}enumerate\PYGZcb{}
+            \PYGZbs{}item Đọc dữ liệu từ \PYGZbs{}texttt\PYGZob{}mpu6050\PYGZcb{}.
+            \PYGZbs{}item Tính toán \PYGZdl{}a\PYGZus{}\PYGZob{}\PYGZbs{}text\PYGZob{}total\PYGZcb{}\PYGZcb{}\PYGZdl{} và so sánh ngưỡng.
+            \PYGZbs{}item Nếu phát hiện té ngã, gửi sự kiện tới \PYGZbs{}texttt\PYGZob{}event\PYGZbs{}\PYGZus{}handler\PYGZcb{}.
+            \PYGZbs{}item Đặt cờ trạng thái để tránh cảnh báo trùng lặp.
+        \PYGZbs{}end\PYGZob{}enumerate\PYGZcb{}
+    \PYGZbs{}end\PYGZob{}itemize\PYGZcb{}
+\PYGZbs{}end\PYGZob{}frame\PYGZcb{}
+
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}
+    \PYGZbs{}frametitle\PYGZob{}Lưu đồ Thuật toán \PYGZbs{}texttt\PYGZob{}fall\PYGZbs{}\PYGZus{}logic\PYGZcb{}\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}figure\PYGZcb{}
+        \PYGZbs{}centering
+        \PYGZbs{}includegraphics[width=0.8\PYGZbs{}linewidth]\PYGZob{}images/module1\PYGZus{}fall\PYGZus{}logic\PYGZus{}diagram.pdf\PYGZcb{}
+        \PYGZbs{}caption*\PYGZob{}Lưu đồ phát hiện té ngã\PYGZcb{}
+    \PYGZbs{}end\PYGZob{}figure\PYGZcb{}
+\PYGZbs{}end\PYGZob{}frame\PYGZcb{}
+\end{Verbatim}

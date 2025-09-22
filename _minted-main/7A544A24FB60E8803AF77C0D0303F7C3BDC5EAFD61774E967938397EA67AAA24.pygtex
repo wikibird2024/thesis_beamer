@@ -1,0 +1,61 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}\PYGZob{}Mô tả các thành phần\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}itemize\PYGZcb{}
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}main.c\PYGZcb{}: Điểm khởi đầu, gọi \PYGZbs{}texttt\PYGZob{}app\PYGZbs{}\PYGZus{}main()\PYGZcb{}.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}app\PYGZbs{}\PYGZus{}main.c/h\PYGZcb{}: Điều phối chính, khởi tạo và liên kết mô\PYGZhy{}đun.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}fall\PYGZbs{}\PYGZus{}logic\PYGZcb{}: Thuật toán phát hiện té ngã dựa trên MPU6050.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}event\PYGZbs{}\PYGZus{}handler\PYGZcb{}: Điều phối phản ứng (buzzer, LED, MQTT, SMS).
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}mpu6050\PYGZcb{}: Driver cảm biến chuyển động.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}buzzer, led\PYGZbs{}\PYGZus{}indicator\PYGZcb{}: Cảnh báo cục bộ.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}sim4g\PYGZbs{}\PYGZus{}gps, wifi\PYGZbs{}\PYGZus{}connect\PYGZcb{}: Kết nối từ xa, gửi dữ liệu và SMS.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}user\PYGZbs{}\PYGZus{}mqtt\PYGZcb{}: Giao tiếp với máy chủ qua MQTT.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}comm, data\PYGZbs{}\PYGZus{}manager\PYGZcb{}: Quản lý giao tiếp phần cứng và dữ liệu.
+        \PYGZbs{}item \PYGZbs{}textbf\PYGZob{}json\PYGZbs{}\PYGZus{}wrapper\PYGZcb{}: Chuẩn hóa dữ liệu trao đổi.
+    \PYGZbs{}end\PYGZob{}itemize\PYGZcb{}
+\PYGZbs{}end\PYGZob{}frame\PYGZcb{}
+
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}\PYGZob{}Sơ đồ khối phần mềm\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}figure\PYGZcb{}
+        \PYGZbs{}centering
+        \PYGZbs{}includegraphics[width=0.9\PYGZbs{}textwidth]\PYGZob{}images/module1\PYGZus{}software\PYGZus{}block\PYGZhy{}crop.pdf\PYGZcb{}
+        \PYGZbs{}caption\PYGZob{}Sơ đồ khối phần mềm của mô\PYGZhy{}đun nhúng ESP32.\PYGZcb{}
+        \PYGZbs{}label\PYGZob{}fig:module1\PYGZus{}software\PYGZus{}block\PYGZcb{}
+    \PYGZbs{}end\PYGZob{}figure\PYGZcb{}
+\PYGZbs{}end\PYGZob{}frame\PYGZcb{}
+
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}\PYGZob{}Thuật toán phát hiện té ngã\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}itemize\PYGZcb{}
+        \PYGZbs{}item Dựa trên \PYGZbs{}textbf\PYGZob{}gia tốc tổng hợp\PYGZcb{}:
+        \PYGZbs{}[
+        a\PYGZus{}\PYGZob{}total\PYGZcb{} = \PYGZbs{}sqrt\PYGZob{}a\PYGZus{}x\PYGZca{}2 + a\PYGZus{}y\PYGZca{}2 + a\PYGZus{}z\PYGZca{}2\PYGZcb{}
+        \PYGZbs{}]
+        \PYGZbs{}item Khi \PYGZdl{}a\PYGZus{}\PYGZob{}total\PYGZcb{} \PYGZlt{} \PYGZbs{}texttt\PYGZob{}FALL\PYGZbs{}\PYGZus{}THRESHOLD\PYGZcb{}\PYGZdl{}, đánh dấu sự kiện nghi ngờ té ngã.
+        \PYGZbs{}item Ngưỡng điều chỉnh qua \PYGZbs{}texttt\PYGZob{}CONFIG\PYGZbs{}\PYGZus{}FALL\PYGZbs{}\PYGZus{}LOGIC\PYGZbs{}\PYGZus{}THRESHOLD\PYGZbs{}\PYGZus{}G\PYGZcb{}.
+        \PYGZbs{}item Chạy trong \PYGZbs{}textbf\PYGZob{}tác vụ FreeRTOS\PYGZcb{} với chu kỳ \PYGZbs{}texttt\PYGZob{}CHECK\PYGZbs{}\PYGZus{}INTERVAL\PYGZbs{}\PYGZus{}MS\PYGZcb{}.
+    \PYGZbs{}end\PYGZob{}itemize\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}enumerate\PYGZcb{}
+        \PYGZbs{}item Đọc dữ liệu từ \PYGZbs{}texttt\PYGZob{}mpu6050\PYGZcb{}.
+        \PYGZbs{}item Tính gia tốc tổng hợp, so sánh với ngưỡng.
+        \PYGZbs{}item Gửi \PYGZbs{}texttt\PYGZob{}EVENT\PYGZbs{}\PYGZus{}FALL\PYGZbs{}\PYGZus{}DETECTED\PYGZcb{} tới \PYGZbs{}texttt\PYGZob{}event\PYGZbs{}\PYGZus{}handler\PYGZcb{} nếu vượt ngưỡng.
+        \PYGZbs{}item Đặt cờ \PYGZbs{}texttt\PYGZob{}s\PYGZbs{}\PYGZus{}fall\PYGZbs{}\PYGZus{}detected\PYGZcb{}, reset qua \PYGZbs{}texttt\PYGZob{}fall\PYGZbs{}\PYGZus{}logic\PYGZbs{}\PYGZus{}reset\PYGZbs{}\PYGZus{}fall\PYGZbs{}\PYGZus{}status()\PYGZcb{}.
+    \PYGZbs{}end\PYGZob{}enumerate\PYGZcb{}
+\PYGZbs{}end\PYGZob{}frame\PYGZcb{}
+
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}\PYGZob{}Lưu đồ thuật toán\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}figure\PYGZcb{}
+        \PYGZbs{}centering
+        \PYGZbs{}includegraphics[width=0.7\PYGZbs{}textwidth]\PYGZob{}images/module1\PYGZus{}fall\PYGZus{}logic\PYGZus{}diagram.pdf\PYGZcb{}
+        \PYGZbs{}caption\PYGZob{}Lưu đồ thuật toán phát hiện té ngã trong mô\PYGZhy{}đun \PYGZbs{}texttt\PYGZob{}fall\PYGZbs{}\PYGZus{}logic\PYGZcb{}.\PYGZcb{}
+        \PYGZbs{}label\PYGZob{}fig:fall\PYGZus{}logic\PYGZus{}flow\PYGZcb{}
+    \PYGZbs{}end\PYGZob{}figure\PYGZcb{}
+\PYGZbs{}end\PYGZob{}frame\PYGZcb{}
+
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}\PYGZob{}Cơ chế biên dịch và cấu hình\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}itemize\PYGZcb{}
+        \PYGZbs{}item Mô\PYGZhy{}đun định nghĩa bằng \PYGZbs{}texttt\PYGZob{}CMakeLists.txt\PYGZcb{}, đăng ký qua \PYGZbs{}texttt\PYGZob{}idf\PYGZbs{}\PYGZus{}component\PYGZbs{}\PYGZus{}register\PYGZcb{}.
+        \PYGZbs{}item Quản lý phụ thuộc rõ ràng, chỉ biên dịch mô\PYGZhy{}đun cần thiết.
+        \PYGZbs{}item Tham số hệ thống (UART, mạng, ngưỡng té ngã) tập trung trong \PYGZbs{}texttt\PYGZob{}Kconfig\PYGZcb{} và \PYGZbs{}texttt\PYGZob{}sdkconfig\PYGZcb{}.
+        \PYGZbs{}item Đảm bảo linh hoạt, hạn chế lỗi khi thay đổi cấu hình.
+    \PYGZbs{}end\PYGZob{}itemize\PYGZcb{}
+\PYGZbs{}end\PYGZob{}frame\PYGZcb{}
+\end{Verbatim}

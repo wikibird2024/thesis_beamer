@@ -1,47 +1,58 @@
 % Slide 1: Tổng quan Asterisk
 \begin{frame}
-\frametitle{Asterisk: Hệ thống Liên lạc và Xử lý Cuộc gọi}
+\frametitle{Asterisk: Hệ thống Liên lạc và Xử lý Cuộc gọi SIP}
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{|p{2.5cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{Thông tin} & \textbf{Chi tiết} & \textbf{Chức năng} \\
+\hline
+\textbf{Phiên bản} & Asterisk 22.5.1 on Linux Mint 21 & Tổng đài VoIP nội bộ \\
+\hline
+\textbf{pjsip.conf} & Quản lý endpoint và xác thực & Kết nối thiết bị ESP32 \\
+\hline
+\textbf{extensions.conf} & Định nghĩa Dial Plan & Xử lý cuộc gọi và SIP \\
+\hline
+\textbf{manager.conf} & Cấu hình AMI & Tương tác với Python \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.4cm}
 
 \begin{columns}[t]
-\begin{column}{0.5\textwidth}
+\begin{column}{0.48\textwidth}
 \begin{block}{Vai trò chính}
 \begin{itemize}
-\item Thiết lập và quản lý kênh giao tiếp thoại
-\item Hỗ trợ thông báo, cảnh báo bằng giọng nói
-\item Tích hợp với các module phần mềm khác
+\item Quản lý kênh giao tiếp thoại
+\item Kích hoạt cuộc gọi khẩn cấp
+\item Tích hợp với hệ thống
 \end{itemize}
 \end{block}
-
-\begin{alertblock}{Cấu hình hệ thống}
-\begin{itemize}
-\item \textbf{Phiên bản:} Asterisk 22.5.1
-\item \textbf{Hệ điều hành:} Linux Mint 21
-\item \textbf{Vai trò:} Tổng đài VoIP nội bộ
-\end{itemize}
-\end{alertblock}
 \end{column}
 
-\begin{column}{0.45\textwidth}
-\begin{exampleblock}{Tệp cấu hình chính}
-\textbf{pjsip.conf:} Quản lý endpoint và xác thực
-
-\textbf{extensions.conf:} Định nghĩa Dial Plan và kịch bản xử lý
-
-\textbf{manager.conf:} Cấu hình AMI cho tương tác Python
-\end{exampleblock}
+\begin{column}{0.48\textwidth}
+\begin{alertblock}{Luồng hoạt động}
+\begin{itemize}
+\item Tiếp nhận tín hiệu từ ESP32
+\item Chuyển giao xử lý cho Python
+\item Điều phối cuộc gọi SIP
+\end{itemize}
+\end{alertblock}
 \end{column}
 \end{columns}
 
 \vspace{0.3cm}
 \begin{center}
-\textit{\small Asterisk đóng vai trò kênh kết nối, tiếp nhận tín hiệu và chuyển giao xử lý cho máy chủ}
+\textit{\small Asterisk đóng vai trò cầu nối giữa thiết bị và server xử lý}
 \end{center}
 
 \end{frame}
-
 % Slide 2: Cấu hình PJSIP
 \begin{frame}[fragile]
-\frametitle{Cấu hình PJSIP và Endpoint}
+\frametitle{Asterisk: Cấu hình PJSIP và Endpoint}
 
 \begin{columns}[t]
 \begin{column}{0.55\textwidth}
@@ -94,7 +105,7 @@ PJSIP đảm bảo chỉ thiết bị hợp lệ kết nối và định nghĩa 
 
 % Slide 3: Dial Plan
 \begin{frame}[fragile]
-\frametitle{Cấu hình Dial Plan}
+\frametitle{Asterisk: Cấu hình Dial Plan}
 
 \begin{columns}[t]
 \begin{column}{0.6\textwidth}
@@ -138,11 +149,11 @@ same => n,Hangup()
 
 % Slide 4: AMI Configuration
 \begin{frame}[fragile]
-\frametitle{Cấu hình Asterisk Manager Interface (AMI)}
+\frametitle{Asterisk: Cấu hình Asterisk Manager Interface (AMI)}
 
 \begin{columns}[t]
-\begin{column}{0.5\textwidth}
-\begin{minted}[fontsize=\small, frame=single, breaklines]{ini}
+\begin{column}{0.4\textwidth}
+\begin{minted}[fontsize=\tiny, frame=single, breaklines]{ini}
 [general]
 enabled = yes
 port = 5038
@@ -153,26 +164,42 @@ secret = 123
 read = all
 write = all
 \end{minted}
+
+\vspace{0.2cm}
+\begin{alertblock}{}
+\centering
+\footnotesize
+\textbf{Bảo mật: Chỉ localhost}\\
+\texttt{bindaddr = 127.0.0.1}
+\end{alertblock}
 \end{column}
 
-\begin{column}{0.45\textwidth}
-\begin{block}{Chức năng AMI}
-\begin{itemize}
-\item Giao diện lập trình cho ứng dụng ngoài
-\item Cho phép Python điều khiển Asterisk
-\item Lấy thông tin trạng thái cuộc gọi
-\item Gửi lệnh từ máy chủ
-\end{itemize}
-\end{block}
+\begin{column}{0.55\textwidth}
+\begin{table}[htbp]
+\centering
+\scriptsize
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Tham số} & \textbf{Chức năng} \\
+\hline
+\texttt{port 5038} & Cổng kết nối AMI \\
+\hline
+\texttt{[hx] account} & Tài khoản Python server \\
+\hline
+\texttt{read/write all} & Quyền điều khiển đầy đủ \\
+\hline
+\end{tabular}
+\end{table}
 
-\begin{alertblock}{Bảo mật}
-\textbf{bindaddr = 127.0.0.1}
+\vspace{0.3cm}
+\begin{exampleblock}{Vai trò AMI}
 \begin{itemize}
-\item Chỉ cho phép kết nối cục bộ
-\item Ngăn chặn truy cập trái phép
-\item Tài khoản riêng biệt [hx]
+\item Giao diện lập trình API
+\item Python điều khiển Asterisk  
+\item Lấy trạng thái cuộc gọi
+\item Gửi lệnh quản lý
 \end{itemize}
-\end{alertblock}
+\end{exampleblock}
 \end{column}
 \end{columns}
 

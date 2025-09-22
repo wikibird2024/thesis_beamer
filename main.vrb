@@ -1,38 +1,11 @@
-\frametitle{Cấu hình Asterisk Manager Interface (AMI)}
-
+\frametitle{Module cảm biến đeo: Lưu đồ thuật toán}
 \begin{columns}[t]
-\begin{column}{0.5\textwidth}
-\begin{minted}[fontsize=\small, frame=single, breaklines]{ini}
-[general]
-enabled = yes
-port = 5038
-bindaddr = 127.0.0.1
-
-[hx]
-secret = 123
-read = all
-write = all
-\end{minted}
-\end{column}
-
-\begin{column}{0.45\textwidth}
-\begin{block}{Chức năng AMI}
-\begin{itemize}
-\item Giao diện lập trình cho ứng dụng ngoài
-\item Cho phép Python điều khiển Asterisk
-\item Lấy thông tin trạng thái cuộc gọi
-\item Gửi lệnh từ máy chủ
-\end{itemize}
-\end{block}
-
-\begin{alertblock}{Bảo mật}
-\textbf{bindaddr = 127.0.0.1}
-\begin{itemize}
-\item Chỉ cho phép kết nối cục bộ
-\item Ngăn chặn truy cập trái phép
-\item Tài khoản riêng biệt [hx]
-\end{itemize}
-\end{alertblock}
-\end{column}
-\end{columns}
-
+        \begin{column}{0.6\textwidth}
+            \centering
+            \includegraphics[width=\columnwidth, keepaspectratio]{images/module1_fall_logic_diagram.pdf}
+        \end{column}
+        \begin{column}{0.35\textwidth}
+            \footnotesize
+            \parbox{\columnwidth}{\captionof{figure}{Lưu đồ thuật toán phát hiện té ngã trong mô-đun \texttt{fall\_logic}. \label{fig:fall_logic_flow}}}
+        \end{column}
+    \end{columns}
