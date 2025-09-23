@@ -47,50 +47,51 @@
     \includegraphics[width=0.8\textwidth]{ob_ject.png}
 \end{figure}
 \end{frame}
-\begin{frame}
-\frametitle{Cấu trúc Phân Cấp}
-\begin{itemize}
-    \item \textbf{Primitives (Cấp 0)}: Các thành phần cơ bản nhất (điểm, đường).
-    \item \textbf{Parts (Cấp 1)}: Tập hợp các Primitives tạo thành các bộ phận.
-    \item \textbf{Object (Cấp 2)}: Tập hợp các Parts tạo thành đối tượng hoàn chỉnh.
-\end{itemize}
-\end{frame}
 
 
+\begin{frame}{Cấu trúc phân cấp và MediaPipe BlazePose}
+\begin{columns}[T]
+    %---------------- Column 1: Phân cấp ----------------%
+    \column{0.48\textwidth}
+    \textbf{Cấu trúc phân cấp:}
+    \begin{itemize}
+        \item \textbf{Primitives (Cấp 0)}: Thành phần cơ bản (điểm, đường).
+        \item \textbf{Parts (Cấp 1)}: Tập hợp các Primitives tạo bộ phận.
+        \item \textbf{Object (Cấp 2)}: Tập hợp Parts tạo đối tượng hoàn chỉnh.
+    \end{itemize}
 
-
-% Slide 3: MediaPipe Pose – Kiến trúc BlazePose
-\begin{frame}{MediaPipe Pose – Kiến trúc BlazePose}
-    \begin{block}{Kiến trúc BlazePose}
+    %---------------- Column 2: BlazePose ----------------%
+    \column{0.48\textwidth}
+    \begin{block}{MediaPipe BlazePose}
         BlazePose tối ưu HPE 3D với:
         \begin{itemize}
             \item \textbf{Nodes:} Các module xử lý tín hiệu hình ảnh.
-            \item \textbf{Edges:} Luồng dữ liệu đồng bộ giữa các module.
+            \item \textbf{Edges:} Luồng dữ liệu giữa các module.
         \end{itemize}
         \small{\textit{(Nodes = các bước tính toán; Edges = kết nối dữ liệu giữa các bước).}}
     \end{block}
+\end{columns}
 \end{frame}
 
 % Slide 4: MediaPipe Pose – Thành phần & Hậu xử lý
 \begin{frame}{MediaPipe Pose – Thành phần & Hậu xử lý}
     \begin{exampleblock}{Thành phần chính}
         \begin{itemize}
-            \item \textbf{Detection:} ROI từ ảnh RGB, phát hiện người.
+            \item \textbf{Detection:} ROI(region of interest) từ ảnh RGB, phát hiện người.
             \item \textbf{Landmark:} 33 keypoints 3D, Loss: $\mathcal{L} = \sum \lambda_i \mathcal{L}_i$.
             \item \textbf{Tracking:} Dự đoán vị trí ROI cho khung tiếp theo.
         \end{itemize}
         \small{\textit{(Landmark 3D giúp đánh giá tư thế và động tác).}}
     \end{exampleblock}
 
-    \begin{alertblock}{Hậu xử lý}
-        \begin{itemize}
-            \item \textbf{One Euro Filter:} Làm mịn nhiễu trong dữ liệu keypoints.
-            \item \textbf{Chuẩn hóa $z$:} Dựa trên hông, tăng độ chính xác 3D.
-        \end{itemize}
+    \begin{alertblock}{Hậu xử lý dữ liệu keypoints}
+    \begin{itemize}
+        \item \textbf{One Euro Filter:} Làm mượt dữ liệu khớp theo thời gian, giảm nhiễu nhưng vẫn phản ứng nhanh với chuyển động thực.
+        \item \textbf{Chuẩn hóa trục $z$:} Sử dụng vị trí hông làm mốc để điều chỉnh chiều sâu 3D, giúp đo tư thế chính xác và nhất quán hơn.
+    \end{itemize}
     \end{alertblock}
+
 \end{frame}
-
-
 % Slide 5: Thuật toán Phát hiện Té ngã
 \begin{frame}{Thuật toán Phát hiện Té ngã}
     \begin{columns}[T]
