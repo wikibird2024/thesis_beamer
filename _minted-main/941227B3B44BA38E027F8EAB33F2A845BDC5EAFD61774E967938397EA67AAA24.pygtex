@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}\PYGZob{}Kết nối MQTT và truyền dữ liệu\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}columns\PYGZcb{}[T]
+        \PYGZbs{}column\PYGZob{}0.5\PYGZbs{}textwidth\PYGZcb{}
+        \PYGZbs{}begin\PYGZob{}itemize\PYGZcb{}
+            \PYGZbs{}item ESP32 kết nối broker MQTT, gửi bản tin định kỳ (định danh, trạng thái té ngã, GPS).
+            \PYGZbs{}item Dashboard hiển thị dữ liệu MQTT.
+        \PYGZbs{}end\PYGZob{}itemize\PYGZcb{}
+        \PYGZbs{}column\PYGZob{}0.5\PYGZbs{}textwidth\PYGZcb{}
+        \PYGZbs{}textbf\PYGZob{}Log MQTT:\PYGZcb{}
+        \PYGZbs{}begin\PYGZob{}minted\PYGZcb{}[fontsize=\PYGZbs{}footnotesize,breaklines]\PYGZob{}text\PYGZcb{}
+I (19961) USER\PYGZus{}MQTT: MQTT\PYGZus{}EVENT\PYGZus{}CONNECTED
+I (39991) JSON\PYGZus{}WRAPPER: Created status payload:
+\PYGZob{}\PYGZdq{}device\PYGZus{}id\PYGZdq{}:\PYGZdq{}ESP32\PYGZus{}DEV\PYGZus{}76E48B\PYGZdq{},\PYGZdq{}fall\PYGZus{}detected\PYGZdq{}:false\PYGZcb{}
+\end{Verbatim}

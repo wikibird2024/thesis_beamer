@@ -1,18 +1,21 @@
-\frametitle{Module Camera và truyền hình ảnh}
-\begin{itemize}
-        \item Kiểm tra: Kết nối Wi-Fi, phát luồng HTTP (ESP32-CAM, OV5640)
-        \item Kết quả: Camera nhận diện đúng, server HTTP hoạt động, FPS 3.5–5
+\frametitle{Module Camera và xử lý hình ảnh}
+\begin{columns}[T]
+    \column{0.5\textwidth}
+    \begin{itemize}
+        \item \textbf{Camera:} OV5640 kết nối Wi-Fi, phát luồng HTTP (3.5--5 FPS).
+        \item \textbf{Python:} Nhận video, dùng TensorFlow Lite phát hiện người, vẽ skeleton (3--5 FPS).
     \end{itemize}
-    \begin{block}{Log tiêu biểu}
-        \begin{minted}[fontsize=\footnotesize,breaklines]{text}
-I (8936) esp32cam: Got IP: 10.110.87.85
+    \column{0.5\textwidth}
+    \textbf{Log camera:}
+    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
 I (9266) camera: Detected OV5640 camera
 I (10006) esp32cam: HTTP server started
 I (20006) esp32cam: Frames sent: 50, FPS: 5.87
-        \end{minted}
-    \end{block}
+    \end{minted}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{images/module2_stream_example.jpg}
-        \caption{Luồng hình ảnh từ ESP32-CAM.}
+        \includegraphics[width=0.9\textwidth]{images/fall_detection_screen_shoot.png}
+        \caption{Python phát hiện người và vẽ skeleton.}
+        \label{fig:python_skeleton}
     \end{figure}
+\end{columns}

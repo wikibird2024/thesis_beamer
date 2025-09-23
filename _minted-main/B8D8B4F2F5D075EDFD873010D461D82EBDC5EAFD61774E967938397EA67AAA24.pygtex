@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+I (2329) SIM\PYGZus{}4G: Received: Quectel EG800K OK
+I (34349) SIM\PYGZus{}4G: +QGPSLOC: 10.88862,106.77975 OK
+I (9961) SIM4G\PYGZus{}AT: Initializing SIM4G AT driver...
+I (10011) APP\PYGZus{}MAIN: System initialization complete.
+\end{Verbatim}

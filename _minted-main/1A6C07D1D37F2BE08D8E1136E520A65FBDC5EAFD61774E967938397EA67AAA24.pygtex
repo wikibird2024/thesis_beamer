@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYGZbs{}begin\PYGZob{}frame\PYGZcb{}\PYGZob{}Khởi tạo hệ thống và kết nối mạng\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}itemize\PYGZcb{}
+        \PYGZbs{}item Xác nhận các module SIM4G\PYGZhy{}GPS, Wi\PYGZhy{}Fi và các tác vụ chính hoạt động bình thường.
+        \PYGZbs{}item Đảm bảo thiết bị sẵn sàng cho truyền thông và giám sát.
+    \PYGZbs{}end\PYGZob{}itemize\PYGZcb{}
+    \PYGZbs{}textbf\PYGZob{}Log khởi tạo:\PYGZcb{}
+    \PYGZbs{}begin\PYGZob{}minted\PYGZcb{}[fontsize=\PYGZbs{}footnotesize,breaklines]\PYGZob{}text\PYGZcb{}
+I (9961) SIM4G\PYGZus{}AT: Initializing SIM4G AT driver...
+I (9981) SIM4G\PYGZus{}AT: Successfully set APN to v\PYGZhy{}internet
+I (10011) APP\PYGZus{}MAIN: System initialization complete.
+I (10021) APP\PYGZus{}MAIN: Application started successfully
+\end{Verbatim}

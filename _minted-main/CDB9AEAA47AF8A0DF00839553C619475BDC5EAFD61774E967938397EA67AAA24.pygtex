@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+I (19961) USER\PYGZus{}MQTT: MQTT\PYGZus{}EVENT\PYGZus{}CONNECTED
+I (39991) JSON\PYGZus{}WRAPPER: Created status payload:
+\PYGZob{}\PYGZdq{}device\PYGZus{}id\PYGZdq{}:\PYGZdq{}ESP32\PYGZus{}DEV\PYGZus{}76E48B\PYGZdq{},\PYGZdq{}fall\PYGZus{}detected\PYGZdq{}:false\PYGZcb{}
+\end{Verbatim}

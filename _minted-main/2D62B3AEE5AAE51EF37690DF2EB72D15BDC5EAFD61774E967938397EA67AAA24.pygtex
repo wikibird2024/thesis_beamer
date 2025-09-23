@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+I (9266) camera: Detected OV5640 camera
+I (10006) esp32cam: HTTP server started
+I (20006) esp32cam: Frames sent: 50, FPS: 5.87
+\end{Verbatim}

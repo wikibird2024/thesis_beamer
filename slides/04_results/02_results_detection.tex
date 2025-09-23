@@ -1,216 +1,182 @@
 
-\subsection{Kết quả kiểm thử}
-% --- Slide 2: Tổng quan ---
-\begin{frame}{Tổng quan}
+% ----------------------------
+% Slide 1: Giới thiệu
+% ----------------------------
+\begin{frame}[t]
+\frametitle{Giới thiệu}
+\begin{columns}[T]
+    \column{0.5\textwidth}
+    Thực hiện thử nghiệm chức năng để xác nhận hệ thống hoạt động đúng thiết kế, bao gồm khởi tạo, kết nối, truyền dữ liệu, phát hiện té ngã và xử lý cảnh báo.
     \begin{itemize}
-        \item Kiểm thử chức năng từng thành phần trước khi phân tích hiệu năng
-        \item Các thành phần: Module cảm biến, khởi tạo hệ thống, kết nối MQTT, phát hiện té ngã, camera, xử lý hình ảnh, và cảnh báo
-        \item Mục tiêu: Đảm bảo hoạt động đúng thiết kế
+        \item Log và hình ảnh minh họa các quá trình chính.
     \end{itemize}
+    \column{0.5\textwidth}
+    % Bên này có thể thêm hình minh họa tổng quan nếu cần
+\end{columns}
 \end{frame}
 
-% --- Slide 3: Module cảm biến đeo ---
-\begin{frame}[fragile]{Module cảm biến đeo (Quectel EC800K)}
+% ----------------------------
+% Slide 2: Module cảm biến đeo và khởi tạo
+% ----------------------------
+\begin{frame}[t,fragile]
+\frametitle{Module cảm biến đeo và khởi tạo}
+\begin{columns}[T]
+    \column{0.5\textwidth}
     \begin{itemize}
-        \item Kiểm tra: Giao tiếp AT, kết nối 4G, thu nhận GPS
-        \item Quy trình: Khởi tạo UART, kiểm tra modem/SIM, đánh giá sóng, cấu hình APN, bật GPS, truy vấn tọa độ
-        \item Kết quả: Hoạt động ổn định, tín hiệu mạnh (\texttt{+CSQ: 31,99}), tọa độ GPS hợp lệ
+        \item \textbf{Module 4G/GPS:} Kiểm tra AT command, kết nối 4G, thu nhận GPS. Kết quả: hoạt động ổn định, tọa độ GPS hợp lệ.
+        \item \textbf{Khởi tạo hệ thống:} Module SIM4G-GPS, Wi-Fi và tác vụ chính hoạt động bình thường.
     \end{itemize}
-    \begin{block}{Log tiêu biểu}
-        \begin{minted}[fontsize=\footnotesize,breaklines]{text}
-I (2329) SIM_4G: Received: Quectel EG800K
-I (5329) SIM_4G: Received: +CSQ: 31,99
-I (28339) SIM_4G: Received: +QIACT: 1,1,1,"9.204.251.200"
-I (34349) SIM_4G: Received: +QGPSLOC: 10.88862,106.77975
-        \end{minted}
-    \end{block}
-    \textbf{Kết luận:} Module 4G/GPS hoạt động đúng, hỗ trợ gửi cảnh báo và định vị.
-\end{frame}
-
-% --- Slide 4: Khởi tạo hệ thống ---
-\begin{frame}[fragile]{Khởi tạo hệ thống và kết nối mạng}
-    \begin{itemize}
-        \item Xác nhận: Module SIM4G-GPS, Wi-Fi, và các tác vụ chính hoạt động bình thường
-        \item Kết quả: Hệ thống khởi tạo thành công, tích hợp ổn định
-    \end{itemize}
-    \begin{block}{Log tiêu biểu}
-        \begin{minted}[fontsize=\footnotesize,breaklines]{text}
+    \column{0.5\textwidth}
+    \textbf{Log tiêu biểu:}
+    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
+I (2329) SIM_4G: Received: Quectel EG800K OK
+I (34349) SIM_4G: +QGPSLOC: 10.88862,106.77975 OK
 I (9961) SIM4G_AT: Initializing SIM4G AT driver...
-I (9981) SIM4G_AT: Successfully set APN to v-internet
 I (10011) APP_MAIN: System initialization complete.
-I (10021) APP_MAIN: Application started successfully
-        \end{minted}
-    \end{block}
-    \textbf{Kết luận:} Nền tảng phần cứng và phần mềm tích hợp ổn định.
+    \end{minted}
+\end{columns}
+\vspace{0.2cm}
+\textbf{Kết luận:} Hệ thống khởi tạo thành công, tích hợp phần cứng/phần mềm ổn định.
 \end{frame}
 
-% --- Slide 5: Kết nối MQTT ---
-\begin{frame}[fragile]{Kết nối MQTT và truyền dữ liệu}
+% ----------------------------
+% Slide 3: Kết nối MQTT và truyền dữ liệu
+% ----------------------------
+\begin{frame}[t,fragile]
+\frametitle{Kết nối MQTT và truyền dữ liệu}
+\begin{columns}[T]
+    \column{0.5\textwidth}
     \begin{itemize}
-        \item ESP32 kết nối MQTT, gửi bản tin định kỳ (định danh, trạng thái té ngã, GPS)
-        \item Kết quả: Kết nối ổn định, dữ liệu truyền tới hệ thống giám sát
+        \item ESP32 kết nối broker MQTT, gửi bản tin định kỳ (định danh, trạng thái té ngã, GPS).
+        \item Dashboard hiển thị dữ liệu MQTT.
     \end{itemize}
-    \begin{block}{Log tiêu biểu}
-        \begin{minted}[fontsize=\footnotesize,breaklines]{text}
+    \column{0.5\textwidth}
+    \textbf{Log MQTT:}
+    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
 I (19961) USER_MQTT: MQTT_EVENT_CONNECTED
 I (39991) JSON_WRAPPER: Created status payload:
-{"device_id":"ESP32_DEV_76E48B","fall_detected":false,
- "latitude":0,"longitude":0,"has_gps_fix":false}
-        \end{minted}
-    \end{block}
+{"device_id":"ESP32_DEV_76E48B","fall_detected":false}
+    \end{minted}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{images/json_data_dashboard.png}
-        \caption{Dashboard hiển thị bản tin MQTT.}
+        \includegraphics[width=0.9\textwidth]{images/json_data_dashboard.png}
+        \caption{Dashboard bản tin MQTT.}
+        \label{fig:mqtt_dashboard}
     \end{figure}
+\end{columns}
 \end{frame}
 
-% --- Slide 6: Phát hiện té ngã ---
-\begin{frame}[fragile]{Phát hiện té ngã và xử lý cảnh báo}
+% ----------------------------
+% Slide 4: Phát hiện té ngã và cảnh báo
+% ----------------------------
+\begin{frame}[t,fragile]
+\frametitle{Phát hiện té ngã và cảnh báo}
+\begin{columns}[T]
+    \column{0.5\textwidth}
     \begin{itemize}
-        \item Thuật toán: Phát hiện trạng thái \texttt{LOW_G} đến \texttt{HIGH_G}, xác nhận va chạm
-        \item Cảnh báo: Gửi SMS, MQTT, kích hoạt buzzer và LED
+        \item Thuật toán phát hiện té ngã, kích hoạt cảnh báo (SMS, MQTT, buzzer, LED).
+        \item Kênh Telegram gửi thông báo từ phần cứng và xử lý hình ảnh.
     \end{itemize}
-    \begin{block}{Log tiêu biểu}
-        \begin{minted}[fontsize=\footnotesize,breaklines]{text}
+    \column{0.5\textwidth}
+    \textbf{Log phát hiện té ngã:}
+    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
 E (159131) FALL_LOGIC: FALL DETECTED! Accel: 0.99 g
 I (159151) SIM4G_GPS: SMS request queued successfully
-I (159191) SIM4G_GPS: MQTT alert published successfully.
-I (159221) buzzer: Beeping for 8000 ms
-        \end{minted}
-    \end{block}
+I (159191) SIM4G_GPS: MQTT alert published successfully
+    \end{minted}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{images/module1_real_log.jpg}
-        \caption{Log thực tế khi phát hiện té ngã.}
+        \includegraphics[width=0.9\textwidth]{images/telegram_fall_module1_send.png}
+        \caption{Thông báo Telegram từ ESP32.}
+        \label{fig:telegram_hw}
     \end{figure}
+\end{columns}
 \end{frame}
 
-% --- Slide 7: Module Camera ---
-\begin{frame}[fragile]{Module Camera và truyền hình ảnh}
+% ----------------------------
+% Slide 5: Module Camera và xử lý hình ảnh
+% ----------------------------
+\begin{frame}[t,fragile]
+\frametitle{Module Camera và xử lý hình ảnh}
+\begin{columns}[T]
+    \column{0.5\textwidth}
     \begin{itemize}
-        \item Kiểm tra: Kết nối Wi-Fi, phát luồng HTTP (ESP32-CAM, OV5640)
-        \item Kết quả: Camera nhận diện đúng, server HTTP hoạt động, FPS 3.5–5
+        \item \textbf{Camera:} OV5640 kết nối Wi-Fi, phát luồng HTTP (3.5--5 FPS).
+        \item \textbf{Python:} Nhận video, dùng TensorFlow Lite phát hiện người, vẽ skeleton (3--5 FPS).
     \end{itemize}
-    \begin{block}{Log tiêu biểu}
-        \begin{minted}[fontsize=\footnotesize,breaklines]{text}
-I (8936) esp32cam: Got IP: 10.110.87.85
+    \column{0.5\textwidth}
+    \textbf{Log camera:}
+    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
 I (9266) camera: Detected OV5640 camera
 I (10006) esp32cam: HTTP server started
 I (20006) esp32cam: Frames sent: 50, FPS: 5.87
-        \end{minted}
-    \end{block}
+    \end{minted}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{images/module2_stream_example.jpg}
-        \caption{Luồng hình ảnh từ ESP32-CAM.}
+        \includegraphics[width=0.9\textwidth]{images/fall_detection_screen_shoot.png}
+        \caption{Python phát hiện người và vẽ skeleton.}
+        \label{fig:python_skeleton}
     \end{figure}
+\end{columns}
 \end{frame}
 
-% --- Slide 8: Xử lý hình ảnh Python - hình 1 ---
-\begin{frame}{Xử lý nhận diện hình ảnh (Python)}
-    \begin{itemize}
-        \item Quy trình: Nhận luồng video, tiền xử lý, chạy TensorFlow Lite, vẽ skeleton
-        \item Kết quả: Xử lý thời gian thực (3–5 FPS), tích hợp MQTT và Telegram
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.7\textwidth]{images/fall_detection_screen_shoot.png}
-        \caption{Phát hiện người và vẽ skeleton thời gian thực.}
-    \end{figure}
-\end{frame}
-
-% --- Slide 9: Xử lý hình ảnh Python - hình 2 ---
-\begin{frame}{Log xử lý ảnh Python}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.7\textwidth]{images/python_runing_log.png}
-        \caption{Log xử lý ảnh và điều phối tác vụ.}
-    \end{figure}
-\end{frame}
-
-% --- Slide 10: Đánh giá cảm biến ---
-\begin{frame}{Đánh giá thực nghiệm cảm biến MPU6050 và GPS}
-    \begin{itemize}
-        \item Quy trình: Nạp chương trình, giả lập té ngã, kiểm tra SMS/GPS
-        \item Dữ liệu MPU6050: So sánh trạng thái bình thường và té ngã
-    \end{itemize}
+% ----------------------------
+% Slide 6: Dữ liệu cảm biến MPU6050
+% ----------------------------
+\begin{frame}[t]
+\frametitle{Dữ liệu cảm biến MPU6050}
+\begin{columns}[T]
+    \column{0.5\textwidth}
     \begin{table}
+        \caption{So sánh đặc trưng}
         \centering
-        \caption{So sánh dữ liệu MPU6050}
-        \begin{tabular}{|l|c|c|}
+        \footnotesize
+        \begin{tabularx}{\textwidth}{|l|X|X|}
             \hline
             \textbf{Thông số} & \textbf{Bình thường} & \textbf{Té ngã} \\
             \hline
             Biên độ Gyro & $\pm 1.5$ dps & $\pm 250$ dps \\
             \hline
-            Độ lớn Accel & $\approx 0.93$ g & $-2.0$ đến $+1.0$ g \\
+            Độ lớn Accel & $\approx 0.95$ g & 0.7--2.0 g \\
             \hline
-        \end{tabular}
+        \end{tabularx}
     \end{table}
+    \column{0.5\textwidth}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{images/gyro_time.png}
-        \caption{Biến thiên Gyro\_Mag theo thời gian.}
+        \includegraphics[width=0.9\textwidth]{images/accel_time.png}
+        \caption{Biến thiên Accel\_Mag.}
+        \label{fig:accel_time}
     \end{figure}
+    \begin{itemize}
+        \item \textbf{Bình thường:} Accel\_Mag $\approx 1$ g, Gyro\_Mag $\lesssim 2$ dps.
+        \item \textbf{Té ngã:} Biến thiên mạnh, Gyro\_Mag lên đến 400 dps.
+    \end{itemize}
+\end{columns}
 \end{frame}
 
-% --- Slide 11: Dữ liệu GPS ---
-\begin{frame}{Dữ liệu GPS}
+% ----------------------------
+% Slide 7: Dữ liệu GPS và Asterisk AMI
+% ----------------------------
+\begin{frame}[t]
+\frametitle{Dữ liệu GPS và Asterisk AMI}
+\begin{columns}[T]
+    \column{0.5\textwidth}
+    \begin{itemize}
+        \item \textbf{GPS:} Tọa độ chính xác ($\approx$10.8885, 106.7797), Fix Mode 3, 7 vệ tinh.
+        \item \textbf{Asterisk AMI:} Gửi SMS/cuộc gọi đến \texttt{6001}, \texttt{6002} thành công; \texttt{6003} lỗi.
+    \end{itemize}
+    \column{0.5\textwidth}
     \begin{table}
+        \caption{Dữ liệu GPS}
         \centering
-        \caption{Dữ liệu GPS thu được}
-        \begin{tabular}{|c|c|c|c|}
+        \footnotesize
+        \begin{tabular}{|c|c|c|}
             \hline
-            \textbf{Time (UTC)} & \textbf{Latitude} & \textbf{Longitude} & \textbf{Satellites} \\
+            \textbf{Time (UTC)} & \textbf{Latitude} & \textbf{Longitude} \\
             \hline
-            132517.00 & 1053.3115N & 10646.7839E & 07 \\
-            132540.00 & 1053.3117N & 10646.7840E & 07 \\
-            132627.00 & 1053.3107N & 10646.7839E & 07 \\
+            132517.00 & 10.88854 & 106.77973 \\
+            132540.00 & 10.88855 & 106.77973 \\
             \hline
         \end{tabular}
-    \end{table}
-    \textbf{Kết luận:} GPS ổn định, định vị chính xác với 7 vệ tinh.
-\end{frame}
-
-% --- Slide 12: Thử nghiệm Asterisk ---
-\begin{frame}{Thử nghiệm Asterisk AMI}
-    \begin{itemize}
-        \item Kiểm tra: Gửi SMS và gọi đến 3 extension (\texttt{6001}, \texttt{6002}, \texttt{6003})
-        \item Kết quả: SMS thành công (2/3), lỗi gọi do thiếu nội dung thoại
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{images/ast_call_sms_test.png}
-        \caption{Log thử nghiệm Asterisk AMI.}
-    \end{figure}
-    \textbf{Kết luận:} Cảnh báo SMS hoạt động, lỗi gọi không ảnh hưởng chức năng chính.
-\end{frame}
-
-% --- Slide 13: Telegram ---
-\begin{frame}{Kênh cảnh báo Telegram}
-    \begin{itemize}
-        \item Cảnh báo từ: ESP32 (MQTT) và Python (hình ảnh + skeleton)
-        \item Kết quả: Cảnh báo gửi thành công, tăng độ tin cậy
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{images/telegram_fall_module1_send.png}
-        \caption{Cảnh báo từ ESP32 qua Telegram.}
-    \end{figure}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{images/telegram_python_fall_send.png}
-        \caption{Cảnh báo từ Python qua Telegram.}
-    \end{figure}
-\end{frame}
-
-% --- Slide 14: Kết luận ---
-\begin{frame}{Kết luận}
-    \begin{itemize}
-        \item Tất cả thành phần (cảm biến, camera, MQTT, Telegram, Asterisk) hoạt động ổn định
-        \item Phát hiện té ngã chính xác với dữ liệu MPU6050 và GPS
-        \item Hệ thống tích hợp đa kênh cảnh báo hiệu quả
-        \item Hạn chế: Lỗi gọi Asterisk (không ảnh hưởng chính), FPS camera còn thấp
-    \end{itemize}
-\end{frame}
+    \end{
