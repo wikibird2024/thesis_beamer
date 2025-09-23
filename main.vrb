@@ -1,9 +1,19 @@
-\frametitle{Thông báo Telegram (Python)}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{telegram_python_fall_send.png}
-    \caption{Thông báo té ngã từ module Python qua Telegram.}
-\end{figure}
-\begin{itemize}
-    \item \textbf{Kết luận:} Kênh Telegram hoạt động ổn định, kết hợp cả hai nguồn cảnh báo tăng độ tin cậy.
-\end{itemize}
+\frametitle{Thông báo Telegram}
+\begin{columns}[T]
+    \column{0.5\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{telegram_fall_module1_send.png}
+        \caption{Thông báo từ phần cứng.}
+    \end{figure}
+    \column{0.5\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{telegram_python_fall_send.png}
+        \caption{Thông báo từ Python.}
+    \end{figure}
+    \vspace{2mm}
+    \begin{itemize}
+        \item \textbf{Kết luận:} Kênh Telegram hoạt động ổn định, đa nguồn cảnh báo tăng độ tin cậy.
+    \end{itemize}
+\end{columns}
