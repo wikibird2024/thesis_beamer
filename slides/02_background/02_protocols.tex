@@ -352,32 +352,6 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 % =====================================================
 % Slide: Luồng tích hợp JSON/MQTT/SIP
 % =====================================================
-\begin{frame}
-\frametitle{Luồng tích hợp dữ liệu}
-
-\centering
-\begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2cm, align=center},
-    arrow/.style={-Stealth, thick, shorten >=1pt, shorten <=1pt},
-    node distance=1cm
-]
-    % Các node
-    \node[box] (sensor) {\footnotesize ESP32};
-    \node[box, right=of sensor] (mqtt) {\footnotesize MQTT Broker};
-    \node[box, right=of mqtt] (app) {\footnotesize Ứng dụng};
-    \node[box, right=of app] (sip) {\footnotesize SIP Server};
-    \node[box, right=of sip] (phone) {\footnotesize Điện thoại};
-
-    % Các mũi tên
-    \draw[arrow] (sensor) -- node[above, font=\scriptsize] {JSON Payload} (mqtt);
-    \draw[arrow] (mqtt) -- node[above, font=\scriptsize] {Publish} (app);
-    \draw[arrow] (app) -- node[above, font=\scriptsize] {SIP INVITE} (sip);
-    \draw[arrow] (sip) -- node[above, font=\scriptsize] {RTP} (phone);
-\end{tikzpicture}
-
-\caption{Luồng dữ liệu từ cảm biến đến cảnh báo}
-\end{frame}
-
 % Kết luận
 \begin{frame}
 \frametitle{Tối Ưu Hóa và kết hợp các phương thức}
