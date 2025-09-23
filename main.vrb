@@ -1,21 +1,26 @@
-\frametitle{Module Camera và xử lý hình ảnh}
+\frametitle{Phát hiện té ngã và cảnh báo}
 \begin{columns}[T]
     \column{0.5\textwidth}
     \begin{itemize}
-        \item \textbf{Camera:} OV5640 kết nối Wi-Fi, phát luồng HTTP (3.5--5 FPS).
-        \item \textbf{Python:} Nhận video, dùng TensorFlow Lite phát hiện người, vẽ skeleton (3--5 FPS).
+        \item Thuật toán kích hoạt khi chuỗi trạng thái \texttt{LOW\_G} $\to$ \texttt{HIGH\_G}.
+        \item Cảnh báo đa kênh:
+        \begin{itemize}
+            \item Gửi SMS/MQTT kèm thông tin định vị.
+            \item Kích hoạt buzzer và LED cục bộ.
+            \item Gửi thông báo Telegram.
+        \end{itemize}
     \end{itemize}
-    \column{0.5\textwidth}
-    \textbf{Log camera:}
-    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
-I (9266) camera: Detected OV5640 camera
-I (10006) esp32cam: HTTP server started
-I (20006) esp32cam: Frames sent: 50, FPS: 5.87
+    \vspace{0.2cm}
+    \textbf{Log phát hiện té ngã:}
+    \begin{minted}[fontsize=\scriptsize,breaklines]{text}
+E (159131) FALL_LOGIC: FALL DETECTED! Accel: 0.99 g
+I (159151) SIM4G_GPS: SMS request queued successfully
+I (159191) SIM4G_GPS: MQTT alert published successfully.
+I (159221) buzzer: Beeping for 8000 ms
     \end{minted}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.9\textwidth]{images/fall_detection_screen_shoot.png}
-        \caption{Python phát hiện người và vẽ skeleton.}
-        \label{fig:python_skeleton}
-    \end{figure}
+
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/telegram_fall_module1_send.png}
+    \captionof{figure}{Thông báo Telegram từ module phần cứng.}
 \end{columns}

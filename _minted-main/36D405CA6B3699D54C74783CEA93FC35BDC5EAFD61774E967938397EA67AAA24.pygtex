@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+I (5329) SIM\PYGZus{}4G: Received: +CSQ: 31,99
+OK
+I (10011) APP\PYGZus{}MAIN: System initialization complete.
+I (10021) APP\PYGZus{}MAIN: Application started successfully
+I (34349) SIM\PYGZus{}4G: Received: +QGPSLOC: 10.88862,106.77975
+OK
+\end{Verbatim}
