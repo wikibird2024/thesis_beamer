@@ -1,22 +1,18 @@
-\frametitle{Hệ thống Xử lý Té ngã: Lưu trữ và Cảnh báo}
-\begin{block}{Cơ chế}
-        \begin{itemize}
-            \item \textbf{Lưu trữ}: SQLite \texttt{fall\_events.db} (timestamp, source, entity\_id, GPS).
-            \item \textbf{Cảnh báo}: AMI, Telegram khi phát hiện té ngã.
-            \item \textbf{Vòng lặp}: Thu thập → Xử lý → Tích hợp → Cảnh báo.
-        \end{itemize}
+\frametitle{Module Camera và truyền hình ảnh}
+\begin{itemize}
+        \item Kiểm tra: Kết nối Wi-Fi, phát luồng HTTP (ESP32-CAM, OV5640)
+        \item Kết quả: Camera nhận diện đúng, server HTTP hoạt động, FPS 3.5–5
+    \end{itemize}
+    \begin{block}{Log tiêu biểu}
+        \begin{minted}[fontsize=\footnotesize,breaklines]{text}
+I (8936) esp32cam: Got IP: 10.110.87.85
+I (9266) camera: Detected OV5640 camera
+I (10006) esp32cam: HTTP server started
+I (20006) esp32cam: Frames sent: 50, FPS: 5.87
+        \end{minted}
     \end{block}
-    \begin{minted}[fontsize=\scriptsize, breaklines, bgcolor=lightgray]{sql}
-CREATE TABLE fall_events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    source TEXT NOT NULL,
-    entity_id TEXT NOT NULL,
-    fall_detected BOOLEAN NOT NULL,
-    latitude REAL,
-    longitude REAL,
-    has_gps_fix BOOLEAN,
-    alert_status INTEGER DEFAULT 0
-);
-    \end{minted}
-    \label{subsubsec:data_storage_alerts}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{images/module2_stream_example.jpg}
+        \caption{Luồng hình ảnh từ ESP32-CAM.}
+    \end{figure}
