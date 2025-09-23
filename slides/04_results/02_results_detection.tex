@@ -1,44 +1,47 @@
 \subsection{Kiểm thử từng thành phần}
-% ----------------------------
-% Slide: Kiểm thử Module 4G/GPS
-% ----------------------------
-\begin{frame}[t,fragile]
-\frametitle{Kiểm thử Module 4G/GPS}
-\begin{itemize}
-    \item \textbf{Mục đích:} Xác nhận giao tiếp AT command, kết nối 4G, thu nhận GPS.
-    \item \textbf{Quy trình:}
-    \begin{enumerate}
-        \item Khởi tạo UART, kiểm tra modem và SIM.
-        \item Đánh giá chất lượng sóng (\texttt{+CSQ}).
-        \item Cấu hình APN, kích hoạt PDP context.
-        \item Bật GPS và truy vấn tọa độ.
-    \end{enumerate}
-    \item \textbf{Log tiêu biểu:}
-    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
-I (28339) SIM_4G: Received: +QIACT: 1,1,1,"9.204.251.200"
-I (34349) SIM_4G: Received: +QGPSLOC: 10.88862,106.77975
-    \end{minted}
-    \item \textbf{Kết luận:} Module hoạt động ổn định, sẵn sàng gửi cảnh báo và thông tin định vị.
-\end{itemize}
-\end{frame}
 
-% ----------------------------
-% Slide: Khởi tạo hệ thống & Kết nối mạng
-% ----------------------------
 \begin{frame}[t,fragile]
-\frametitle{Khởi tạo hệ thống \& Kết nối mạng}
-\begin{itemize}
-    \item \textbf{Mục đích:} Xác nhận các module SIM4G-GPS, Wi-Fi và các tác vụ chính hoạt động bình thường.
-    \item \textbf{Log tiêu biểu:}
-    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
-I (9961) SIM4G_AT: Initializing SIM4G AT driver...
+\frametitle{Kiểm thử Module 4G/GPS \& Khởi tạo hệ thống}
+\begin{columns}[T]
+    %----------------- Column Log -----------------%
+    \column{0.55\textwidth}
+    \begin{minted}[fontsize=\scriptsize,breaklines]{text}
+I (2329)  SIM_4G: Received: Quectel EG800K
+OK
+I (5329)  SIM_4G: Received: +CSQ: 31,99
+OK
+I (28339) SIM_4G: Received: +QIACT: 1,1,1,"9.204.251.200"
+OK
+I (34349) SIM_4G: Received: +QGPSLOC: 10.88862,106.77975
+OK
+I (9961)  SIM4G_AT: Initializing SIM4G AT driver...
 I (10011) APP_MAIN: System initialization complete.
 I (10021) APP_MAIN: Application started successfully
     \end{minted}
-    \item \textbf{Kết luận:} Hệ thống khởi tạo thành công, tích hợp phần mềm và phần cứng ổn định.
-\end{itemize}
-\end{frame}
 
+    %----------------- Column Phân tích -----------------%
+    \column{0.45\textwidth}
+    \begin{itemize}
+        \item \textbf{Mục đích:} 
+        \begin{itemize}
+            \item Xác nhận giao tiếp AT command, kết nối 4G và thu nhận GPS.
+            \item Kiểm tra các module SIM4G-GPS, Wi-Fi và các tác vụ chính.
+        \end{itemize}
+        \item \textbf{Quy trình:}
+        \begin{enumerate}
+            \item Khởi tạo UART, kiểm tra modem và SIM.
+            \item Đánh giá chất lượng sóng (\texttt{+CSQ}).
+            \item Cấu hình APN, kích hoạt PDP context.
+            \item Bật GPS và truy vấn tọa độ.
+        \end{enumerate}
+        \item \textbf{Kết luận:} 
+        \begin{itemize}
+            \item Module 4G/GPS hoạt động ổn định, sẵn sàng gửi cảnh báo và thông tin định vị.
+            \item Hệ thống khởi tạo thành công, tích hợp phần mềm và phần cứng ổn định.
+        \end{itemize}
+    \end{itemize}
+\end{columns}
+\end{frame}
 % ----------------------------
 % Slide: Kiểm thử MQTT
 % ----------------------------
@@ -95,33 +98,33 @@ I (159881) SIM4G_AT: SMS sent successfully.
 \end{frame}
 
 % ----------------------------
-% Slide: Module Camera ESP32-CAM
+% Slide: Camera ESP32 – Luồng hình ảnh & nhận diện
 % ----------------------------
 \begin{frame}[t,fragile]
-\frametitle{Kiểm thử Module Camera (ESP32-CAM)}
-\begin{itemize}
-    \item \textbf{Mục đích:} Kiểm tra kết nối Wi-Fi và phát luồng hình ảnh qua HTTP.
-    \item \textbf{Log tiêu biểu:}
-    \begin{minted}[fontsize=\footnotesize,breaklines]{text}
-I (9266) camera: Detected OV5640 camera
-I (10006) esp32cam: HTTP server started
-I (20006) esp32cam: Frames sent: 50, FPS: 5.87
-    \end{minted}
-    \item \textbf{Kết quả:} FPS trung bình 3.5–5, ổn định.
-    \item \textbf{Kết luận:} Module camera hoạt động ổn định, giám sát trực tiếp.
-\end{itemize}
-\end{frame}
+\frametitle{Camera ESP32-CAM: Luồng hình ảnh và xử lý}
+\begin{columns}[T]
+    %----------------- Column Hình -----------------%
+    \column{0.55\textwidth}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{module2_stream_example.jpg}
+        \caption{Luồng hình ảnh từ ESP32-CAM qua HTTP.}
+    \end{figure}
 
-% ----------------------------
-% Slide: Luồng hình ảnh Camera
-% ----------------------------
-\begin{frame}[t]
-\frametitle{Luồng hình ảnh từ Camera}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\linewidth]{module2_stream_example.jpg}
-    \caption{Luồng hình ảnh phát từ ESP32-CAM qua HTTP.}
-\end{figure}
+    %----------------- Column Phân tích -----------------%
+    \column{0.45\textwidth}
+    \begin{itemize}
+        \item \textbf{Mục đích:} Kiểm tra kết nối Wi-Fi và phát luồng hình ảnh.
+        \item \textbf{Xử lý Python:}
+        \begin{itemize}
+            \item Nhận luồng video từ ESP32-CAM.
+            \item Tiền xử lý khung hình.
+            \item TensorFlow Lite phát hiện người, vẽ skeleton.
+        \end{itemize}
+        \item \textbf{Kết quả:} Thời gian thực 3–5 FPS, hoạt động ổn định.
+        \item \textbf{Ứng dụng:} Cảnh báo té ngã, đồng bộ MQTT, gửi thông báo Telegram.
+    \end{itemize}
+\end{columns}
 \end{frame}
 
 % ----------------------------
