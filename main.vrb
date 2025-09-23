@@ -1,26 +1,9 @@
-\frametitle{Phát hiện té ngã và cảnh báo}
-\begin{columns}[T]
-    \column{0.5\textwidth}
-    \begin{itemize}
-        \item Thuật toán kích hoạt khi chuỗi trạng thái \texttt{LOW\_G} $\to$ \texttt{HIGH\_G}.
-        \item Cảnh báo đa kênh:
-        \begin{itemize}
-            \item Gửi SMS/MQTT kèm thông tin định vị.
-            \item Kích hoạt buzzer và LED cục bộ.
-            \item Gửi thông báo Telegram.
-        \end{itemize}
-    \end{itemize}
-    \vspace{0.2cm}
-    \textbf{Log phát hiện té ngã:}
-    \begin{minted}[fontsize=\scriptsize,breaklines]{text}
-E (159131) FALL_LOGIC: FALL DETECTED! Accel: 0.99 g
-I (159151) SIM4G_GPS: SMS request queued successfully
-I (159191) SIM4G_GPS: MQTT alert published successfully.
-I (159221) buzzer: Beeping for 8000 ms
-    \end{minted}
-
-    \column{0.5\textwidth}
+\frametitle{Thông báo Telegram (Python)}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{images/telegram_fall_module1_send.png}
-    \captionof{figure}{Thông báo Telegram từ module phần cứng.}
-\end{columns}
+    \includegraphics[width=0.8\linewidth]{telegram_python_fall_send.png}
+    \caption{Thông báo té ngã từ module Python qua Telegram.}
+\end{figure}
+\begin{itemize}
+    \item \textbf{Kết luận:} Kênh Telegram hoạt động ổn định, kết hợp cả hai nguồn cảnh báo tăng độ tin cậy.
+\end{itemize}

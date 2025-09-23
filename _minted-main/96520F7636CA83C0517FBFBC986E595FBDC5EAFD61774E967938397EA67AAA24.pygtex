@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+E (159131) FALL\PYGZus{}LOGIC: FALL DETECTED! Accel: 0.99 g
+I (159151) SIM4G\PYGZus{}GPS: SMS request queued successfully
+I (159881) SIM4G\PYGZus{}AT: SMS sent successfully.
+\end{Verbatim}

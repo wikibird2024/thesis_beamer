@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+I (28339) SIM\PYGZus{}4G: Received: +QIACT: 1,1,1,\PYGZdq{}9.204.251.200\PYGZdq{}
+I (34349) SIM\PYGZus{}4G: Received: +QGPSLOC: 10.88862,106.77975
+\end{Verbatim}
