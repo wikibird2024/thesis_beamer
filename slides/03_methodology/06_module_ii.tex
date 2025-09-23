@@ -47,24 +47,3 @@
 \end{frame}
 
 % Slide: Tối ưu hóa hiệu suất và ứng dụng
-\begin{frame}{Module camera: Tối ưu hóa hiệu suất và ứng dụng}
-    \begin{columns}[t]
-        \begin{column}{0.48\textwidth}
-            \begin{block}{Kỹ thuật tối ưu}
-                \begin{itemize}
-                    \item \textbf{Quản lý bộ nhớ}: Sử dụng PSRAM cho buffer, giảm tải SRAM.
-                    \item \textbf{Triple buffering}: Chụp frame mới đồng thời với truyền frame cũ.
-                    \item \textbf{Giám sát hiệu suất}: Đo FPS thời gian thực, xử lý lỗi ngắt kết nối.
-                \end{itemize}
-            \end{block}
-        \end{column}
-        \begin{column}{0.48\textwidth}
-            \begin{block}{Ứng dụng}
-                \begin{itemize}
-                    \item Cầu nối giữa phần cứng và các module xử lý
-                    \item Đầu ra video HTTP cho thuật toán thị giác máy tính.
-                \end{itemize}
-            \end{block}
-        \end{column}
-    \end{columns}
-\end{frame}
