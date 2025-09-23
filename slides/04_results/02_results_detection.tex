@@ -86,7 +86,6 @@ I (39991) JSON_WRAPPER: {"device_id":"ESP32_DEV_76E48B","fall_detected":false,..
 I (159151) SIM4G_GPS: SMS request queued successfully
 I (159881) SIM4G_AT: SMS sent successfully.
         \end{minted}
-        \item \textbf{Kết luận:} Hệ thống phát hiện và xử lý cảnh báo thành công, đa kênh.
     \end{itemize}
     \column{0.45\textwidth}
     \begin{figure}
@@ -130,89 +129,72 @@ I (159881) SIM4G_AT: SMS sent successfully.
 % ----------------------------
 % Slide: Xử lý nhận diện hình ảnh (Python)
 % ----------------------------
-\begin{frame}[t]
+\begin{frame}[t,fragile]
 \frametitle{Xử lý nhận diện hình ảnh (Python)}
-\begin{itemize}
-    \item \textbf{Mục đích:} Phát hiện người và trích xuất skeleton từ luồng video.
-    \item \textbf{Quy trình:}
+\begin{columns}[T]
+    %----------------- Column Thông tin -----------------%
+    \column{0.45\textwidth}
     \begin{itemize}
-        \item Nhận luồng video từ ESP32-CAM.
-        \item Tiền xử lý khung hình.
-        \item TensorFlow Lite phát hiện người, vẽ skeleton.
+        \item \textbf{Mục đích:} Phát hiện người và trích xuất skeleton từ luồng video.
+        \item \textbf{Quy trình:}
+        \begin{itemize}
+            \item Nhận luồng video từ ESP32-CAM.
+            \item Tiền xử lý khung hình.
+            \item TensorFlow Lite phát hiện người, vẽ skeleton.
+        \end{itemize}
+        \item \textbf{Kết quả:} Thời gian thực 3–5 FPS, hoạt động ổn định.
     \end{itemize}
-    \item \textbf{Kết quả:} Thời gian thực 3–5 FPS, hoạt động ổn định.
-\end{itemize}
-\end{frame}
 
-% ----------------------------
-% Slide: Kết quả xử lý hình ảnh
-% ----------------------------
-\begin{frame}[t]
-\frametitle{Kết quả xử lý hình ảnh}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.75\linewidth]{fall_detection_screen_shoot.png}
-    \caption{Module Python phát hiện người và vẽ skeleton.}
-\end{figure}
+    %----------------- Column Hình minh họa -----------------%
+    \column{0.55\textwidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{fall_detection_screen_shoot.png}
+        \caption{Module Python phát hiện người và vẽ skeleton.}
+    \end{figure}
+\end{columns}
 \end{frame}
 
 % ----------------------------
 % Slide: Log thực nghiệm Python
 % ----------------------------
-\begin{frame}[fragile]
-\frametitle{Log thực nghiệm Python}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{python_runing_log.png}
-    \caption{Log Python xử lý luồng camera và cảnh báo.}
-\end{figure}
-\begin{itemize}
-    \item \textbf{Kết luận:} Module Python hoạt động ổn định, đồng bộ MQTT và kích hoạt cảnh báo thành công.
-\end{itemize}
-\end{frame}
-
-% ----------------------------
-% Slide: Đánh giá dữ liệu cảm biến MPU6050
-% ----------------------------
-\begin{frame}[fragile]
-\frametitle{Đánh giá dữ liệu cảm biến (MPU6050)}
-\begin{itemize}
-    \item \textbf{Quy trình:} Giả lập té ngã, so sánh dữ liệu bình thường và té ngã.
-    \item \textbf{Kết quả:}
-    \begin{itemize}
-        \item \textbf{Gyro (dps):} Bình thường $\approx \pm 1.5$; té ngã tăng $\approx \pm 250$.
-        \item \textbf{Accel (g):} Bình thường $\approx 0.93$; té ngã $-2.0$ đến $+1.0$.
-    \end{itemize}
-    \item \textbf{Kết luận:} \textbf{Accel\_Mag} và \textbf{Gyro\_Mag} là chỉ báo hiệu quả.
-\end{itemize}
-\end{frame}
-
-% ----------------------------
-% Slide: Biến thiên Gyro_Mag
-% ----------------------------
-
 \begin{frame}[t,fragile]
-\frametitle{Biến thiên & Phân tích Gyro\_Mag}
+\frametitle{Log Python}
 \begin{columns}[T]
+    %----------------- Column Log -----------------%
     \column{0.55\textwidth}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=\linewidth]{gyro_time.png}
-        \caption{Magnitude gia tốc góc theo thời gian. Peak biểu thị té ngã.}
-    \end{figure}
+    \begin{minted}[fontsize=\scriptsize,breaklines]{text}
+# Log Python xử lý luồng camera và điều phối cảnh báo
+I (10521) PYTHON_APP: Frame received from ESP32-CAM
+I (10535) PYTHON_APP: Preprocessing frame...
+I (10612) PYTHON_APP: Person detected, skeleton extracted
+I (10635) MQTT_CLIENT: Fall alert sent successfully
+    \end{minted}
+
+    %----------------- Column Kết luận -----------------%
     \column{0.45\textwidth}
     \begin{itemize}
-        \item \textbf{Bình thường:} Dao động nhỏ ($\lesssim 2$ dps).
-        \item \textbf{Sự kiện té ngã:} Xuất hiện đỉnh lớn (hàng chục–trăm dps).
-        \item \textbf{Hậu té:} Giảm nhanh về mức nền, trạng thái nằm yên.
+        \item \textbf{Kết luận:} 
+        \begin{itemize}
+            \item Module Python hoạt động ổn định.
+            \item Đồng bộ MQTT và kích hoạt cảnh báo thành công.
+        \end{itemize}
+        \item \textbf{Hình minh họa (tùy chọn):}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{python_runing_log.png}
+            \caption{Log Python xử lý luồng camera và cảnh báo.}
+        \end{figure}
     \end{itemize}
 \end{columns}
 \end{frame}
+
 % ----------------------------
-% Slide: Biến thiên Accel_Mag
+%---- MPU6050------------
+%----------------------------
 
 \begin{frame}[t,fragile]
-\frametitle{Biến thiên & Phân tích Accel\_Mag}
+\frametitle{Đánh giá dữ liệu cảm biến (MPU6050) – Accel\_Mag}
 \begin{columns}[T]
     %----------------- Column Hình -----------------%
     \column{0.55\textwidth}
@@ -221,34 +203,25 @@ I (159881) SIM4G_AT: SMS sent successfully.
         \includegraphics[width=\linewidth]{accel_time.png}
         \caption{Magnitude gia tốc (Accel\_Mag) theo thời gian. Xung lớn biểu thị té ngã.}
     \end{figure}
-    %----------------- Column Phân tích -----------------%
+
+    %----------------- Column Thông tin -----------------%
     \column{0.45\textwidth}
     \begin{itemize}
-        \item \textbf{Bình thường:} Gần 1\,g, dao động nhỏ.
-        \item \textbf{Sự kiện té ngã:} Xuất hiện xung hoặc thay đổi đột ngột, vượt hoặc giảm mạnh so với 1\,g.
-        \item \textbf{Hậu té:} Trở về gần 1\,g nhưng phân bố vector khác (tư thế nằm).
+        \item \textbf{Quy trình:} Giả lập té ngã, so sánh dữ liệu bình thường và té ngã.
+        \item \textbf{Kết quả:}
+        \begin{itemize}
+            \item \textbf{Gyro (dps):} Bình thường $\approx \pm 1.5$; té ngã tăng $\approx \pm 250$.
+            \item \textbf{Accel (g):} Bình thường $\approx 0.93$; té ngã $-2.0$ đến $+1.0$.
+        \end{itemize}
+        \item \textbf{Phân tích:}
+        \begin{itemize}
+            \item \textbf{Bình thường:} Gần 1\,g, dao động nhỏ.
+            \item \textbf{Sự kiện té ngã:} Xuất hiện xung hoặc thay đổi đột ngột.
+            \item \textbf{Hậu té:} Trở về gần 1\,g nhưng phân bố vector khác.
+        \end{itemize}
+        \item \textbf{Kết luận:} \textbf{Accel\_Mag} và \textbf{Gyro\_Mag} là chỉ báo hiệu quả để phát hiện té ngã.
     \end{itemize}
 \end{columns}
-\end{frame}
-% ----------------------------
-% Slide: Kiểm thử cảnh báo Asterisk AMI
-% ----------------------------
-\begin{frame}[fragile]
-\frametitle{Kiểm thử cảnh báo qua Asterisk AMI}
-\begin{itemize}
-    \item \textbf{Mục đích:} Kiểm chứng cuộc gọi và SMS tự động.
-    \item \textbf{Kết quả:}
-    \begin{itemize}
-        \item Kết nối thành công tới Asterisk AMI.
-        \item SMS tới \texttt{6001, 6002} thành công; \texttt{6003} lỗi.
-        \item Lỗi gọi điện không ảnh hưởng đến cảnh báo chính.
-    \end{itemize}
-\end{itemize}
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{ast_call_sms_test.png}
-    \caption{Thử nghiệm chức năng gọi và nhắn tin.}
-\end{figure}
 \end{frame}
 
 % ----------------------------
@@ -271,19 +244,18 @@ I (159881) SIM4G_AT: SMS sent successfully.
 \begin{frame}[t,fragile]
 \frametitle{Thông báo Telegram}
 \begin{columns}[T]
-    \column{0.5\textwidth}
+    \column{0.4\textwidth}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.75\linewidth]{telegram_fall_module1_send.png}
+        \includegraphics[width=0.70\linewidth]{telegram_fall_module1_send.png}
         \caption{Thông báo từ phần cứng.}
     \end{figure}
-    \column{0.5\textwidth}
+    \column{0.6\textwidth}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.75\linewidth]{telegram_python_fall_send.png}
+        \includegraphics[width=0.70\linewidth]{telegram_python_fall_send.png}
         \caption{Thông báo từ Python.}
     \end{figure}
-    \vspace{2mm}
     \begin{itemize}
         \item \textbf{Kết luận:} Kênh Telegram hoạt động ổn định, đa nguồn cảnh báo tăng độ tin cậy.
     \end{itemize}

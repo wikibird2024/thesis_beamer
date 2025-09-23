@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYGZsh{} Log Python xử lý luồng camera và điều phối cảnh báo
+I (10521) PYTHON\PYGZus{}APP: Frame received from ESP32\PYGZhy{}CAM
+I (10535) PYTHON\PYGZus{}APP: Preprocessing frame...
+I (10612) PYTHON\PYGZus{}APP: Person detected, skeleton extracted
+I (10635) MQTT\PYGZus{}CLIENT: Fall alert sent successfully
+\end{Verbatim}

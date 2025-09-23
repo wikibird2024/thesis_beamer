@@ -1,4 +1,26 @@
 \section{V-KẾT LUẬN}
-\begin{frame}{01_summary}
-  % TODO: Add content for 01_summary
+\begin{frame}{Kết luận & Hướng phát triển hệ thống FDAS}
+\begin{columns}[T]
+    %---------------- Column 1: Kết quả ----------------%
+    \column{0.5\textwidth}
+    \textbf{Kết quả chính}
+    \begin{itemize}
+        \item Xây dựng hệ thống IoT: ESP32, MPU6050, SIM4G--GPS, buzzer, LED, Python/FreeRTOS.
+        \item Thuật toán phát hiện té ngã: xử lý dữ liệu cảm biến + ảnh, sensor fusion, thời gian thực.
+        \item Cơ chế cảnh báo: buzzer, LED, SMS, MQTT--Telegram, SIP.
+        \item Thực nghiệm: độ chính xác cao, độ trễ thấp, hoạt động ổn định.
+        \item Tiềm năng ứng dụng: giám sát sức khỏe từ xa, đặc biệt người cao tuổi.
+    \end{itemize}
+
+    %---------------- Column 2: Hạn chế & hướng phát triển ----------------%
+    \column{0.5\textwidth}
+    \textbf{Hạn chế \& hướng phát triển}
+    \begin{itemize}
+        \item Quy mô thử nghiệm nhỏ; số lượng thiết bị và kênh còn hạn chế.
+        \item Thuật toán chưa hoàn toàn ổn định; thiết bị cồng kềnh.
+        \item Kết nối 4G và GPS cần cải thiện.
+        \item \textbf{Hướng phát triển}: mở rộng thử nghiệm, tối ưu thuật toán, thiết bị nhỏ gọn, hoàn thiện 4G/GPS, tích hợp nền tảng IoT.
+    \end{itemize}
+\end{columns}
 \end{frame}
+
