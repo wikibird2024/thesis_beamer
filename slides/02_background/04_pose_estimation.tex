@@ -70,35 +70,6 @@
     \end{alertblock}
 \end{frame}
 
-% Slide 5: Thuật toán Phát hiện Té ngã
-\begin{frame}{Thuật toán Phát hiện Té ngã}
-    \begin{columns}[T]
-        \column{0.5\textwidth}
-        \begin{block}{Đặc trưng Động học}
-            \begin{itemize}
-                \item \textbf{Vận tốc COM:} $\vec{v}_{\text{COM}} = \frac{\Delta \vec{p}}{\Delta t}$
-                \item \textbf{Gia tốc:} $a = \frac{\|\Delta \vec{v}\|}{\Delta t}$
-            \end{itemize}
-        \end{block}
-        \begin{block}{Đặc trưng Tư thế}
-            \begin{itemize}
-                \item \textbf{AR (Aspect Ratio):} Tăng khi người nằm ngang
-                \item \textbf{$\theta_{\text{body}}$:} Góc vai-hông
-                \item \textbf{$\Delta h_{\text{head}}$:} Giảm chiều cao đầu
-            \end{itemize}
-            \small{\textit{(AR, $\theta$, $\Delta h$ giúp xác định tư thế bất thường).}}
-        \end{block}
-
-        \column{0.5\textwidth}
-        \begin{alertblock}{Ba Giai đoạn Phát hiện}
-            \begin{enumerate}
-                \item \textbf{Sớm:} Tốc độ/gia tốc COM cao
-                \item \textbf{Xác nhận:} AR, $\theta_{\text{body}}$ chỉ nằm ngang
-                \item \textbf{Bất động:} Chuyển động $< M_{th}$
-            \end{enumerate}
-        \end{alertblock}
-    \end{columns}
-\end{frame}
 
 % Slide 5: Thuật toán Phát hiện Té ngã
 \begin{frame}{Thuật toán Phát hiện Té ngã}

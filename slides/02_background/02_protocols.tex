@@ -25,7 +25,7 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \begin{itemize}
 \item Thiết lập cuộc gọi VoIP từ hệ thống cảnh báo
 \item Kết nối với Asterisk PBX để gọi điện thoại
-\item Truyền âm thanh cảnh báo qua RTP
+\item Truyền âm thanh cảnh báo qua RTP(real time protocol)
 \end{itemize}
 
 \textbf{Các bước hoạt động:}
@@ -124,25 +124,6 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Tích Hợp SMS qua SIP}
-\begin{block}{Cấu hình}
-\begin{itemize}
-\item Kích hoạt \texttt{textsupport=yes} trong \texttt{sip.conf}
-\item Định nghĩa logic xử lý trong \texttt{extensions.conf}
-\end{itemize}
-\end{block}
-
-\begin{block}{Thực hiện}
-\begin{itemize}
-\item Sử dụng lệnh \texttt{MessageSend}
-\item Gửi tin nhắn SIP MESSAGE
-\item Tích hợp SMS gateway để chuyển tiếp sang mạng di động
-\end{itemize}
-\end{block}
-
-\end{frame}
-
 % MQTT
 \begin{frame}
 \frametitle{Giao thức MQTT - Tổng quan}
@@ -203,42 +184,35 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \end{frame}
 
+% =====================================================
+% Slide: Lợi ích và QoS MQTT
+% =====================================================
 \begin{frame}
-\frametitle{Lợi ích của mô hình Publish/Subscribe}
+\frametitle{Lợi ích và Quality of Service (QoS)}
 
-\begin{table}[h]
-\centering
-\begin{tabular}{ll}
-\toprule
-Tách rời & Lợi ích \\
-\midrule
-Không gian & Publisher và Subscriber không cần biết địa chỉ IP của nhau, giao tiếp qua broker \\
-Thời gian & Không yêu cầu kết nối đồng thời, hỗ trợ retained messages và clean session \\
-Đồng bộ & Truyền/nhận độc lập, giảm độ trễ và tăng hiệu suất \\
-\bottomrule
-\end{tabular}
-\end{table}
+\begin{columns}[T]
+    %---------------- Column 1: Lợi ích ----------------%
+    \column{0.48\textwidth}
+    \textbf{Lợi ích của mô hình Publish/Subscribe}
+    \begin{itemize}
+        \item Không gian: Publisher và Subscriber không cần biết địa chỉ IP của nhau, giao tiếp qua broker
+        \item Thời gian: Không yêu cầu kết nối đồng thời, hỗ trợ retained messages và clean session
+        \item Đồng bộ: Truyền/nhận độc lập, giảm độ trễ và tăng hiệu suất
+    \end{itemize}
+
+    %---------------- Column 2: QoS ----------------%
+    \column{0.48\textwidth}
+    \textbf{Quality of Service (QoS)}
+    \begin{itemize}
+        \item QoS 0: "Fire and forget", nhanh nhưng có thể mất message – Dữ liệu cảm biến thường xuyên
+        \item QoS 1: Đảm bảo gửi ít nhất một lần, có thể trùng lặp – Cân bằng độ tin cậy và hiệu suất
+        \item QoS 2: Đảm bảo gửi đúng một lần, tin cậy nhất nhưng chậm – Dữ liệu quan trọng
+    \end{itemize}
+
+\end{columns}
 
 \end{frame}
-
-\begin{frame}
-\frametitle{Quality of Service (QoS)}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{lll}
-\toprule
-Mức & Đặc điểm & Ứng dụng \\
-\midrule
-QoS 0 & "Fire and forget", nhanh nhưng có thể mất message & Dữ liệu cảm biến thường xuyên \\
-QoS 1 & Đảm bảo gửi ít nhất một lần, có thể trùng lặp & Cân bằng độ tin cậy và hiệu suất \\
-QoS 2 & Đảm bảo gửi đúng một lần, tin cậy nhất nhưng chậm & Dữ liệu quan trọng \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\end{frame}
-
+%---------------
 \begin{frame}
 \frametitle{Bảo mật trong MQTT}
 
@@ -284,37 +258,38 @@ QoS 2 & Đảm bảo gửi đúng một lần, tin cậy nhất nhưng chậm & 
 
 \end{frame}
 
+%--------------
+
+% =====================================================
+% Slide: MQTT trong Hệ thống IoT
+% =====================================================
 \begin{frame}
 \frametitle{MQTT trong Hệ thống IoT và Cảnh báo}
 
-\begin{block}{Ứng dụng trong IoT}
-\begin{itemize}
-\item Thu thập dữ liệu sensors, điều khiển thiết bị
-\item Giám sát hệ thống, gửi thông báo
-\end{itemize}
-\end{block}
+\begin{columns}[T]
+    %---------------- Column 1: Ứng dụng ----------------%
+    \column{0.5\textwidth}
+    \textbf{Ứng dụng trong IoT}
+    \begin{itemize}
+        \item Thu thập dữ liệu sensors, điều khiển thiết bị
+        \item Giám sát hệ thống, gửi thông báo
+    \end{itemize}
 
-\begin{block}{Lợi ích cho hệ thống cảnh báo}
-\begin{itemize}
-\item Kết nối đáng tin cậy, truyền real-time
-\item Hỗ trợ offline messaging, scale tốt
-\end{itemize}
-\end{block}
+    \textbf{Ví dụ topic:} \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}
+
+    %---------------- Column 2: Lợi ích ----------------%
+    \column{0.5\textwidth}
+    \textbf{Lợi ích cho hệ thống cảnh báo}
+    \begin{itemize}
+        \item Kết nối đáng tin cậy, truyền real-time
+        \item Hỗ trợ offline messaging, scale tốt
+        \item Nhẹ, tiết kiệm băng thông
+        \item Hỗ trợ 3 mức QoS đảm bảo độ tin cậy
+    \end{itemize}
+\end{columns}
 
 \end{frame}
-
-\begin{frame}
-\frametitle{Giao thức MQTT - Truyền Dữ Liệu Cảm Biến}
-
-\textbf{Đặc điểm:}
-\begin{itemize}
-\item Nhẹ, tiết kiệm băng thông cho IoT
-\item Mô hình Publish/Subscribe qua Broker
-\item Hỗ trợ 3 mức QoS đảm bảo độ tin cậy
-\end{itemize}
-
-\textbf{Ví dụ topic:} \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}
-\end{frame}
+%---------------
 
 % JSON
 \begin{frame}
@@ -352,94 +327,60 @@ QoS 2 & Đảm bảo gửi đúng một lần, tin cậy nhất nhưng chậm & 
 \end{exampleblock}
 \end{frame}
 
+% =====================================================
+% Slide: Ứng dụng và Thư viện JSON trong IoT
+% =====================================================
 \begin{frame}
-\frametitle{Ứng dụng JSON trong IoT}
+\frametitle{JSON trong Hệ thống IoT}
 
-\begin{block}{Lưu cấu hình và Trao đổi dữ liệu}
+\textbf{Ứng dụng:}
 \begin{itemize}
-\item Cấu hình thiết bị (Wi-Fi, MQTT), thông số cảm biến
-\item Định dạng payload cho MQTT, API, gửi cảnh báo
+    \item Lưu cấu hình thiết bị (Wi-Fi, MQTT), thông số cảm biến
+    \item Trao đổi dữ liệu: payload cho MQTT, API, gửi cảnh báo
 \end{itemize}
-\end{block}
+
+\vspace{0.3cm}
+\textbf{Một số thư viện JSON cho nhúng:}
+\begin{itemize}
+    \item \texttt{json-c}: Phân tích cú pháp, tạo JSON cho C/C++
+    \item \texttt{FirebaseJson}: Dễ dùng, hỗ trợ JSON phức tạp cho IoT
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Ví dụ: Cấu hình ESP32 và Payload MQTT}
-\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{json}
-{
-  "network": {
-    "ssid": "IoT_Network",
-    "mqtt_broker": "192.168.1.100"
-  },
-  "alert": {
-    "fall_detected": true,
-    "timestamp": "2025-09-17T12:00:00"
-  }
-}
-\end{minted}
-\end{frame}
 
+% =====================================================
+% Slide: Luồng tích hợp JSON/MQTT/SIP
+% =====================================================
 \begin{frame}
-\frametitle{Một số Thư viện JSON cho hệ thống nhúng}
+\frametitle{Luồng tích hợp dữ liệu}
 
-\begin{block}{json-c và FirebaseJson}
-\begin{itemize}
-\item json-c: Phân tích cú pháp, tạo JSON cho C/C++
-\item FirebaseJson: Dễ dùng, hỗ trợ JSON phức tạp cho IoT
-\end{itemize}
-\end{block}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{JSON trong MQTT và SIP}
-
-\begin{block}{Tích hợp}
-\begin{itemize}
-\item Payload JSON trong MQTT topic \texttt{sensor/data}
-\item Dữ liệu JSON trong SIP MESSAGE hoặc custom headers
-\item Đảm bảo tương tác giữa các giao thức IoT
-\end{itemize}
-\end{block}
-
-\end{frame}
-
-% Tích hợp
-\begin{frame}
-\frametitle{JSON và Tích Hợp Hệ Thống}
-
-\textbf{Vai trò JSON:}
-\begin{itemize}
-\item Định dạng nhẹ, tương thích, tối ưu payload
-\end{itemize}
-
-\textbf{Luồng tích hợp:}
-\begin{figure}[h]
 \centering
 \begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2.5em, align=center, fill=blue!10},
+    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2cm, align=center},
     arrow/.style={-Stealth, thick, shorten >=1pt, shorten <=1pt},
-    node distance=1.5cm
+    node distance=1cm
 ]
-    \node[box] (sensor) {ESP32};
-    \node[box, right=of sensor] (mqtt) {MQTT Broker};
-    \node[box, right=of mqtt] (app) {Ứng dụng};
-    \node[box, right=of app] (sip) {SIP Server};
-    \node[box, right=of sip] (phone) {Điện thoại};
+    % Các node
+    \node[box] (sensor) {\footnotesize ESP32};
+    \node[box, right=of sensor] (mqtt) {\footnotesize MQTT Broker};
+    \node[box, right=of mqtt] (app) {\footnotesize Ứng dụng};
+    \node[box, right=of app] (sip) {\footnotesize SIP Server};
+    \node[box, right=of sip] (phone) {\footnotesize Điện thoại};
 
-    \draw[arrow] (sensor) -- node[above, font=\tiny] {JSON Payload} (mqtt);
-    \draw[arrow] (mqtt) -- node[above, font=\tiny] {Publish} (app);
-    \draw[arrow] (app) -- node[above, font=\tiny] {SIP INVITE} (sip);
-    \draw[arrow] (sip) -- node[above, font=\tiny] {RTP} (phone);
+    % Các mũi tên
+    \draw[arrow] (sensor) -- node[above, font=\scriptsize] {JSON Payload} (mqtt);
+    \draw[arrow] (mqtt) -- node[above, font=\scriptsize] {Publish} (app);
+    \draw[arrow] (app) -- node[above, font=\scriptsize] {SIP INVITE} (sip);
+    \draw[arrow] (sip) -- node[above, font=\scriptsize] {RTP} (phone);
 \end{tikzpicture}
+
 \caption{Luồng dữ liệu từ cảm biến đến cảnh báo}
-\end{figure}
 \end{frame}
 
 % Kết luận
 \begin{frame}
-\frametitle{Kết Luận và Tối Ưu Hóa}
+\frametitle{Tối Ưu Hóa và kết hợp các phương thức}
 
 \textbf{Lợi ích kết hợp:}
 \begin{itemize}

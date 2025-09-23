@@ -1,26 +1,44 @@
-\section{V-KẾT LUẬN}
-\begin{frame}{Kết luận & Hướng phát triển hệ thống FDAS}
+
+% ----------------------------
+% Slide 1: Kết luận chi tiết & hướng phát triển
+% ----------------------------
+\begin{frame}{Kết quả chung \& Hướng phát triển}
 \begin{columns}[T]
-    %---------------- Column 1: Kết quả ----------------%
+    % Column 1: Kết quả
     \column{0.5\textwidth}
     \textbf{Kết quả chính}
     \begin{itemize}
-        \item Xây dựng hệ thống IoT: ESP32, MPU6050, SIM4G--GPS, buzzer, LED, Python/FreeRTOS.
-        \item Thuật toán phát hiện té ngã: xử lý dữ liệu cảm biến + ảnh, sensor fusion, thời gian thực.
-        \item Cơ chế cảnh báo: buzzer, LED, SMS, MQTT--Telegram, SIP.
-        \item Thực nghiệm: độ chính xác cao, độ trễ thấp, hoạt động ổn định.
-        \item Tiềm năng ứng dụng: giám sát sức khỏe từ xa, đặc biệt người cao tuổi.
+        \item Hệ thống IoT: ESP32, MPU6050, SIM4G--GPS, buzzer, LED, Python/FreeRTOS.
+        \item Thuật toán phát hiện té ngã: sensor fusion dữ liệu cảm biến + ảnh, thời gian thực.
+        \item Cơ chế cảnh báo đa dạng: buzzer, LED, SMS, MQTT--Telegram, SIP.
+        \item Thực nghiệm: độ chính xác tương đối, độ trễ thấp, hoạt động ổn định.
+        \item Tiềm năng ứng dụng: giám sát sức khỏe từ xa
     \end{itemize}
 
-    %---------------- Column 2: Hạn chế & hướng phát triển ----------------%
+    % Column 2: Hạn chế & hướng phát triển
     \column{0.5\textwidth}
     \textbf{Hạn chế \& hướng phát triển}
     \begin{itemize}
-        \item Quy mô thử nghiệm nhỏ; số lượng thiết bị và kênh còn hạn chế.
-        \item Thuật toán chưa hoàn toàn ổn định; thiết bị cồng kềnh.
-        \item Kết nối 4G và GPS cần cải thiện.
-        \item \textbf{Hướng phát triển}: mở rộng thử nghiệm, tối ưu thuật toán, thiết bị nhỏ gọn, hoàn thiện 4G/GPS, tích hợp nền tảng IoT.
+        \item Quy mô thử nghiệm hạn chế; số lượng thiết bị & kênh truyền còn nhỏ.
+        \item Thuật toán chưa hoàn toàn ổn định; thiết bị còn cồng kềnh.
+        \item Kết nối 4G/GPS chưa tối ưu và tin cậy
+        \item \textbf{Hướng phát triển}: mở rộng thử nghiệm, cải tiến thuật toán, thiết bị nhỏ gọn, hoàn thiện kết nối 4G/GPS, tích hợp nền tảng IoT.
     \end{itemize}
 \end{columns}
 \end{frame}
 
+% ----------------------------
+% Slide 2: Kết luận chung + cảm ơn
+% ----------------------------
+\begin{frame}{Kết luận chung \& Cảm ơn}
+\begin{itemize}
+    \item FDAS nguyên mẫu hoạt động thành công: phát hiện té ngã & gửi cảnh báo thời gian thực.
+    \item Độ trễ đầu-cuối < 5 giây; hệ thống ổn định, hiệu năng đáp ứng yêu cầu.
+    \item Nghiên cứu mang lại kiến thức & kinh nghiệm thực tiễn về IoT, nhúng, sensor fusion, hệ thống phân tán.
+    \item Xác định các thách thức thực tế: tối ưu phần cứng, nâng cao độ chính xác thuật toán, ổn định truyền thông.
+\end{itemize}
+
+\vspace{0.5cm}
+\centering
+\textbf{Cảm ơn quý thầy/cô và các bạn đã chú ý theo dõi}
+\end{frame}
