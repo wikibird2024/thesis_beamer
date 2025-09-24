@@ -8,9 +8,9 @@
 \end{center}
 
 \begin{itemize}
-\item \textbf{SIP}: Truyền tải âm thanh/video cảnh báo thời gian thực
-\item \textbf{MQTT}: Vận chuyển dữ liệu cảm biến từ thiết bị IoT
-\item \textbf{JSON}: Định dạng cấu trúc dữ liệu trao đổi
+\item \alert{SIP}: Truyền tải âm thanh/video cảnh báo thời gian thực
+\item \alert{MQTT}: Vận chuyển dữ liệu cảm biến từ thiết bị IoT
+\item \alert{JSON}: Định dạng cấu trúc dữ liệu trao đổi
 \end{itemize}
 
 \begin{block}{Mục tiêu}
@@ -195,9 +195,9 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
     \column{0.48\textwidth}
     \textbf{Lợi ích của mô hình Publish/Subscribe}
     \begin{itemize}
-        \item Không gian: Publisher và Subscriber không cần biết địa chỉ IP của nhau, giao tiếp qua broker
-        \item Thời gian: Không yêu cầu kết nối đồng thời, hỗ trợ retained messages và clean session
-        \item Đồng bộ: Truyền/nhận độc lập, giảm độ trễ và tăng hiệu suất
+        \item \textcolor{blue}{Không gian}: Publisher và Subscriber không cần biết địa chỉ IP của nhau, giao tiếp qua broker
+        \item \textcolor{blue}{Thời gian}: Không yêu cầu kết nối đồng thời, hỗ trợ retained messages và clean session
+        \item \textcolor{blue}{Đồng bộ}: Truyền/nhận độc lập, giảm độ trễ và tăng hiệu suất
     \end{itemize}
 
     %---------------- Column 2: QoS ----------------%
