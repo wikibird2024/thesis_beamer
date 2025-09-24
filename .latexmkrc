@@ -3,8 +3,11 @@
 # Latexmk config (XeLaTeX + Biber + Minted)
 # ===============================
 
-# Engine: dùng XeLaTeX với minted (cần -shell-escape)
+# Engine: dùng XeLaTeX với minted (bắt buộc -shell-escape)
 $pdflatex = 'xelatex -shell-escape -interaction=nonstopmode %O %S';
+
+# Buộc latexmk tiếp tục build dù gặp lỗi nhỏ (để -pvc không dừng)
+$force_mode = 1;
 
 # Bibliography: dùng biber thay cho bibtex
 $biber = 'biber %O %B';
@@ -26,3 +29,6 @@ if (system("command -v zathura >/dev/null 2>&1") == 0) {
 # Tùy chọn khác
 $preview_continuous_mode = 1;         # Giữ viewer khi rebuild (-pvc)
 $cleanup_includes_cusdep_generated = 1; # Clean cả file phụ từ biber/minted
+
+# SyncTeX (tùy chọn, nếu muốn forward/inverse search)
+#$pdflatex = 'xelatex -synctex=1 -shell-escape -interaction=nonstopmode %O %S';

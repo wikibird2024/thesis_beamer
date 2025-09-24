@@ -1,24 +1,18 @@
+
 \subsection{Triển khai thực hiện phần mềm}
-\begin{frame}
-\frametitle{Tổng quan Triển khai Phần mềm toàn bộ Hệ thống}
 
-\begin{table}[htbp]
-\centering
-\small
-\begin{tabular}{|l|l|l|l|}
-\hline
+\begin{frame}{Tổng quan Triển khai Phần mềm toàn bộ Hệ thống}
+\small % font size nhỏ vừa đủ
+
+\begin{tabular}{l l l l}
+\toprule
 \textbf{Thành phần} & \textbf{Nền tảng} & \textbf{Công nghệ chính} & \textbf{Chức năng} \\
-\hline
+\midrule
 \textbf{Module I} & ESP32 & ESP-IDF, C/C++ & Cảm biến đeo, phát hiện ngã \\
-\hline
 \textbf{Module II} & ESP32 & ESP-IDF, OpenCV & Camera giám sát \\
-\hline
 \textbf{Server} & Linux & Python, MQTT & Xử lý trung tâm, AI \\
-\hline
 \textbf{Asterisk} & Linux Mint 21 & PJSIP, AMI & Hệ thống VoIP \\
-\hline
+\bottomrule
 \end{tabular}
-\end{table}
-
 
 \end{frame}

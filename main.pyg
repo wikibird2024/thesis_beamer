@@ -1,5 +1,0 @@
-# Log Python xử lý luồng camera và điều phối cảnh báo
-I (10521) PYTHON_APP: Frame received from ESP32-CAM
-I (10535) PYTHON_APP: Preprocessing frame...
-I (10612) PYTHON_APP: Person detected, skeleton extracted
-I (10635) MQTT_CLIENT: Fall alert sent successfully
