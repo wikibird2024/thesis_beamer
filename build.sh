@@ -1,68 +1,65 @@
 
 #!/bin/bash
+set -euo pipefail
 
 # ===============================
 # Cấu hình
 # ===============================
 MAIN_FILE="main.tex"
 PDF_FILE="${MAIN_FILE%.*}.pdf"
-
-# Các file tạm cần xóa
+ENGINE="xelatex"
 TMP_FILES=("*.aux" "*.log" "*.out" "*.toc" "*.bbl" "*.bcf" "*.blg" "*.run.xml" "*.nav" "*.snm" "*.synctex.gz")
 
 # ===============================
-# Dọn file tạm trước build
+# Hàm tiện ích
 # ===============================
-echo "🧹 Xóa các file tạm..."
-for f in "${TMP_FILES[@]}"; do
-    rm -f $f
-done
+clean_temp() {
+    echo "🧹 Xóa các file tạm..."
+    for f in "${TMP_FILES[@]}"; do rm -f $f; done
+}
+
+compile() {
+    $ENGINE -shell-escape -interaction=nonstopmode "$MAIN_FILE"
+}
 
 # ===============================
-# Build XeLaTeX + Biber
+# Build
 # ===============================
-echo "🚀 Bắt đầu build LaTeX với XeLaTeX..."
+clean_temp
+echo "🚀 Biên dịch với $ENGINE..."
 
-# Build lần đầu bằng XeLaTeX
-xelatex -shell-escape -interaction=nonstopmode "$MAIN_FILE" &
-pid1=$!
+compile
 
-# Chạy Biber song song nếu file .bcf tồn tại (có bib)
 if [ -f "${MAIN_FILE%.*}.bcf" ]; then
-    biber "${MAIN_FILE%.*}" &
-    pid2=$!
-    wait $pid2
+    echo "📚 Chạy biber..."
+    biber "${MAIN_FILE%.*}"
+    compile
 fi
 
-wait $pid1
-
-# Build lại 2 lần để cập nhật cross-reference
-xelatex -shell-escape -interaction=nonstopmode "$MAIN_FILE"
-xelatex -shell-escape -interaction=nonstopmode "$MAIN_FILE"
+# chạy thêm 1 lần để ổn định cross-ref
+compile
 
 # ===============================
-# Kiểm tra PDF
+# Kiểm tra kết quả
 # ===============================
 if [ -f "$PDF_FILE" ]; then
     echo "✅ Biên dịch hoàn tất: $PDF_FILE"
 else
-    echo "❌ Biên dịch thất bại! Kiểm tra main.log"
+    echo "❌ Biên dịch thất bại!"
     exit 1
 fi
 
-# ===============================
-# Dọn file tạm sau build
-# ===============================
-for f in "${TMP_FILES[@]}"; do
-    rm -f $f
-done
+clean_temp
 
 # ===============================
 # Mở PDF
 # ===============================
-if command -v zathura >/dev/null 2>&1; then
-    zathura "$PDF_FILE" &>/dev/null &
-    echo "📖 Mở PDF bằng Zathura..."
-else
-    echo "⚠️ Zathura không có trong PATH. Mở $PDF_FILE thủ công."
-fi
+for viewer in zathura okular evince xdg-open; do
+    if command -v $viewer >/dev/null 2>&1; then
+        $viewer "$PDF_FILE" &>/dev/null &
+        echo "📖 Mở PDF bằng $viewer..."
+        exit 0
+    fi
+done
+
+echo "⚠️ Không tìm thấy trình đọc PDF phù hợp."
