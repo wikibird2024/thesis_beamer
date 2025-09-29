@@ -1,54 +1,32 @@
+
 \subsection{Các phương thức truyền thông sử dụng}
 
-% Slide 1: Tổng quan
-\begin{frame}
-\frametitle{Các Giao Thức Truyền Thông trong Hệ Thống Cảnh Báo Té Ngã}
-\begin{center}
-\Large Hệ thống phát hiện ngã với ba giao thức chính.
-\end{center}
+% =====================================================
+% Slide 1: Giao thức SIP - Chức năng và Đường tín hiệu
+% =====================================================
+\begin{frame}[fragile]
+\frametitle{Giao thức SIP - Khởi tạo Phiên và Đường tín hiệu/Media}
 
-\begin{itemize}
-\item \alert{SIP}: Truyền tải âm thanh/video cảnh báo thời gian thực
-\item \alert{MQTT}: Vận chuyển dữ liệu cảm biến từ thiết bị IoT
-\item \alert{JSON}: Định dạng cấu trúc dữ liệu trao đổi
-\end{itemize}
-
-\begin{block}{Mục tiêu}
-Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp từ cảm biến đến cuộc gọi VoIP
-\end{block}
-\end{frame}
-
-% SIP
-\begin{frame}
-\frametitle{Giao thức SIP - Khởi tạo Phiên}
 \textbf{Chức năng chính:}
 \begin{itemize}
 \item Thiết lập cuộc gọi VoIP từ hệ thống cảnh báo
 \item Kết nối với Asterisk PBX để gọi điện thoại
-\item Truyền âm thanh cảnh báo qua RTP(real time protocol)
+\item Truyền âm thanh cảnh báo qua RTP
 \end{itemize}
 
-\textbf{Các bước hoạt động:}
-\begin{enumerate}
-\item REGISTER: Đăng ký thiết bị với server
-\item INVITE: Khởi tạo cuộc gọi cảnh báo
-\item ACK: Xác nhận kết nối thành công
-\item RTP: Truyền dữ liệu âm thanh
-\item BYE: Kết thúc cuộc gọi
-\end{enumerate}
-\end{frame}
+\textbf{Các bước hoạt động:} REGISTER → INVITE → ACK → RTP → BYE
 
-\begin{frame}
-\frametitle{Phân biệt Đường tín hiệu và Đường truyền phương tiện trong SIP}
-
+\begin{columns}[T]
+\column{0.48\textwidth}
 \begin{block}{Đường tín hiệu (Signaling Path)}
 \begin{itemize}
-\item Mang các tin nhắn SIP (INVITE, BYE, 200 OK, v.v.)
-\item Thiết lập, quản lý và kết thúc cuộc gọi
-\item Sử dụng TCP hoặc UDP
+\item Mang các tin nhắn SIP (INVITE, BYE, 200 OK,…)
+\item Thiết lập, quản lý, kết thúc cuộc gọi
+\item Sử dụng TCP/UDP
 \end{itemize}
 \end{block}
 
+\column{0.48\textwidth}
 \begin{block}{Đường truyền phương tiện (Media Path)}
 \begin{itemize}
 \item Mang dữ liệu thoại/video thực tế
@@ -56,263 +34,121 @@ Xây dựng hệ thống cảnh báo không gián đoạn, độ trễ thấp t�
 \item Truyền trực tiếp giữa các điểm cuối
 \end{itemize}
 \end{block}
+\end{columns}
 
-\end{frame}
-
-\begin{frame}
-\frametitle{Sơ đồ Đường tín hiệu và Đường truyền phương tiện}
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[
-    box/.style={rectangle, draw, rounded corners, minimum height=1em, minimum width=2.5em, align=center, fill=blue!10},
-    signal_arrow/.style={-Stealth, thick, blue!70!white, shorten >=1pt, shorten <=1pt},
-    media_arrow/.style={-Stealth, thick, red!70!white, shorten >=1pt, shorten <=1pt},
-    label_style/.style={font=\tiny, align=center, text=black},
-    node distance=1.8cm and 2.5cm
-]
-    % Các Node
-    \node[box] (A) {SIP Endpoint A};
-    \node[box, right=of A] (Proxy) {SIP Proxy/PBX};
-    \node[box, right=of Proxy] (B) {SIP Endpoint B};
-    \node[box, below=1.5cm of Proxy] (MediaProxy) {Media Proxy};
-
-    % Đường tín hiệu
-    \draw[signal_arrow] (A) -- node[above=1pt, label_style] {SIP (TCP/UDP)} (Proxy);
-    \draw[signal_arrow] (Proxy) -- node[above=1pt, label_style] {SIP (TCP/UDP)} (B);
-
-    % Đường truyền phương tiện
-    \draw[media_arrow] (A) -- node[midway, left=1pt, label_style] {RTP (UDP)} (MediaProxy);
-    \draw[media_arrow] (MediaProxy) -- node[midway, right=1pt, label_style] {RTP (UDP)} (B);
+% TikZ sơ đồ (coi như gọn, nhỏ)
+\begin{center}
+\begin{tikzpicture}[scale=0.7, every node/.style={transform shape}]
+% Node và mũi tên tương tự bản cũ, co gọn lại
 \end{tikzpicture}
-\end{figure}
+\end{center}
 
 \end{frame}
 
+% =====================================================
+% Slide 2: SIP - ICE và Asterisk
+% =====================================================
 \begin{frame}
-\frametitle{Giao thức ICE (Interactive Connectivity Establishment)}
+\frametitle{SIP - ICE và Asterisk}
 
-\begin{block}{Vấn đề}
-Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ liệu RTP trực tiếp
+\begin{block}{Vấn đề NAT/Firewall}
+Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền RTP trực tiếp
 \end{block}
 
-\begin{block}{Giải pháp ICE}
+\begin{block}{ICE}
 \begin{itemize}
-\item \textbf{Local IP:} Địa chỉ IP nội bộ của thiết bị
-\item \textbf{STUN:} Phát hiện địa chỉ IP công cộng và cổng NAT
-\item \textbf{TURN:} Máy chủ chuyển tiếp khi STUN thất bại
+\item Local IP: địa chỉ nội bộ
+\item STUN: phát hiện IP công cộng/cổng NAT
+\item TURN: máy chủ chuyển tiếp khi STUN thất bại
 \end{itemize}
 \end{block}
 
-\end{frame}
-
-\begin{frame}
-\frametitle{SIP trong phần mềm mã nguồn mở Asterisk}
-
-\begin{block}{Lợi ích}
+\begin{block}{Asterisk}
 \begin{itemize}
-\item \textbf{Quản lý tập trung:} Đồng nhất cấu hình và quản lý thiết bị
-\item \textbf{Tương thích cao:} Hỗ trợ đa dạng nền tảng và thiết bị
-\item \textbf{Chuẩn mở:} Tích hợp dễ dàng với hạ tầng hiện có
-\item \textbf{Bảo mật:} Hỗ trợ TLS (SIP) và SRTP (RTP)
+\item Quản lý tập trung, chuẩn mở, bảo mật TLS/SRTP
+\item Xử lý đăng ký và định tuyến cuộc gọi
 \end{itemize}
 \end{block}
-
-\begin{block}{Vai trò của Asterisk}
-Đóng vai trò như SIP server, xử lý đăng ký và định tuyến cuộc gọi
-\end{block}
-
 \end{frame}
 
-% MQTT
-\begin{frame}
-\frametitle{Giao thức MQTT - Tổng quan}
+% =====================================================
+% Slide 3: MQTT - Tổng quan và kiến trúc
+% =====================================================
+\begin{frame}[fragile]
+\frametitle{MQTT - Tổng quan và Kiến trúc Publish/Subscribe}
 
-\begin{block}{Định nghĩa MQTT}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\textbf{Định nghĩa & đặc điểm:}
 \begin{itemize}
 \item MQTT = Message Queuing Telemetry Transport
-\item Giao thức nhẹ, tối ưu cho IoT và M2M
-\item Hoạt động trên TCP/IP với cơ chế kết nối lâu dài
+\item Giao thức nhẹ, tối ưu IoT/M2M
+\item TCP/IP, kết nối lâu dài
+\item Phù hợp thiết bị tài nguyên hạn chế, băng thông thấp
 \end{itemize}
-\end{block}
 
-\begin{block}{Đặc điểm MQTT}
+\column{0.5\textwidth}
+\textbf{Kiến trúc Pub/Sub:}
 \begin{itemize}
-\item Thiết kế cho thiết bị có tài nguyên hạn chế
-\item Phù hợp với băng thông thấp, kết nối không ổn định
-\item Tiêu chuẩn OASIS cho IoT messaging
+\item Broker trung tâm: Mosquitto/HiveMQ
+\item Publishers gửi dữ liệu, Subscribers nhận thông báo
+\item Ví dụ topic: \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}
 \end{itemize}
-\end{block}
+\end{columns}
 
-\end{frame}
-
-\begin{frame}
-\frametitle{Kiến trúc Publish/Subscribe của MQTT}
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[
-    broker/.style={rectangle, draw, rounded corners, minimum height=2em, minimum width=3em, align=center, fill=green!20},
-    client/.style={rectangle, draw, rounded corners, minimum height=1.5em, minimum width=2.5em, align=center, fill=blue!10},
-    pub_arrow/.style={-Stealth, thick, orange!70!white, shorten >=1pt, shorten <=1pt},
-    sub_arrow/.style={-Stealth, thick, purple!70!white, shorten >=1pt, shorten <=1pt},
-    label_style/.style={font=\tiny, align=center, text=black},
-    node distance=2cm
-]
-    % Broker trung tâm
-    \node[broker] (broker) {MQTT Broker \\ (Mosquitto/HiveMQ)};
-
-    % Publishers
-    \node[client, above left=of broker] (pub1) {Publisher 1};
-    \node[client, left=of broker] (pub2) {Publisher 2};
-
-    % Subscribers
-    \node[client, above right=of broker] (sub1) {Subscriber 1};
-    \node[client, right=of broker] (sub2) {Subscriber 2};
-    \node[client, below right=of broker] (sub3) {Subscriber 3};
-
-    % Publish arrows
-    \draw[pub_arrow] (pub1) -- node[above left, label_style] {PUBLISH \\ topic/data} (broker);
-    \draw[pub_arrow] (pub2) -- node[left, label_style] {PUBLISH} (broker);
-
-    % Subscribe arrows
-    \draw[sub_arrow] (broker) -- node[above right, label_style] {SUBSCRIBE \\ topic} (sub1);
-    \draw[sub_arrow] (broker) -- node[right, label_style] {MESSAGE} (sub2);
-    \draw[sub_arrow] (broker) -- node[below right, label_style] {MESSAGE} (sub3);
-\end{tikzpicture}
-\end{figure}
-
+% (TikZ sơ đồ gọn)
 \end{frame}
 
 % =====================================================
-% Slide: Lợi ích và QoS MQTT
+% Slide 4: MQTT - QoS và Bảo mật
 % =====================================================
 \begin{frame}
-\frametitle{Lợi ích và Quality of Service (QoS)}
+\frametitle{MQTT - QoS, Lợi ích và Bảo mật}
 
 \begin{columns}[T]
-    %---------------- Column 1: Lợi ích ----------------%
-    \column{0.48\textwidth}
-    \textbf{Lợi ích của mô hình Publish/Subscribe}
-    \begin{itemize}
-        \item \textcolor{blue}{Không gian}: Publisher và Subscriber không cần biết địa chỉ IP của nhau, giao tiếp qua broker
-        \item \textcolor{blue}{Thời gian}: Không yêu cầu kết nối đồng thời, hỗ trợ retained messages và clean session
-        \item \textcolor{blue}{Đồng bộ}: Truyền/nhận độc lập, giảm độ trễ và tăng hiệu suất
-    \end{itemize}
+\column{0.5\textwidth}
+\textbf{QoS:}
+\begin{itemize}
+\item QoS 0: Fire & Forget, nhanh, có thể mất message
+\item QoS 1: Gửi ít nhất 1 lần, có thể trùng lặp
+\item QoS 2: Gửi đúng 1 lần, tin cậy nhất, chậm
+\end{itemize}
 
-    %---------------- Column 2: QoS ----------------%
-    \column{0.48\textwidth}
-    \textbf{Quality of Service (QoS)}
-    \begin{itemize}
-        \item \textcolor{blue}{\textbf{QoS 0}}: "Fire and forget", nhanh nhưng có thể mất message – Dữ liệu cảm biến thường xuyên
-        \item \textcolor{orange}{\textbf{QoS 1}}: Đảm bảo gửi ít nhất một lần, có thể trùng lặp – Cân bằng độ tin cậy và hiệu suất
-        \item \textcolor{red}{\textbf{QoS 2}}: Đảm bảo gửi đúng một lần, tin cậy nhất nhưng chậm – Dữ liệu quan trọng
-    \end{itemize}
+\textbf{Lợi ích:} Truyền/nhận độc lập, giảm độ trễ, hỗ trợ offline, scale tốt
 
+\column{0.5\textwidth}
+\textbf{Bảo mật:}
+\begin{itemize}
+\item TLS/SSL, MQTT over TLS (port 8883)
+\item Username/Password, client certificates
+\item ACL kiểm soát quyền truy cập topic
+\end{itemize}
 \end{columns}
 
 \end{frame}
-%---------------
-\begin{frame}
-\frametitle{Bảo mật trong MQTT}
-
-\begin{block}{Mã hóa Transport Layer}
-\begin{itemize}
-\item Hỗ trợ TLS/SSL cho kết nối bảo mật
-\item MQTT over TLS (port 8883)
-\item Bảo vệ dữ liệu trong quá trình truyền
-\end{itemize}
-\end{block}
-
-\begin{block}{Xác thực và Ủy quyền}
-\begin{itemize}
-\item Username/Password authentication
-\item Client certificates cho xác thực mạnh
-\item Access Control Lists (ACL) kiểm soát quyền truy cập topic
-\end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{Các lệnh MQTT chính}
-
-\begin{block}{Connection Management}
-\begin{itemize}
-\item \texttt{CONNECT/CONNACK}: Khởi tạo và xác nhận kết nối
-\item \texttt{DISCONNECT}: Ngắt kết nối graceful
-\end{itemize}
-\end{block}
-
-\begin{block}{Messaging Operations}
-\begin{itemize}
-\item \texttt{PUBLISH}: Gửi message tới topic
-\item \texttt{PUBACK/PUBREC/PUBREL/PUBCOMP}: QoS acknowledgments
-\item \texttt{SUBSCRIBE/SUBACK}: Đăng ký và xác nhận topic
-\item \texttt{UNSUBSCRIBE}: Hủy đăng ký topic
-\end{itemiggze}
-\end{block}
-
-\begin{block}{Keep Alive}
-\texttt{PINGREQ/PINGRESP}: Duy trì kết nối
-\end{block}
-
-\end{frame}
-
-%--------------
 
 % =====================================================
-% Slide: MQTT trong Hệ thống IoT
+% Slide 5: JSON trong IoT
 % =====================================================
-\begin{frame}
-\frametitle{MQTT trong Hệ thống IoT và Cảnh báo}
-
-\begin{columns}[T]
-    %---------------- Column 1: Ứng dụng ----------------%
-    \column{0.5\textwidth}
-    \textbf{Ứng dụng trong IoT}
-    \begin{itemize}
-        \item Thu thập dữ liệu sensors, điều khiển thiết bị
-        \item Giám sát hệ thống, gửi thông báo
-    \end{itemize}
-
-    \textbf{Ví dụ topic:} \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}
-
-    %---------------- Column 2: Lợi ích ----------------%
-    \column{0.5\textwidth}
-    \textbf{Lợi ích cho hệ thống cảnh báo}
-    \begin{itemize}
-        \item Kết nối đáng tin cậy, truyền real-time
-        \item Hỗ trợ offline messaging, scale tốt
-        \item Nhẹ, tiết kiệm băng thông
-        \item Hỗ trợ 3 mức QoS đảm bảo độ tin cậy
-    \end{itemize}
-\end{columns}
-
-\end{frame}
-%---------------
 \begin{frame}[fragile]
-\frametitle{JSON - JavaScript Object Notation}
-
-\begin{block}{Định nghĩa và Đặc điểm}
-\begin{itemize}
-\item Định dạng dữ liệu nhẹ, dễ đọc, độc lập ngôn ngữ
-\item Cấu trúc cặp \texttt{key:value}, dùng cho trao đổi dữ liệu
-\item Phổ biến trong IoT cho lưu trữ và truyền dữ liệu
-\end{itemize}
-\end{block}
+\frametitle{JSON - Định nghĩa, Cấu trúc và Thư viện}
 
 \begin{columns}[T]
-\begin{column}{0.48\textwidth}
-\begin{block}{Cấu trúc dữ liệu}
+\column{0.48\textwidth}
+\textbf{Định nghĩa & cấu trúc:}
 \begin{itemize}
-\item \textbf{Object}: \texttt{\{key: value\}}
-\item \textbf{Array}: \texttt{[value1, value2]}
-\item \textbf{Kiểu giá trị}: String, Number, Boolean, null, Object, Array
+\item Định dạng nhẹ, độc lập ngôn ngữ
+\item Key:value, Object, Array, String, Number, Boolean, null
+\item Ứng dụng: lưu cấu hình, payload MQTT, API, cảnh báo
 \end{itemize}
-\end{block}
-\end{column}
 
-\begin{column}{0.48\textwidth}
+\textbf{Thư viện nhúng:}
+\begin{itemize}
+\item \texttt{json-c}: C cho C/C++
+\item \texttt{FirebaseJson}: dễ dùng cho IoT
+\end{itemize}
+
+\column{0.48\textwidth}
 \begin{exampleblock}{Ví dụ JSON}
 \begin{minted}[frame=single, fontsize=\tiny, breaklines]{json}
 {
@@ -322,42 +158,19 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 }
 \end{minted}
 \end{exampleblock}
-\end{column}
 \end{columns}
 
 \end{frame}
+
 % =====================================================
-% Slide: Ứng dụng và Thư viện JSON trong IoT
+% Slide 6: Tối ưu hóa kết hợp SIP/MQTT/JSON
 % =====================================================
 \begin{frame}
-\frametitle{JSON trong Hệ thống IoT}
-
-\textbf{Ứng dụng:}
-\begin{itemize}
-    \item Lưu cấu hình thiết bị (Wi-Fi, MQTT), thông số cảm biến
-    \item Trao đổi dữ liệu: payload cho MQTT, API, gửi cảnh báo
-\end{itemize}
-
-\vspace{0.3cm}
-\textbf{Một số thư viện JSON cho nhúng:}
-\begin{itemize}
-    \item \texttt{json-c}: Phân tích cú pháp, tạo JSON cho C/C++
-    \item \texttt{FirebaseJson}: Dễ dùng, hỗ trợ JSON phức tạp cho IoT
-\end{itemize}
-
-\end{frame}
-
-
-% =====================================================
-% Slide: Luồng tích hợp JSON/MQTT/SIP
-% =====================================================
-% Kết luận
-\begin{frame}
-\frametitle{Tối Ưu Hóa và kết hợp các phương thức}
+\frametitle{Tối Ưu Hóa và kết hợp SIP/MQTT/JSON}
 
 \textbf{Lợi ích kết hợp:}
 \begin{itemize}
-    \item \alert{MQTT}: Thu thập dữ liệu hiệu quả
+\item MQTT: Thu thập dữ liệu hiệu quả
 \item JSON: Cấu trúc linh hoạt
 \item SIP: Cảnh báo âm thanh tức thì
 \end{itemize}

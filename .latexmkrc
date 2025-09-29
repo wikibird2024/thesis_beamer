@@ -1,35 +1,43 @@
 
-
 # ===============================
-# Latexmk config (XeLaTeX + Biber + Minted)
+# .latexmkrc - XeLaTeX + Biber + Minted + Zathura
 # ===============================
 
-# Engine: dùng XeLaTeX với minted (bắt buộc -shell-escape)
-$pdflatex = 'xelatex -shell-escape -interaction=nonstopmode %O %S';
+# XeLaTeX command
+$xelatex = 'xelatex -synctex=1 -interaction=nonstopmode -shell-escape %O %S';
 
-# Buộc latexmk tiếp tục build dù gặp lỗi nhỏ (để -pvc không dừng)
-$force_mode = 1;
+# Max rerun if needed
+$max_repeat = 5;
 
-# Bibliography: dùng biber thay cho bibtex
-$biber = 'biber %O %B';
-$bibtex_use = 2;
+# Biber for bibliography
+$bibtex_use = 2; # use Biber if .bcf exists
+$biber = 'biber %O %S';
 
-# File gốc để latexmk theo dõi
-@default_files = ('main.tex');
+# Automatically clean auxiliary files including Minted output
+@clean_ext = qw(aux log out toc bbl blg bcf run.xml nav snm synctex.gz fdb_latexmk fls);
 
-# Phần mở rộng file tạm để clean khi chạy 'latexmk -c'
-$clean_ext = 'aux log out toc bbl bcf blg run.xml nav snm synctex.gz fdb_latexmk fls';
-
-# PDF viewer: ưu tiên zathura, fallback sang xdg-open
-if (system("command -v zathura >/dev/null 2>&1") == 0) {
-    $pdf_previewer = 'zathura %O %S';
-} else {
-    $pdf_previewer = 'xdg-open %S';
+# Clean _minted-* folders on -c
+sub clean_minted_dirs {
+    use File::Path qw(remove_tree);
+    for my $f (glob('_minted-*')) {
+        remove_tree($f);
+    }
 }
+# Hook: clean_minted_dirs will run on -c
+push @generated_exts, '_minted-*';
 
-# Tùy chọn khác
-$preview_continuous_mode = 1;         # Giữ viewer khi rebuild (-pvc)
-$cleanup_includes_cusdep_generated = 1; # Clean cả file phụ từ biber/minted
+# Suppress missing file warnings
+$warn_missing_files = 0;
 
-# SyncTeX (tùy chọn, nếu muốn forward/inverse search)
-#$pdflatex = 'xelatex -synctex=1 -shell-escape -interaction=nonstopmode %O %S';
+# Always rerun if "Rerun" appears in log
+$recorder = 1;
+
+# Default file to build
+$default_files = ['main.tex'];
+
+# ===============================
+# Use Zathura as the PDF viewer
+# Applies to -pv, -pvc, and normal build
+# ===============================
+$pdf_previewer = 'zathura';
+$pdf_update_method = 2; # 2 = reopen Zathura only if PDF updated

@@ -1,62 +1,47 @@
 
 #!/bin/bash
-set -euo pipefail
+# ===============================
+# buildpdf.sh - Professional XeLaTeX build script
+# Supports Minted, Biber, continuous build
+# ===============================
 
-# ===============================
-# Cấu hình
-# ===============================
+set -e
+
 MAIN_FILE="main.tex"
-PDF_FILE="${MAIN_FILE%.*}.pdf"
-ENGINE="xelatex"
-TMP_FILES=("*.aux" "*.log" "*.out" "*.toc" "*.bbl" "*.bcf" "*.blg" "*.run.xml" "*.nav" "*.snm" "*.fdb_latexmk" "*.fls")
-VIEWERS=("zathura" "okular" "evince" "xdg-open")
+LOG_FILE="build.log"
 
-# ===============================
-# Hàm tiện ích
-# ===============================
-clean_temp() {
-    echo "🧹 Xóa các file tạm (trừ .synctex.gz)..."
-    for f in "${TMP_FILES[@]}"; do
-        rm -f $f
-    done
-}
+# Optional: enable emojis in output
+EMOJI=true
+info()    { [ "$EMOJI" = true ] && echo "📝 $*" || echo "$*"; }
+success() { [ "$EMOJI" = true ] && echo "✅ $*" || echo "$*"; }
+warn()    { [ "$EMOJI" = true ] && echo "⚠️  $*" || echo "$*"; }
 
-check_viewer() {
-    for v in "${VIEWERS[@]}"; do
-        if command -v "$v" >/dev/null 2>&1; then
-            echo "$v"
-            return
+# Check command argument
+ACTION=${1:-build}  # default action is 'build'
+
+case "$ACTION" in
+    build)
+        info "Starting XeLaTeX build for $MAIN_FILE..."
+        latexmk -xelatex -interaction=nonstopmode -shell-escape -synctex=1 "$MAIN_FILE" 2>&1 | tee "$LOG_FILE"
+        if [ -f main.pdf ]; then
+            success "Build complete. PDF generated: main.pdf"
+            info "File size: $(du -h main.pdf | cut -f1)"
+            xdg-open main.pdf >/dev/null 2>&1 || true
+        else
+            warn "PDF not found. Check $LOG_FILE"
         fi
-    done
-    echo ""
-}
-
-# ===============================
-# Build + Watch (latexmk -pvc)
-# ===============================
-build_and_watch() {
-    local viewer="$1"
-    if [ -z "$viewer" ]; then
-        echo "⚠️ Không tìm thấy PDF viewer hợp lệ! Build sẽ chạy nhưng PDF không mở được."
-    else
-        echo "🚀 Build với $ENGINE và mở PDF bằng $viewer..."
-    fi
-
-    # latexmk chuẩn
-    latexmk -xelatex -pdf -pvc -shell-escape -interaction=nonstopmode "$MAIN_FILE"
-}
-
-# ===============================
-# Main
-# ===============================
-clean_temp
-
-VIEWER=$(check_viewer)
-
-# Kiểm tra DISPLAY cho GUI
-if [ -z "$DISPLAY" ]; then
-    echo "⚠️ Không có DISPLAY, PDF sẽ không mở được GUI."
-    build_and_watch ""
-else
-    build_and_watch "$VIEWER"
-fi
+        ;;
+    clean)
+        info "Cleaning auxiliary files..."
+        latexmk -C
+        success "Clean complete."
+        ;;
+    watch)
+        info "Starting continuous build (watch mode)..."
+        latexmk -xelatex -pvc -interaction=nonstopmode -shell-escape -synctex=1 "$MAIN_FILE"
+        ;;
+    *)
+        echo "Usage: $0 {build|clean|watch}"
+        exit 1
+        ;;
+esac
