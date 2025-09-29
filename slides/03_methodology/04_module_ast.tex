@@ -20,7 +20,43 @@ manager.conf & Cấu hình AMI & Python điều khiển cuộc gọi \\
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Asterisk: Cấu hình Ba Thành Phần Chính}
 
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{|l|p{5cm}|p{4cm}|}
+\hline
+\textbf{Thành phần} & \textbf{Vai trò} & \textbf{Điểm chính} \\
+\hline
+\textbf{PJSIP} \newline
+\textit{(SIP Stack)} & 
+Quản lý kết nối từ điện thoại IP, xác thực người dùng trước khi cho phép kết nối &
+Tạo tài khoản cho thiết bị, định dạng âm thanh truyền tải \\
+\hline
+\textbf{Dial Plan} \newline
+\textit{(Kịch bản xử lý)} & 
+Định nghĩa luồng xử lý khi có cuộc gọi hoặc tin nhắn, thực thi các lệnh gọi điện &
+Quy tắc gọi trực tiếp, gọi nhóm, và xử lý tin nhắn SIP \\
+\hline
+\textbf{AMI} \newline
+\textit{(Giao diện quản lý)} & 
+Cho phép ứng dụng Python điều khiển Asterisk từ xa (gọi, ngắt máy, lấy trạng thái) &
+Kết nối qua mạng nội bộ với xác thực username/password \\
+\hline
+\end{tabular}
+\end{table}
+
+\vspace{0.2cm}
+\begin{alertblock}{Luồng xử lý tin báo}
+\centering
+\small
+Python Server $\xrightarrow{\text{AMI}}$ Asterisk $\xrightarrow{\text{Dial Plan}}$ Thực hiện cuộc gọi $\xrightarrow{\text{PJSIP}}$ Điện thoại IP
+\end{alertblock}
+
+\end{frame}
+\iffalse
 % Slide 2: Cấu hình PJSIP
 \begin{frame}[fragile]
 \frametitle{Asterisk: Cấu hình PJSIP và Endpoint}
@@ -175,3 +211,4 @@ write = all
 \end{columns}
 
 \end{frame}
+\fi
