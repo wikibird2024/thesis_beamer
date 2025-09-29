@@ -1,24 +1,37 @@
 
-\begin{frame}[fragile]{Module cảm biến đeo I: Luồng làm việc}
-    \begin{columns}[t]
-        \begin{column}{0.7\textwidth}
+% ===============================
+% Slide: Luồng làm việc & Sơ đồ khối phần mềm
+% ===============================
+\begin{frame}[fragile]{Module cảm biến đeo I: Luồng làm việc \& Phần mềm}
+    \begin{columns}[T]
+        % ────── Hình 1: Luồng thời gian ──────
+        \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
-                \includegraphics[width=0.95\textwidth,height=0.7\textheight,keepaspectratio]{images/module1_time_flow.pdf}
+                \includegraphics[width=\linewidth,height=0.55\textheight,keepaspectratio]{images/module1_time_flow.pdf}
+                \caption*{\footnotesize Luồng xử lý từ cảm biến đến cảnh báo.}
             \end{figure}
         \end{column}
-        \begin{column}{0.3\textwidth}
-            \begin{block}{Quy trình}
-                \begin{itemize}
-                    \item Điều phối từ thu thập dữ liệu cảm biến đến xử lý sự kiện và kích hoạt cảnh báo.
-                \end{itemize}
-            \end{block}
-            \label{fig:module1_flow}
+        
+        % ────── Hình 2: Sơ đồ khối phần mềm ──────
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\linewidth,height=0.55\textheight,keepaspectratio]{images/module1_software_block-crop.pdf}
+                \caption*{\footnotesize Sơ đồ khối phần mềm ESP32.}
+            \end{figure}
         \end{column}
     \end{columns}
+    
+    % ────── Tóm tắt quy trình ──────
+    \vspace{0.3cm}
+    \begin{block}{Quy trình}
+        \footnotesize
+        Thu thập dữ liệu cảm biến $\rightarrow$ xử lý sự kiện $\rightarrow$ kích hoạt cảnh báo.
+    \end{block}
 \end{frame}
 
-% Slide: Tổng quan mô-đun nhúng (OK - không cần sửa)
+
 \iffalse
 % Slide: Môi trường phát triển 
 \begin{frame}{Module cảm biến đeo I: Môi trường phát triển}
@@ -33,7 +46,7 @@
     \end{block}
 \end{frame}
 \fi
-
+\iffalse
 % Slide: Mô tả các thành phần (SỬA LẠI - tách thành 2 slide nếu cần)
 \begin{frame}{Module cảm biến đeo I: Mô tả các thành phần}
     \begin{columns}[t]
@@ -60,16 +73,8 @@
         \end{column}
     \end{columns}
 \end{frame}
+\fi
 
-% Slide: Sơ đồ khối phần mềm (OK - nhưng có thể điều chỉnh height nếu cần)
-\begin{frame}[fragile]{Module cảm biến đeo I: Sơ đồ khối phần mềm}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.85\textwidth,height=0.7\textheight,keepaspectratio]{images/module1_software_block-crop.pdf}
-        \caption{Sơ đồ khối phần mềm của mô-đun nhúng ESP32.}
-        \label{fig:module1_software_block}
-    \end{figure}
-\end{frame}
 
 \iffalse
 % Slide: Thuật toán phát hiện té ngã
