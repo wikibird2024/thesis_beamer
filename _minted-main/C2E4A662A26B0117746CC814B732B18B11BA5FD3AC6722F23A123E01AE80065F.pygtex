@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{x}{I (2329)  SIM\PYGZus{}4G: Received: Quectel EG800K}
+\PYG{x}{OK}
+\PYG{x}{I (5329)  SIM\PYGZus{}4G: Received: +CSQ: 31,99}
+\PYG{x}{OK}
+\PYG{x}{I (28339) SIM\PYGZus{}4G: Received: +QIACT: 1,1,1,\PYGZdq{}9.204.251.200\PYGZdq{}}
+\PYG{x}{OK}
+\PYG{x}{I (34349) SIM\PYGZus{}4G: Received: +QGPSLOC: 10.88862,106.77975}
+\PYG{x}{OK}
+\PYG{x}{I (9961)  SIM4G\PYGZus{}AT: Initializing SIM4G AT driver...}
+\PYG{x}{I (10011) APP\PYGZus{}MAIN: System initialization complete.}
+\PYG{x}{I (10021) APP\PYGZus{}MAIN: Application started successfully}
+\end{Verbatim}

@@ -1,50 +1,63 @@
-% Slide: Tổng quan
-\begin{frame}{Python server: Tích hợp và Phát hiện}
-    \begin{block}{Tổng quan}
-        \begin{itemize}
-            \item Hệ thống Python tích hợp dữ liệu từ:
-            \begin{enumerate}
-                \item \textbf{ESP32}: Trạng thái té ngã, GPS qua MQTT.
-                \item \textbf{Camera IP}: Phát hiện người, theo dõi, ước lượng tư thế bằng AI.
-            \end{enumerate}
-            \item Đồng bộ, tích hợp dữ liệu để phát hiện té ngã, gửi cảnh báo, lưu sự kiện.
-        \end{itemize}
-    \end{block}
+
+\begin{frame}[fragile]{Python Server: Tích hợp Dữ liệu & Kiến trúc Hệ thống}
+    \small % giảm font size cho toàn slide
+    \begin{columns}[T] % căn top
+        % ────── Cột 1: Nguồn dữ liệu ──────
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Nguồn dữ liệu}
+                \begin{itemize}\scriptsize
+                    \item \textbf{ESP32}: trạng thái té ngã, GPS qua MQTT
+                    \item \textbf{Camera IP}: phát hiện người, theo dõi, ước lượng tư thế bằng AI
+                    \item Đồng bộ & tích hợp để phát hiện té ngã, gửi cảnh báo
+                \end{itemize}
+            \end{block}
+        \end{column}
+
+        % ────── Cột 2: Kiến trúc phân tầng ──────
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Kiến trúc phân tầng}
+                \begin{itemize}\scriptsize
+                    \item \textbf{Thu nhận}: 
+                        \begin{itemize}
+                            \item \texttt{comm/}: MQTT, Telegram, AMI
+                            \item \texttt{detection/}: video, tracking
+                        \end{itemize}
+                    \item \textbf{Xử lý}: \texttt{fall/}, \texttt{processing/}
+                    \item \textbf{Đầu ra}: \texttt{database/}, cảnh báo
+                \end{itemize}
+            \end{block}
+        \end{column}
+    \end{columns}
+    \normalsize
     \label{sec:server_overview}
 \end{frame}
 
-% Slide: Kiến trúc hệ thống
-\begin{frame}{Python server: Kiến trúc}
-    \begin{block}{Mô hình phân tầng}
-        \begin{itemize}
-            \item \textbf{Lớp thu nhận}: 
-                \begin{itemize}
-                    \item \texttt{comm/}: MQTT, Telegram Bot, AMI.
-                    \item \texttt{detection/}: Xử lý video, phát hiện người, theo dõi.
-                \end{itemize}
-            \item \textbf{Lớp xử lý}: \texttt{fall/}, \texttt{processing/} tích hợp qua \texttt{DetectionProcessor}.
-            \item \textbf{Lớp đầu ra}: \texttt{database/} lưu \texttt{fall\_events.db}, \texttt{comm/} gửi cảnh báo.
-        \end{itemize}
-    \end{block}
-    \label{subsubsec:system_overview}
-\end{frame}
-
-
 % Slide: Luồng xử lý
-\begin{frame}[fragile]{Python server: Luồng Xử lý}
-    \begin{block}{Quy trình}
-        \begin{enumerate}
-            \item Thu nhận: ESP32 (MQTT), Camera IP (AI).
-            \item Tích hợp: \texttt{DetectionProcessor} đồng bộ dữ liệu.
-            \item Đầu ra: Lưu sự kiện, gửi cảnh báo qua AMI/Telegram.
-        \end{enumerate}
-    \end{block}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.85\textwidth,height=0.5\textheight,keepaspectratio]{images/server_flow.pdf}
-        \caption{Luồng dữ liệu qua \texttt{DetectionProcessor}.}
-        \label{fig:server_flow}
-    \end{figure}
+\begin{frame}[fragile]{Python Server: Luồng Xử lý}
+    \small
+    \begin{columns}[T]
+        % ────── Cột 1: Quy trình ──────
+        \begin{column}{0.48\textwidth}
+            \begin{block}{Quy trình}
+                \begin{enumerate}\scriptsize
+                    \item Thu nhận: ESP32 (MQTT), Camera IP (AI)
+                    \item Tích hợp: \texttt{DetectionProcessor} đồng bộ dữ liệu
+                    \item Đầu ra: Lưu sự kiện, gửi cảnh báo qua AMI/Telegram
+                \end{enumerate}
+            \end{block}
+        \end{column}
+
+        % ────── Cột 2: Hình minh họa ──────
+        \begin{column}{0.48\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{images/server_flow.pdf}
+                \caption{Luồng dữ liệu qua \texttt{DetectionProcessor}}
+                \label{fig:server_flow}
+            \end{figure}
+        \end{column}
+    \end{columns}
+    \normalsize
 \end{frame}
 
 % Slide: Kết hợp dữ liệu đa phương thức
