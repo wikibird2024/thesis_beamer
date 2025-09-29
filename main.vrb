@@ -1,17 +1,29 @@
-\frametitle{Camera ESP32-CAM: Luồng hình ảnh và xử lý}
-\begin{columns}[T]
-    %----------------- Column Hình -----------------%
-    \column{0.5\textwidth}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\linewidth]{module2_stream_example.jpg}
-        \caption{Luồng hình ảnh từ ESP32-CAM qua HTTP.}
-    \end{figure}
+\frametitle{JSON - Định nghĩa, Cấu trúc và Thư viện}
 
-    %----------------- Column Phân tích -----------------%
-    \column{0.5\textwidth}
-    \begin{itemize}
-        \item \textbf{Mục đích:} Kiểm tra kết nối Wi-Fi và phát luồng hình ảnh.
-        \item \textbf{Kết quả:} Thời gian thực 3–5 FPS, hoạt động ổn định.
-    \end{itemize}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Định nghĩa & cấu trúc:}
+\begin{itemize}
+\item Định dạng nhẹ, độc lập ngôn ngữ
+\item Key:value, Object, Array, String, Number, Boolean, null
+\item Ứng dụng: lưu cấu hình, payload MQTT, API, cảnh báo
+\end{itemize}
+
+\textbf{Thư viện nhúng:}
+\begin{itemize}
+\item \texttt{json-c}: C cho C/C++
+\item \texttt{FirebaseJson}: dễ dùng cho IoT
+\end{itemize}
+
+\column{0.48\textwidth}
+\begin{exampleblock}{Ví dụ JSON}
+\begin{minted}[frame=single, fontsize=\tiny, breaklines]{json}
+{
+  "device_id": "ESP32_001",
+  "temperature": 25.5,
+  "sensors": ["temp", "light"]
+}
+\end{minted}
+\end{exampleblock}
 \end{columns}
+
