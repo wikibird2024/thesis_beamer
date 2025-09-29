@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{x}{\PYGZob{}}
+\PYG{x}{  \PYGZdq{}device\PYGZus{}id\PYGZdq{}: \PYGZdq{}ESP32\PYGZus{}001\PYGZdq{},}
+\PYG{x}{  \PYGZdq{}temperature\PYGZdq{}: 25.5,}
+\PYG{x}{  \PYGZdq{}sensors\PYGZdq{}: [\PYGZdq{}temp\PYGZdq{}, \PYGZdq{}light\PYGZdq{}]}
+\PYG{x}{\PYGZcb{}}
+\end{Verbatim}
