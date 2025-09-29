@@ -1,0 +1,9 @@
+[general]
+enabled = yes
+port = 5038
+bindaddr = 127.0.0.1
+
+[hx]
+secret = 123
+read = all
+write = all
