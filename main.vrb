@@ -1,15 +1,17 @@
-\frametitle{Kiểm thử thông báo kênh Telegram}
+\frametitle{Camera ESP32-CAM: Luồng hình ảnh và xử lý}
 \begin{columns}[T]
-    \column{0.4\textwidth}
-    \begin{figure}[H]
+    %----------------- Column Hình -----------------%
+    \column{0.5\textwidth}
+    \begin{figure}
         \centering
-        \includegraphics[width=0.70\linewidth]{telegram_fall_module1_send.png}
-        \caption{Thông báo từ phần cứng.}
+        \includegraphics[width=\linewidth]{module2_stream_example.jpg}
+        \caption{Luồng hình ảnh từ ESP32-CAM qua HTTP.}
     \end{figure}
-    \column{0.6\textwidth}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.70\linewidth]{telegram_python_fall_send.png}
-        \caption{Thông báo từ Python.}
-    \end{figure}
+
+    %----------------- Column Phân tích -----------------%
+    \column{0.5\textwidth}
+    \begin{itemize}
+        \item \textbf{Mục đích:} Kiểm tra kết nối Wi-Fi và phát luồng hình ảnh.
+        \item \textbf{Kết quả:} Thời gian thực 3–5 FPS, hoạt động ổn định.
+    \end{itemize}
 \end{columns}
