@@ -1,7 +1,9 @@
-
-\begin{frame}[fragile]{Python Server: Tích hợp Dữ liệu & Kiến trúc Hệ thống}
-    \small % giảm font size cho toàn slide
-    \begin{columns}[T] % căn top
+% ===============================
+% Slide: Tổng quan Python Server
+% ===============================
+\begin{frame}[fragile]{Python Server: Tích hợp Dữ liệu \& Kiến trúc Hệ thống}
+    \small
+    \begin{columns}[T]
         % ────── Cột 1: Nguồn dữ liệu ──────
         \begin{column}{0.48\textwidth}
             \begin{block}{Nguồn dữ liệu}
@@ -17,7 +19,7 @@
         \begin{column}{0.48\textwidth}
             \begin{block}{Kiến trúc phân tầng}
                 \begin{itemize}\scriptsize
-                    \item \textbf{Thu nhận}: 
+                    \item \textbf{Thu nhận}:
                         \begin{itemize}
                             \item \texttt{comm/}: MQTT, Telegram, AMI
                             \item \texttt{detection/}: video, tracking
@@ -32,7 +34,9 @@
     \label{sec:server_overview}
 \end{frame}
 
+% ===============================
 % Slide: Luồng xử lý
+% ===============================
 \begin{frame}[fragile]{Python Server: Luồng Xử lý}
     \small
     \begin{columns}[T]
@@ -60,82 +64,38 @@
     \normalsize
 \end{frame}
 
-% Slide: Kết hợp dữ liệu đa phương thức
-\begin{frame}[fragile]{Python server: Tích hợp Dữ liệu}
-    \begin{block}{Quy trình}
-        \begin{itemize}
-            \item Xác thực: ESP32 (\texttt{device\_id}, \texttt{fall\_detected}, GPS).
-            \item Xử lý camera: Phát hiện người, ước lượng tư thế.
-            \item Đồng bộ: Kiểm tra timestamp, cooldown (5 phút).
-            \item Cảnh báo: AMI, Telegram (thử lại nếu lỗi).
-        \end{itemize}
-    \end{block}
-    \begin{minted}[fontsize=\scriptsize, breaklines, bgcolor=lightgray]{python}
-async def handle_camera_data(self, frame, person_id, box, landmarks):
-    entity_id = f"camera_person_{person_id}"
-    detector = self._get_or_create_detector(entity_id)
-    is_fall = detector.detect_fall(landmarks)
-    if is_fall and self._can_alert(entity_id):
-        fall_event = self._create_fall_event("camera", entity_id, 0, 0, False)
-        fall_id = await self._insert_fall_event_with_retry(fall_event)
-        alert_msg = f"Fall detected by camera for {entity_id}. ID: {fall_id}"
-        await self._send_alerts(alert_msg, frame)
-    \end{minted}
-    \label{subsubsec:multi_input_fusion}
-\end{frame}
-
+% ===============================
 % Slide: Thuật toán phát hiện té ngã
-\begin{frame}{Python server: Thuật toán Phát hiện}
+% ===============================
+\begin{frame}{Python Server: Thuật toán Phát hiện}
     \begin{block}{Quy trình trong \texttt{FallDetector}}
         \begin{itemize}
-            \item \textbf{Kiểm tra}: Landmarks hợp lệ (độ tin cậy $\geq 0.5$).
-            \item \textbf{Tính toán}: 
+            \item \textbf{Kiểm tra}: Landmarks hợp lệ (độ tin cậy $\geq 0.5$)
+            \item \textbf{Tính toán}:
                 \begin{itemize}
-                    \item Góc thân người: Dọc ($>60^\circ$), ngang ($>45^\circ$).
-                    \item Vận tốc: Dịch chuyển thân người ($>0.5$ đơn vị).
+                    \item Góc thân người: Dọc ($>60^\circ$), Ngang ($>45^\circ$)
+                    \item Vận tốc: Dịch chuyển thân người ($>0.5$ đơn vị)
                 \end{itemize}
             \item \textbf{Trạng thái}:
                 \begin{itemize}
-                    \item \textit{Falling}: Góc và vận tốc vượt ngưỡng.
-                    \item \textit{Lying}: Góc vượt ngưỡng kéo dài.
+                    \item \textit{Falling}: Góc và vận tốc vượt ngưỡng
+                    \item \textit{Lying}: Góc vượt ngưỡng kéo dài
                 \end{itemize}
-            \item \textbf{Quyết định}: Bộ đếm $\geq 5$ frame → té ngã, đặt lại trạng thái.
+            \item \textbf{Quyết định}: Bộ đếm $\geq 5$ frame → té ngã, đặt lại trạng thái
         \end{itemize}
     \end{block}
     \label{subsubsec:fall_detection_algorithm}
 \end{frame}
 
+% ===============================
 % Slide: Lưu đồ thuật toán
-\begin{frame}[fragile]{Python server: Lưu đồ Thuật toán}
+% ===============================
+
+\begin{frame}[fragile]{Python Server: Lưu đồ Thuật toán}
     \begin{figure}
         \centering
         \includegraphics[width=0.85\textwidth,height=0.7\textheight,keepaspectratio]{images/python_fall_diagram.pdf}
-        \caption{Luồng thuật toán phát hiện té ngã.}
+        \caption{Luồng thuật toán phát hiện té ngã}
         \label{fig:python_fall_diagram}
     \end{figure}
-\end{frame}
-
-% Slide: Lưu trữ và cảnh báo
-\begin{frame}[fragile]{Python server: Lưu trữ và Cảnh báo}
-    \begin{block}{Cơ chế}
-        \begin{itemize}
-            \item \textbf{Lưu trữ}: SQLite \texttt{fall\_events.db} (timestamp, source, entity\_id, GPS).
-            \item \textbf{Cảnh báo}: AMI, Telegram khi phát hiện té ngã.
-            \item \textbf{Vòng lặp}: Thu thập → Xử lý → Tích hợp → Cảnh báo.
-        \end{itemize}
-    \end{block}
-    \begin{minted}[fontsize=\scriptsize, breaklines, bgcolor=lightgray]{sql}
-CREATE TABLE fall_events (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-    source TEXT NOT NULL,
-    entity_id TEXT NOT NULL,
-    fall_detected BOOLEAN NOT NULL,
-    latitude REAL,
-    longitude REAL,
-    has_gps_fix BOOLEAN,
-    alert_status INTEGER DEFAULT 0
-);
-    \end{minted}
-    \label{subsubsec:data_storage_alerts}
 \end{frame}
