@@ -290,24 +290,19 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 
 \end{frame}
 %---------------
-
-% JSON
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{JSON - JavaScript Object Notation}
 
 \begin{block}{Định nghĩa và Đặc điểm}
 \begin{itemize}
 \item Định dạng dữ liệu nhẹ, dễ đọc, độc lập ngôn ngữ
 \item Cấu trúc cặp \texttt{key:value}, dùng cho trao đổi dữ liệu
-\item Phổ biến trong IoT cho lưu trữ và truyền
+\item Phổ biến trong IoT cho lưu trữ và truyền dữ liệu
 \end{itemize}
 \end{block}
 
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Cấu trúc JSON cơ bản}
-
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
 \begin{block}{Cấu trúc dữ liệu}
 \begin{itemize}
 \item \textbf{Object}: \texttt{\{key: value\}}
@@ -315,9 +310,11 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 \item \textbf{Kiểu giá trị}: String, Number, Boolean, null, Object, Array
 \end{itemize}
 \end{block}
+\end{column}
 
+\begin{column}{0.48\textwidth}
 \begin{exampleblock}{Ví dụ JSON}
-\begin{minted}[frame=single, linenos, breaklines, fontsize=\footnotesize]{json}
+\begin{minted}[frame=single, fontsize=\tiny, breaklines]{json}
 {
   "device_id": "ESP32_001",
   "temperature": 25.5,
@@ -325,8 +322,10 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền dữ li
 }
 \end{minted}
 \end{exampleblock}
-\end{frame}
+\end{column}
+\end{columns}
 
+\end{frame}
 % =====================================================
 % Slide: Ứng dụng và Thư viện JSON trong IoT
 % =====================================================

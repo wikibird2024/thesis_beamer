@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{n}{intergrate\PYGZus{}fall}\PYG{o}{/}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{comm}\PYG{o}{/} \PYG{p}{(}\PYG{n}{MQTT}\PYG{p}{,} \PYG{n}{Telegram}\PYG{p}{,} \PYG{n}{AMI}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{config}\PYG{o}{/} \PYG{p}{(}\PYG{n}{cấu} \PYG{n}{hình}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{database}\PYG{o}{/} \PYG{p}{(}\PYG{n}{fall\PYGZus{}events}\PYG{o}{.}\PYG{n}{db}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{detection}\PYG{o}{/} \PYG{p}{(}\PYG{n}{human}\PYG{p}{,} \PYG{n}{tracker}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{fall}\PYG{o}{/} \PYG{p}{(}\PYG{n}{fall\PYGZus{}detector}\PYG{o}{.}\PYG{n}{py}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{processing}\PYG{o}{/} \PYG{p}{(}\PYG{n}{detection\PYGZus{}processor}\PYG{o}{.}\PYG{n}{py}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{utils}\PYG{o}{/} \PYG{p}{(}\PYG{n}{draw\PYGZus{}utils}\PYG{o}{.}\PYG{n}{py}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{models}\PYG{o}{/} \PYG{p}{(}\PYG{n}{yolov8n}\PYG{o}{.}\PYG{n}{pt}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{tests}\PYG{o}{/} \PYG{p}{(}\PYG{n}{test\PYGZus{}fall}\PYG{o}{.}\PYG{n}{py}\PYG{p}{)}
+\PYG{err}{├}\PYG{err}{─}\PYG{err}{─} \PYG{n}{main}\PYG{o}{.}\PYG{n}{py}
+\PYG{o}{=} \PYG{k}{await} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}insert\PYGZus{}fall\PYGZus{}event\PYGZus{}with\PYGZus{}retry}\PYG{p}{(}\PYG{n}{fall\PYGZus{}event}\PYG{p}{)}
+        \PYG{n}{alert\PYGZus{}msg} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Fall detected by camera for }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{entity\PYGZus{}id}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{. ID: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{fall\PYGZus{}id}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}
+        \PYG{k}{await} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}send\PYGZus{}alerts}\PYG{p}{(}\PYG{n}{alert\PYGZus{}msg}\PYG{p}{,} \PYG{n}{frame}\PYG{p}{)}
+\end{Verbatim}
