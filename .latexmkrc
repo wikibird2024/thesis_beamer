@@ -1,43 +1,33 @@
 
 # ===============================
-# .latexmkrc - XeLaTeX + Biber + Minted + Zathura
+# Latexmk config (XeLaTeX + Biber + Minted)
 # ===============================
 
-# XeLaTeX command
-$xelatex = 'xelatex -synctex=1 -interaction=nonstopmode -shell-escape %O %S';
+# Engine: dùng XeLaTeX với minted (bắt buộc -shell-escape)
+$pdflatex = 'xelatex -shell-escape -interaction=nonstopmode -synctex=1 %O %S';
 
-# Max rerun if needed
-$max_repeat = 5;
+# Chạy XeLaTeX nhiều lần nếu cần (default latexmk sẽ xử lý)
+$latex = $pdflatex;
 
-# Biber for bibliography
-$bibtex_use = 2;        # use Biber if .bcf exists
-$biber      = 'biber %O %S';
-$bibtex     = 'bibtex %O %S'; # fallback
+# Dùng Biber thay cho BibTeX
+$biber = 'biber %O %B';
 
-# Automatically clean auxiliary files including Minted output
-@clean_ext = qw(aux log out toc bbl blg bcf run.xml nav snm synctex.gz fdb_latexmk fls _minted-*);
+# Viewer PDF (đồng bộ tốt với Zathura, Sumatra, Evince,…)
+$pdf_previewer = 'zathura %S';
 
-# Clean _minted-* folders on -c
-sub clean_minted_dirs {
-    use File::Path qw(remove_tree);
-    for my $f (glob('_minted-*')) {
-        remove_tree($f);
-    }
-}
-add_cus_dep('','clean','',0,'clean_minted_dirs');
-
-# Suppress missing file warnings (0 = off, 1 = on)
-$warn_missing_files = 1;
-
-# Always rerun if "Rerun" appears in log
+# Giữ file log để debug
 $recorder = 1;
 
-# Default file to build
-$default_files = ['main.tex'];
+# Mặc định latexmk dọn file tạm sau khi build thành công
+# Nếu muốn giữ lại để debug, comment dòng dưới
+$cleanup_includes_cusdep_generated = 1;
 
-# ===============================
-# Use Zathura as the PDF viewer
-# Applies to -pv, -pvc, and normal build
-# ===============================
-$pdf_previewer     = 'zathura';
-$pdf_update_method = 2; # 2 = reopen Zathura only if PDF updated
+# Danh sách các file phụ sẽ được xóa khi 'latexmk -c'
+@generated_exts = qw(aux bbl bcf blg fdb_latexmk fls log out run.xml toc lof lot lol synctex.gz);
+
+# Khi có lỗi thì vẫn tạo PDF (nếu có thể)
+$pdf_mode = 1;  # 1 = PDF via pdflatex/xelatex
+$force_mode = 1;
+
+# Bật chế độ tự động build khi file thay đổi (khi gọi latexmk -pvc)
+$pvc_view_file_via_temporary = 0;
