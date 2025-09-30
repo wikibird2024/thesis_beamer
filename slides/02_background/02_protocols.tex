@@ -48,29 +48,48 @@
 
 
 % =====================================================
-% Slide 2: SIP - ICE và Asterisk
+% Slide: SIP – ICE và Asterisk
 % =====================================================
-\begin{frame}
-\frametitle{SIP - ICE và Asterisk}
 
-\begin{block}{Vấn đề NAT/Firewall}
-Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền RTP trực tiếp
-\end{block}
+\begin{frame}{SIP – ICE và Asterisk}
+\begin{columns}[T, totalwidth=\textwidth]
+    % --- Cột 1: NAT và ICE ---
+    \begin{column}{0.5\textwidth}
+        \begin{block}{\textbf{NAT / Firewall}}
+            \begin{itemize}
+                \item Thiết bị VoIP thường ở sau NAT/Firewall.
+                \item Cản trở truyền \textbf{RTP trực tiếp}.
+            \end{itemize}
+        \end{block}
 
-\begin{block}{ICE}
-\begin{itemize}
-\item Local IP: địa chỉ nội bộ
-\item STUN: phát hiện IP công cộng/cổng NAT
-\item TURN: máy chủ chuyển tiếp khi STUN thất bại
-\end{itemize}
-\end{block}
+        \begin{block}{\textbf{ICE (Interactive Connectivity Establishment)}}
+            \begin{itemize}
+                \item \textbf{Local IP}: địa chỉ nội bộ. 
+                \item \textbf{STUN}: phát hiện IP công cộng/cổng NAT.
+                \item \textbf{TURN}: chuyển tiếp media khi STUN thất bại.
+            \end{itemize}
+        \end{block}
+    \end{column}
 
-\begin{block}{Asterisk}
-\begin{itemize}
-\item Quản lý tập trung, chuẩn mở, bảo mật TLS/SRTP
-\item Xử lý đăng ký và định tuyến cuộc gọi
-\end{itemize}
-\end{block}
+    % --- Cột 2: Asterisk ---
+    \begin{column}{0.46\textwidth}
+
+        \begin{center}
+            \includegraphics[width=0.4\linewidth]{asterisk_logo.png}
+        \end{center}
+
+        \vspace{0.3em}
+
+        \begin{block}{\textbf{Asterisk PBX}}
+            \begin{itemize}
+                \item Quản lý và định tuyến cuộc gọi VoIP.
+                \item Chuẩn mở SIP, bảo mật \textbf{TLS/SRTP}.
+                \item Đăng ký SIP và hỗ trợ nhiều thiết bị.
+            \end{itemize}
+        \end{block}
+
+    \end{column}
+\end{columns}
 \end{frame}
 
 % =====================================================
@@ -98,7 +117,6 @@ Các thiết bị thường nằm sau NAT/firewall, ngăn cản truyền RTP tr�
 \end{itemize}
 \end{columns}
 
-% (TikZ sơ đồ gọn)
 \end{frame}
 
 % =====================================================
