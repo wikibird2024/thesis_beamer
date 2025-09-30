@@ -213,21 +213,33 @@
 % Slide 6: Tối ưu hóa kết hợp SIP/MQTT/JSON
 % =====================================================
 \begin{frame}
-\frametitle{Tối Ưu Hóa và kết hợp SIP/MQTT/JSON}
+\frametitle{Tối Ưu Hóa và Kết Hợp SIP/MQTT/JSON}
 
-\textbf{Lợi ích kết hợp:}
-\begin{itemize}
-\item MQTT: Thu thập dữ liệu hiệu quả
-\item JSON: Cấu trúc linh hoạt
-\item SIP: Cảnh báo âm thanh tức thì
-\end{itemize}
+\begin{columns}[T,onlytextwidth]
+    % ---- Cột 1: Vai trò ----
+    \begin{column}{0.48\textwidth}
+        \textbf{Vai trò từng giao thức:}
+        \begin{itemize}
+            \item \textcolor{blue}{\textbf{MQTT}}: Truyền dữ liệu IoT hiệu quả, hỗ trợ QoS.
+            \item \textcolor{teal}{\textbf{JSON}}: Định dạng linh hoạt, dễ tích hợp hệ thống.
+            \item \textcolor{red}{\textbf{SIP}}: Cảnh báo âm thanh/thoại tức thì.
+        \end{itemize}
+    \end{column}
 
-\textbf{Tối ưu:}
-\begin{itemize}
-\item Payload JSON nhỏ gọn
-\item QoS MQTT phù hợp
-\item Tự động reconnect
-\item Bảo mật TLS
-\end{itemize}
+    % ---- Cột 2: Tối ưu & Bảo mật ----
+    \begin{column}{0.48\textwidth}
+        \textbf{Hướng tối ưu:}
+        \begin{itemize}
+            \item Payload JSON nhỏ gọn, giảm băng thông.
+            \item Chọn mức QoS phù hợp cho từng loại dữ liệu.
+            \item Tự động reconnect, đảm bảo tính sẵn sàng.
+            \item \textbf{Bảo mật}: TLS + xác thực người dùng.
+        \end{itemize}
+    \end{column}
+\end{columns}
+
+\vspace{0.5em}
+\begin{block}{\centering Tích hợp đa giao thức = \textbf{Hiệu quả + Độ tin cậy + An toàn}}
+\end{block}
 
 \end{frame}

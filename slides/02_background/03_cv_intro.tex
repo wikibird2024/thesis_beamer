@@ -1,69 +1,101 @@
+
+% ===============================
+% Subsection: Cơ sở lý thuyết về CV
+% ===============================
 \subsection{Cơ sở lý thuyết về thị giác máy tính (CV)}
+
+% ---------- Slide 1 ----------
 \begin{frame}
 \frametitle{Định nghĩa và Mục tiêu}
+
 \begin{block}{Định nghĩa}
 \textbf{Thị giác Máy tính (CV)}: Lĩnh vực AI cho phép máy tính xử lý, phân tích và diễn giải hình ảnh/video, mô phỏng thị giác con người.
 \end{block}
 
 \begin{block}{Mục tiêu}
 \begin{itemize}
-\item Tái tạo khả năng nhận thức thị giác với tốc độ, độ chính xác và quy mô vượt trội.
-\item Ứng dụng trong \TENLUANVAN, đặc biệt là \textbf{Ước lượng Tư thế Người (HPE)}.
+    \item Tái tạo khả năng nhận thức thị giác với tốc độ, độ chính xác và quy mô vượt trội.
+    \item Ứng dụng trong \TENLUANVAN, đặc biệt là \textbf{Ước lượng Tư thế Người (HPE)}.
 \end{itemize}
 \end{block}
 \end{frame}
 
+% ---------- Slide 2 ----------
 \begin{frame}
 \frametitle{Pipeline Cơ bản của Hệ thống CV}
+
 \begin{block}{Quy trình}
 \begin{enumerate}
-\item \textbf{Thu nhận dữ liệu}: Thu thập ảnh/video từ camera.
-\item \textbf{Tiền xử lý}: Chuẩn hóa kích thước, điều chỉnh sáng/tương phản, giảm nhiễu.
-\item \textbf{Trích xuất đặc trưng}: Chuyển pixel thành đặc trưng trừu tượng (cạnh, góc, kết cấu).
-\item \textbf{Phân tích và quyết định}: Phân loại, nhận dạng hoặc ước lượng tư thế.
+    \item \textbf{Thu nhận dữ liệu}: Thu thập ảnh/video từ camera.
+    \item \textbf{Tiền xử lý}: Chuẩn hóa kích thước, điều chỉnh sáng/tương phản, giảm nhiễu.
+    \item \textbf{Trích xuất đặc trưng}: Chuyển pixel thành đặc trưng trừu tượng (cạnh, góc, kết cấu).
+    \item \textbf{Phân tích và quyết định}: Phân loại, nhận dạng hoặc ước lượng tư thế.
 \end{enumerate}
 \end{block}
 
 \begin{exampleblock}{Minh họa}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/vision_flow-crop.pdf}
-    
-    \vspace{0.3em}
-    {\footnotesize Quy trình tổng thể của hệ thống CV.}
+\centering
+\includegraphics[width=0.8\textwidth]{images/vision_flow-crop.pdf}
+
+\vspace{0.3em}
+{\footnotesize Quy trình tổng thể của hệ thống CV.}
 \end{exampleblock}
 \end{frame}
 
+% ---------- Slide 3 ----------
 \begin{frame}
-\frametitle{Phân loại Bài toán CV}
-\begin{block}{Các bài toán cốt lõi}
+\frametitle{Phân loại Các Bài toán Chính trong CV}
+
+\begin{block}{Các nhóm bài toán thường gặp}
 \begin{itemize}
-\item \textbf{Phân loại Ảnh}: Gán nhãn cho toàn bộ ảnh (VD: "Người", "Xe").
-\item \textbf{Phát hiện Đối tượng}: Xác định vị trí và nhãn bằng hộp giới hạn.
-\item \textbf{Phân đoạn Ảnh}:
-\begin{itemize}
-\item \textbf{Ngữ nghĩa}: Gán nhãn từng pixel (VD: Đường, Cây).
-\item \textbf{Thể hiện}: Phân biệt các cá thể cùng lớp.
-\end{itemize}
-\item \textbf{Ước lượng Tư thế Người (HPE)}: Xác định tọa độ \textbf{khớp keypoint} để phân tích chuyển động.
+    \item \textbf{Phân loại Ảnh (Image Classification)}  
+    → Đầu ra: một nhãn duy nhất cho cả bức ảnh.  
+    \textit{Ví dụ:} ảnh chứa người hay xe.
+    
+    \item \textbf{Phát hiện Đối tượng (Object Detection)}  
+    → Đầu ra: nhãn + vị trí (hộp giới hạn bounding box).  
+    \textit{Ví dụ:} phát hiện nhiều người trong cùng một khung hình.
+    
+    \item \textbf{Phân đoạn Ảnh (Image Segmentation)}  
+    \begin{itemize}
+        \item \textbf{Ngữ nghĩa (Semantic)}: gán nhãn từng pixel theo lớp.  
+        \textit{Ví dụ:} tất cả pixel thuộc “Đường”, “Cây”.
+        \item \textbf{Thể hiện (Instance)}: phân biệt từng cá thể trong cùng lớp.  
+        \textit{Ví dụ:} tách riêng từng chiếc xe thay vì gom tất cả thành “Xe”.
+    \end{itemize}
+    
+    \item \textbf{Ước lượng Tư thế Người (Human Pose Estimation - HPE)}  
+    → Đầu ra: tọa độ \textbf{các khớp xương (keypoints)} của cơ thể.  
+    \textit{Ứng dụng:} phân tích chuyển động, giám sát té ngã.
 \end{itemize}
 \end{block}
 \end{frame}
 
+% ---------- Slide 4 ----------
+
 \begin{frame}
 \frametitle{Mô hình Học sâu: CNN}
+
 \begin{columns}
+% --- Cột trái ---
 \begin{column}{0.5\textwidth}
 \begin{itemize}
-\item \textbf{Mạng Nơ-ron Tích chập (CNN)}: Kiến trúc chủ đạo cho xử lý ảnh.
-\item \textbf{Phép tích chập}: Trích xuất đặc trưng cục bộ:
-\begin{equation}
-\footnotesize
-(I * K)(i, j) = \sum_{m} \sum_{n} I(i-m, j-n) K(m, n)
-\end{equation}
-\item \textbf{Phép gộp}: Giảm kích thước, tăng tính bền vững (VD: Max Pooling).
+    \item \textbf{Mạng Nơ-ron Tích chập (CNN)}: Kiến trúc chủ đạo cho xử lý ảnh.
+    \item \textbf{Phép tích chập}: Trích xuất đặc trưng cục bộ từ vùng nhỏ của ảnh.
+    \begin{equation}
+    \footnotesize
+    (I * K)(i, j) = \sum_{m} \sum_{n} I(i-m, j-n) \, K(m, n)
+    \end{equation}
+    \begin{itemize}
+        \item $I$: ma trận ảnh đầu vào.
+        \item $K$: kernel (bộ lọc).
+        \item $(i,j)$: vị trí pixel trong đầu ra.
+    \end{itemize}
+    \item \textbf{Phép gộp (Pooling)}: Giảm kích thước, tăng tính bền vững (VD: Max Pooling).
 \end{itemize}
 \end{column}
 
+% --- Cột phải ---
 \begin{column}{0.45\textwidth}
 \begin{figure}
 \centering
@@ -75,21 +107,30 @@
 \end{columns}
 \end{frame}
 
+% ---------- Slide ViT ----------
 \begin{frame}
 \frametitle{Mô hình Học sâu: Vision Transformer}
+
 \begin{columns}
+% --- Cột trái ---
 \begin{column}{0.5\textwidth}
 \begin{itemize}
-\item \textbf{Vision Transformer (ViT)}: Chia ảnh thành \textbf{miếng vá}, xử lý như token.
-\item \textbf{Tự chú ý (Self-Attention)}:
-\begin{equation}
-\footnotesize
-\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-\end{equation}
-\item Học quan hệ toàn cục, vượt giới hạn của CNN.
+    \item \textbf{Vision Transformer (ViT)}: Chia ảnh thành \textbf{patch} (miếng vá), xử lý như chuỗi token.
+    \item \textbf{Cơ chế tự chú ý (Self-Attention)}: Tính trọng số quan hệ giữa các token.
+    \begin{equation}
+    \footnotesize
+    \text{Attention}(Q,K,V) =
+    \text{softmax}\!\left(\frac{QK^T}{\sqrt{d_k}}\right) V
+    \end{equation}
+    \begin{itemize}
+        \item $Q,K,V$: ma trận truy vấn, khóa, giá trị.
+        \item $d_k$: độ dài vector khóa (chuẩn hóa).
+    \end{itemize}
+    \item Giúp học \textbf{quan hệ toàn cục}, vượt giới hạn cục bộ của CNN.
 \end{itemize}
 \end{column}
 
+% --- Cột phải ---
 \begin{column}{0.45\textwidth}
 \begin{figure}
 \centering
@@ -100,4 +141,3 @@
 \end{column}
 \end{columns}
 \end{frame}
-
