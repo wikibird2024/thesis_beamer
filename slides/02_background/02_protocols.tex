@@ -138,29 +138,40 @@
 % =====================================================
 % Slide 4: MQTT - QoS và Bảo mật
 % =====================================================
-\begin{frame}
-\frametitle{MQTT - QoS, Lợi ích và Bảo mật}
+\begin{frame}{MQTT: QoS, Lợi ích và Bảo mật}
+\small
+\begin{columns}[T,totalwidth=\textwidth]
+    % --- Cột 1: QoS & Lợi ích ---
+    \begin{column}{0.48\textwidth}
+        \begin{block}{\textbf{QoS Levels}}
+            \begin{itemize}
+                \item \textcolor{green!60!black}{\textbf{QoS 0}} – Fire \& Forget, nhanh, có thể mất bản tin.
+                \item \textcolor{orange!80!black}{\textbf{QoS 1}} – At least once, đảm bảo nhận, có thể trùng.
+                \item \textcolor{red!70!black}{\textbf{QoS 2}} – Exactly once, tin cậy nhất nhưng chậm.
+            \end{itemize}
+        \end{block}
 
-\begin{columns}[T]
-\column{0.5\textwidth}
-\textbf{QoS:}
-\begin{itemize}
-\item QoS 0: Fire & Forget, nhanh, có thể mất message
-\item QoS 1: Gửi ít nhất 1 lần, có thể trùng lặp
-\item QoS 2: Gửi đúng 1 lần, tin cậy nhất, chậm
-\end{itemize}
+        \begin{block}{\textbf{Lợi ích}}
+            \begin{itemize}
+                \item Truyền/nhận tách biệt (Pub–Sub).
+                \item Giảm độ trễ, hỗ trợ offline.
+                \item Dễ mở rộng hệ thống.
+            \end{itemize}
+        \end{block}
+    \end{column}
 
-\textbf{Lợi ích:} Truyền/nhận độc lập, giảm độ trễ, hỗ trợ offline, scale tốt
-
-\column{0.5\textwidth}
-\textbf{Bảo mật:}
-\begin{itemize}
-\item TLS/SSL, MQTT over TLS (port 8883)
-\item Username/Password, client certificates
-\item ACL kiểm soát quyền truy cập topic
-\end{itemize}
+    % --- Cột 2: Bảo mật ---
+    \begin{column}{0.48\textwidth}
+        \begin{block}{\textbf{Bảo mật trong MQTT}}
+            \begin{itemize}
+                \item \textbf{Mã hoá kênh}: TLS/SSL (\texttt{port 8883}), certificate pinning.
+                \item \textbf{Xác thực}: Username/Password, Client certificates, Token (JWT, OAuth2).
+                \item \textbf{Uỷ quyền}: ACL theo topic, RBAC cho nhóm người dùng.
+                \item \textbf{Bảo vệ hệ thống}: hạn chế kết nối, rate limiting, chống DoS.
+            \end{itemize}
+        \end{block}
+    \end{column}
 \end{columns}
-
 \end{frame}
 
 % =====================================================
