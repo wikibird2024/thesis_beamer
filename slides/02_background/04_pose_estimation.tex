@@ -1,15 +1,24 @@
 \subsection{Nhận diện tư thế người}
+
 % Slide 1: Section Overview
 \begin{frame}{Nhận diện Tư thế Người và Phát hiện Té ngã}
-    \begin{block}{Tổng quan}
-        Hệ thống tích hợp nhận diện tư thế (MediaPipe Pose) và phát hiện té ngã dựa trên đặc trưng động học/tư thế.
-        \begin{itemize}
-            \item Ứng dụng: Giám sát an toàn, phát hiện té ngã.
-            \item Nền tảng: Thị giác máy tính thời gian thực.
-        \end{itemize}
-    \end{block}
-\end{frame}
 
+\begin{block}{\textcolor{blue!70!black}{Mục tiêu}}
+    Xác định tư thế cơ thể người theo thời gian thực và phát hiện sự kiện té ngã để hỗ trợ giám sát an toàn.
+\end{block}
+
+\begin{block}{\textcolor{orange!80!black}{Phương pháp}}
+    \begin{itemize}
+        \item \textbf{Nhận diện tư thế (Pose Estimation)}:  
+        Dùng \textbf{MediaPipe Pose} để trích xuất \textbf{33 điểm khớp} (keypoints) trên cơ thể.
+        \item \textbf{Đặc trưng động học/tư thế}:  
+        Tính toán góc, vận tốc, và sự thay đổi đột ngột về vị trí cơ thể.
+        \item \textbf{Phát hiện té ngã}:  
+        Kết hợp logic ngưỡng (thresholds) + thuật toán học máy (ML) để phân loại té ngã.
+    \end{itemize}
+\end{block}
+
+\end{frame}
 % Slide 2: Nhận diện Tư thế Người
 \begin{frame}{Nhận diện Tư thế Người}
 \begin{columns}[T]
@@ -38,40 +47,34 @@
     \end{column}
 \end{columns}
 \end{frame}
+%===============
 
+\begin{frame}{Mô hình nhận dạng đối tượng phân cấp}
 
-\begin{frame}
-\frametitle{Mô hình nhận dạng đối tượng phân cấp}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{ob_ject.png}
-\end{figure}
-\end{frame}
+\begin{columns}[T, totalwidth=\textwidth]
+    %---------------- Column 1: Hình ----------------%
+    \column{0.55\textwidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{ob_ject.png}
+        \caption*{\footnotesize Minh họa cấu trúc phân cấp đối tượng}
+    \end{figure}
 
-
-\begin{frame}{Cấu trúc phân cấp và MediaPipe BlazePose}
-\begin{columns}[T]
-    %---------------- Column 1: Phân cấp ----------------%
-    \column{0.48\textwidth}
+    %---------------- Column 2: Nội dung ----------------%
+    \column{0.40\textwidth}
+    \small % giảm font chữ
+    \setlength{\itemsep}{0.5em} % giảm khoảng cách giữa các item
     \textbf{Cấu trúc phân cấp:}
     \begin{itemize}
-        \item \textbf{Primitives (Cấp 0)}: Thành phần cơ bản (điểm, đường).
-        \item \textbf{Parts (Cấp 1)}: Tập hợp các Primitives tạo bộ phận.
-        \item \textbf{Object (Cấp 2)}: Tập hợp Parts tạo đối tượng hoàn chỉnh.
+        \item \textcolor{red}{\textbf{Primitives (Cấp 0)}}: Thành phần cơ bản (điểm, đường, góc).
+        \item \textcolor{orange}{\textbf{Parts (Cấp 1)}}: Tập hợp các Primitives tạo bộ phận.
+        \item \textcolor{black}{\textbf{Object (Cấp 2)}}: Tập hợp Parts tạo đối tượng hoàn chỉnh.
     \end{itemize}
-
-    %---------------- Column 2: BlazePose ----------------%
-    \column{0.48\textwidth}
-    \begin{block}{MediaPipe BlazePose}
-        BlazePose tối ưu HPE 3D với:
-        \begin{itemize}
-            \item \textbf{Nodes:} Các module xử lý tín hiệu hình ảnh.
-            \item \textbf{Edges:} Luồng dữ liệu giữa các module.
-        \end{itemize}
-        \small{\textit{(Nodes = các bước tính toán; Edges = kết nối dữ liệu giữa các bước).}}
-    \end{block}
 \end{columns}
+
 \end{frame}
+%----------------
+
 
 % Slide 4: MediaPipe Pose – Thành phần & Hậu xử lý
 \begin{frame}{MediaPipe Pose – Thành phần & Hậu xử lý}
