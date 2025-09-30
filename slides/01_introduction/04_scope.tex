@@ -1,23 +1,29 @@
 
 \subsection{Giới hạn thực hiện đề tài hệ thống cảnh báo té ngã} 
+
 % --- Slide 10: Hiệu năng và giới hạn ---
 \begin{frame}{Mục tiêu và giới hạn của sản phẩm}
-    \begin{columns}[T]
+    \begin{columns}[T,onlytextwidth]
+        % --- Cột 1: Mục tiêu ---
         \begin{column}{0.48\textwidth}
-            \textbf{Mục tiêu Hiệu năng}
-            \begin{itemize}
-                \item Tổng độ trễ $<5$ giây.
-                \item Độ chính xác $>90\%$, False Alarm $<8\%$.
-                \item Uptime dịch vụ MQTT $>99\%$.
-            \end{itemize}
+            \begin{block}{\textcolor{blue!70!black}{\textbf{Mục tiêu hiệu năng}}}
+                \begin{itemize}
+                    \item[$\checkmark$] Tổng độ trễ $<5$ giây.
+                    \item[$\checkmark$] Độ chính xác $>90\%$, False Alarm $<8\%$.
+                    \item[$\checkmark$] Uptime dịch vụ MQTT $>99\%$.
+                \end{itemize}
+            \end{block}
         \end{column}
+
+        % --- Cột 2: Giới hạn ---
         \begin{column}{0.48\textwidth}
-            \textbf{Giới hạn sản phẩm thực hiện}
-            \begin{itemize}
-                \item Hoạt động trong nhà với điều kiện ánh sáng và mạng ổn định.
-                \item Nguyên mẫu \textbf{ESP32} chưa tích hợp học sâu toàn phần.
-                \item Không phát triển app di động/web phức tạp.
-            \end{itemize}
+            \begin{block}{\textcolor{red!70!black}{\textbf{Giới hạn sản phẩm}}}
+                \begin{itemize}
+                    \item[$\times$] Hoạt động trong nhà với điều kiện ánh sáng và mạng ổn định.
+                    \item[$\times$] Nguyên mẫu \textbf{ESP32} chưa tích hợp học sâu toàn phần.
+                    \item[$\times$] Không phát triển app di động/web phức tạp.
+                \end{itemize}
+            \end{block}
         \end{column}
     \end{columns}
 \end{frame}
