@@ -2,25 +2,6 @@
 % --- Bắt đầu SUBSECTION: Nghiên cứu liên quan ---
 \subsection{Vấn đề té ngã và tình hình nghiên cứu}
 
-\begin{frame}{Nghiên cứu trong và ngoài nước}
-\begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-        \textbf{Quốc tế}
-        \begin{itemize}
-            \item Xu hướng: sử dụng AI nhẹ, YOLO, Transformer, cảm biến mmWave
-            \item Thành tựu: giảm false alarm, tối ưu cho thiết bị biên, kết hợp dữ liệu từ nhiều cảm biến (Sensor Fusion)
-        \end{itemize}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-        \textbf{Trong nước}
-        \begin{itemize}
-            \item Thực trạng: chủ yếu mô hình thử nghiệm (PoC) với ESP32, Arduino
-            \item Hạn chế: thiếu dữ liệu lớn, độ chính xác thấp (75-85\%), thiếu tích hợp đa phương thức
-        \end{itemize}
-    \end{column}
-\end{columns}
-\end{frame}
-
 %-------slide-------------
 \begin{frame}{Các phương pháp phát hiện té ngã}
 \setbeamercolor{block title}{bg=blue!20,fg=black}
@@ -41,4 +22,33 @@
 \begin{block}{Kết hợp đa phương thức (Multi-modal)}
     Tích hợp dữ liệu từ nhiều nguồn để tăng độ chính xác
 \end{block}
+\end{frame}
+
+%--------------slide-----------------
+
+\begin{frame}{khái quát hiên trạng nghiên cứu trong và ngoài nước}
+\small
+\begin{columns}[T,onlytextwidth]
+    % ---- Cột 1: Quốc tế ----
+    \begin{column}{0.48\textwidth}
+        \begin{block}{\textbf{Quốc tế}}
+            \begin{itemize}
+                \item \textbf{Xu hướng:} AI nhẹ (TinyML), YOLO, Transformer, cảm biến mmWave
+                \item \textbf{Thành tựu:} giảm false alarm, tối ưu cho thiết bị biên, \\
+                      kết hợp dữ liệu đa cảm biến (Sensor Fusion)
+            \end{itemize}
+        \end{block}
+    \end{column}
+
+    % ---- Cột 2: Trong nước ----
+    \begin{column}{0.48\textwidth}
+        \begin{block}{\textbf{Trong nước}}
+            \begin{itemize}
+                \item \textbf{Thực trạng:} chủ yếu mô hình thử nghiệm với ESP32, Arduino
+                \item \textbf{Hạn chế:} thiếu dữ liệu lớn, độ chính xác thấp (75--85\%), \\
+                      chưa tích hợp đa phương thức
+            \end{itemize}
+        \end{block}
+    \end{column}
+\end{columns}
 \end{frame}
