@@ -1,5 +1,0 @@
-{
-  "device_id": "ESP32_001",
-  "temperature": 25.5,
-  "sensors": ["temp", "light"]
-}
