@@ -46,49 +46,6 @@
 \end{columns}
 \end{frame}
 
-% =====================================================
-% Slide 1: Giao thức SIP - Chức năng và Đường tín hiệu
-% =====================================================
-\begin{frame}[fragile]
-\frametitle{Giao thức SIP - Khởi tạo Phiên và Đường tín hiệu/Media}
-
-\textbf{Chức năng chính:}
-\begin{itemize}
-\item Thiết lập cuộc gọi VoIP từ hệ thống cảnh báo
-\item Kết nối với Asterisk PBX để gọi điện thoại
-\item Truyền âm thanh cảnh báo qua RTP
-\end{itemize}
-
-\textbf{Các bước hoạt động:} REGISTER → INVITE → ACK → RTP → BYE
-
-\begin{columns}[T]
-\column{0.48\textwidth}
-\begin{block}{Đường tín hiệu (Signaling Path)}
-\begin{itemize}
-\item Mang các tin nhắn SIP (INVITE, BYE, 200 OK,…)
-\item Thiết lập, quản lý, kết thúc cuộc gọi
-\item Sử dụng TCP/UDP
-\end{itemize}
-\end{block}
-
-\column{0.48\textwidth}
-\begin{block}{Đường truyền phương tiện (Media Path)}
-\begin{itemize}
-\item Mang dữ liệu thoại/video thực tế
-\item Sử dụng RTP qua UDP
-\item Truyền trực tiếp giữa các điểm cuối
-\end{itemize}
-\end{block}
-\end{columns}
-
-% TikZ sơ đồ (coi như gọn, nhỏ)
-\begin{center}
-\begin{tikzpicture}[scale=0.7, every node/.style={transform shape}]
-% Node và mũi tên tương tự bản cũ, co gọn lại
-\end{tikzpicture}
-\end{center}
-
-\end{frame}
 
 % =====================================================
 % Slide 2: SIP - ICE và Asterisk
