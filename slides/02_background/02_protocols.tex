@@ -2,6 +2,51 @@
 \subsection{Các phương thức truyền thông sử dụng}
 
 % =====================================================
+% Slide: Giao thức SIP - Chức năng và Đường tín hiệu/Media
+% =====================================================
+\begin{frame}{Giao thức SIP - Khởi tạo Phiên và Đường tín hiệu/Media}
+
+% --- Chức năng ---
+\begin{block}{\textbf{Chức năng chính của SIP trong hệ thống}}
+\begin{itemize}
+    \item Thiết lập và quản lý cuộc gọi VoIP từ hệ thống cảnh báo.
+    \item Kết nối với \textbf{Asterisk PBX} để gọi điện thoại.
+    \item Truyền âm thanh cảnh báo qua \textbf{RTP}.
+\end{itemize}
+\end{block}
+
+% --- Quy trình hoạt động ---
+\begin{block}{\textbf{Quy trình hoạt động cơ bản}}
+    \textcolor{blue!70!black}{REGISTER} $\;\rightarrow\;$ 
+    \textcolor{green!60!black}{INVITE} $\;\rightarrow\;$ 
+    \textcolor{orange!80!black}{ACK} $\;\rightarrow\;$ 
+    \textcolor{purple!70!black}{RTP} $\;\rightarrow\;$ 
+    \textcolor{red!70!black}{BYE}
+\end{block}
+
+% --- Cột: Signaling vs Media ---
+\begin{columns}[T,onlytextwidth]
+    \column{0.48\textwidth}
+    \begin{block}{\textcolor{blue!70!black}{Đường tín hiệu (Signaling Path)}}
+        \begin{itemize}
+            \item Mang bản tin SIP: \texttt{INVITE},\texttt{BYE}, \dots
+            \item Thiết lập, quản lý, kết thúc cuộc gọi.
+            \item Chạy trên \textbf{TCP/UDP}.
+        \end{itemize}
+    \end{block}
+
+    \column{0.48\textwidth}
+    \begin{block}{\textcolor{purple!70!black}{Đường truyền phương tiện (Media Path)}}
+        \begin{itemize}
+            \item Mang dữ liệu thoại/video thực tế.
+            \item Sử dụng \textbf{RTP qua UDP}.
+            \item Truyền trực tiếp giữa các điểm cuối.
+        \end{itemize}
+    \end{block}
+\end{columns}
+\end{frame}
+
+% =====================================================
 % Slide 1: Giao thức SIP - Chức năng và Đường tín hiệu
 % =====================================================
 \begin{frame}[fragile]
