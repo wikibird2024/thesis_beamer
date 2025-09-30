@@ -1,25 +1,21 @@
-% ----------------------------
-% Slide: Asterisk – Hệ thống Liên lạc SIP
-% ----------------------------
-\begin{frame}
-\frametitle{Asterisk: Liên lạc và Xử lý Cuộc gọi SIP}
-\scriptsize
-\begin{tabular}{|p{2.3cm}|p{4cm}|p{3cm}|}
-\hline
-\textbf{Thông tin} & \textbf{Chi tiết} & \textbf{Chức năng} \\
-\hline
-Phiên bản & Asterisk 22.5.1 trên Linux Mint 21 & Tổng đài VoIP \\
-\hline
-pjsip.conf & Quản lý endpoint & Kết nối qua Python (AMI/ARI) \\
-\hline
-extensions.conf & Dial Plan & Xử lý cuộc gọi SIP \\
-\hline
-manager.conf & Cấu hình AMI & Python điều khiển cuộc gọi \\
-\hline
-\end{tabular}
 
+\begin{frame}{Asterisk: Giới thiệu \& Chức năng chính}
+\small
+\begin{itemize}
+    \item \textbf{Tổng đài IP-PBX mã nguồn mở}: xây dựng hệ thống thoại trên nền IP.
+    \item \textbf{Hỗ trợ nhiều giao thức}: SIP, IAX, H.323, MGCP,...
+    \item \textbf{Chức năng thoại phong phú}:
+    \begin{itemize}
+        \item Cuộc gọi nội bộ, liên lạc qua VoIP/PSTN
+        \item Voicemail, IVR (trả lời tự động), Call Queues
+        \item Ghi âm, chuyển hướng, hội nghị (conference call)
+    \end{itemize}
+    \item \textbf{Mở rộng dễ dàng}: tích hợp CRM, ứng dụng web, IoT.
+    \item \textbf{Ứng dụng}: doanh nghiệp, call center, nghiên cứu viễn thông.
+\end{itemize}
 \end{frame}
 
+%-------------------
 \begin{frame}
 \frametitle{Asterisk: Cấu hình Ba Thành Phần Chính}
 
