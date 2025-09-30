@@ -26,13 +26,13 @@ I (10021) APP_MAIN: Application started successfully
         \item \textbf{Mục đích:} 
         \begin{itemize}
             \item Xác nhận giao tiếp AT command, kết nối 4G và thu nhận GPS.
-            \item Kiểm tra các module SIM4G-GPS, Wi-Fi và các tác vụ chính.
+            \item Kiểm tra, module SIM4G-GPS, Wi-Fi và các tác vụ chính.
         \end{itemize}
         \item \textbf{Quy trình:}
         \begin{enumerate}
             \item Khởi tạo UART, kiểm tra modem và SIM.
             \item Đánh giá chất lượng sóng (\texttt{+CSQ}).
-            \item Cấu hình APN, kích hoạt PDP context.
+            \item Cấu hình APN 
             \item Bật GPS và truy vấn tọa độ.
         \end{enumerate}
         \item \textbf{Kết luận:} 
@@ -51,7 +51,7 @@ I (10021) APP_MAIN: Application started successfully
 \frametitle{Kiểm thử MQTT và truyền dữ liệu}
 \begin{itemize}
     \item \textbf{Mục đích:} Kiểm tra kết nối broker MQTT và gửi bản tin định kỳ.
-    \item \textbf{Kết luận:} Kết nối MQTT ổn định, dữ liệu được truyền tới hệ thống giám sát.
+    \item \textbf{Kết quả} Kết nối MQTT ổn định, dữ liệu được truyền tới hệ thống giám sát.
 \end{itemize}
 \vspace{0.3cm}
 \begin{figure}
