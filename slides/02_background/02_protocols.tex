@@ -91,44 +91,49 @@
     \end{column}
 \end{columns}
 \end{frame}
-
 % =====================================================
 % Slide 3: MQTT - Tổng quan và kiến trúc
 % =====================================================
+
 \begin{frame}[fragile]
 \frametitle{MQTT: Tổng quan và Kiến trúc Pub/Sub}
 
-\begin{columns}[T,onlytextwidth]
-
-% --- Cột 1: Định nghĩa & đặc điểm ---
-\begin{column}{0.48\textwidth}
 \begin{block}{Định nghĩa \& Đặc điểm}
 \begin{itemize}
   \item \textbf{MQTT}: Message Queuing Telemetry Transport
   \item Giao thức \textbf{nhẹ}, tối ưu cho IoT/M2M
-  \item Hoạt động trên \textbf{TCP/IP}, kết nối duy trì lâu dài
+  \item Hoạt động trên \textbf{TCP/IP}, kết nối lâu dài
   \item Thích hợp cho thiết bị \textbf{tài nguyên hạn chế}, mạng \textbf{băng thông thấp}
 \end{itemize}
 \end{block}
-\end{column}
 
-% --- Cột 2: Kiến trúc Pub/Sub ---
-\begin{column}{0.48\textwidth}
 \begin{block}{Kiến trúc Publish/Subscribe}
-\begin{itemize}
-  \item \textbf{Broker trung tâm}: Mosquitto, HiveMQ
-  \item \textbf{Publisher}: gửi dữ liệu theo chủ đề (topic)
-  \item \textbf{Subscriber}: đăng ký và nhận dữ liệu theo topic
-  \item Ví dụ:
-    \begin{itemize}
-      \item \texttt{sensor/room/temperature}
-      \item \texttt{alert/fall/detected}
-    \end{itemize}
-\end{itemize}
-\end{block}
-\end{column}
+\centering
+\resizebox{0.8\textwidth}{!}{%
+\begin{tikzpicture}[node distance=1.2cm,>=stealth,thick]
+  % Broker
+  \node[draw, rectangle, rounded corners, fill=blue!20, minimum width=2cm, minimum height=1cm] (broker) {Broker};
 
-\end{columns}
+  % Publishers
+  \node[draw, ellipse, fill=green!20, left=2.5cm of broker, yshift=1.0cm] (pub1) {Publisher 1};
+  \node[draw, ellipse, fill=green!20, left=2.5cm of broker, yshift=-1.0cm] (pub2) {Publisher 2};
+
+  % Subscribers
+  \node[draw, ellipse, fill=orange!20, right=2.5cm of broker, yshift=1.0cm] (sub1) {Subscriber A};
+  \node[draw, ellipse, fill=orange!20, right=2.5cm of broker, yshift=-1.0cm] (sub2) {Subscriber B};
+
+  % Arrows
+  \draw[->] (pub1) -- (broker) node[midway, above] {\tiny publish};
+  \draw[->] (pub2) -- (broker) node[midway, below] {\tiny publish};
+  \draw[->] (broker) -- (sub1) node[midway, above] {\tiny notify};
+  \draw[->] (broker) -- (sub2) node[midway, below] {\tiny notify};
+\end{tikzpicture}
+}
+
+\vspace{0.3cm}
+{\scriptsize Ví dụ topic: \texttt{sensor/room/temperature}, \texttt{alert/fall/detected}}
+\end{block}
+
 \end{frame}
 % =====================================================
 % Slide 4: MQTT - QoS và Bảo mật
