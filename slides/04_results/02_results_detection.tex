@@ -117,3 +117,44 @@ I (159881) SIM4G_AT: SMS sent successfully.
 \end{columns}
 \end{frame}
 
+%======================
+
+\begin{frame}{Telegram Bot: Cảnh báo té ngã từ ESP32 và Python}
+\scriptsize
+\begin{columns}[T, totalwidth=\textwidth]
+
+    % --- Cột trái: ESP32 ---
+    \begin{column}{0.48\textwidth}
+        \textbf{Module Phần cứng (ESP32 + 4G/GPS):}
+        \begin{itemize}\scriptsize
+            \item Khi phát hiện té ngã, bản tin MQTT gửi tới hệ thống trung tâm
+            \item Hệ thống trung tâm chuyển tiếp thông tin tới Telegram cho người dùng
+        \end{itemize}
+        \vspace{0.5em}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth,height=0.45\textheight,keepaspectratio]{images/telegram_fall_module1_send.png}
+            \caption{Cảnh báo từ ESP32}
+        \end{figure}
+    \end{column}
+
+    % --- Cột phải: Python ---
+    \begin{column}{0.48\textwidth}
+        \textbf{Module Python + Camera:}
+        \begin{itemize}\scriptsize
+            \item Phát hiện té ngã từ video và skeleton
+            \item Gửi trực tiếp cảnh báo Telegram kèm hình chụp và thông tin chi tiết
+        \end{itemize}
+        \vspace{0.5em}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth,height=0.45\textheight,keepaspectratio]{images/telegram_python_fall_send.png}
+            \caption{Cảnh báo từ Python}
+        \end{figure}
+    \end{column}
+
+\end{columns}
+
+\vspace{0.5em}
+\textbf{Kết luận:} Telegram Bot là cầu nối trực quan, kết hợp cả hai nguồn giúp tăng độ tin cậy và giảm bỏ sót sự kiện.
+\end{frame}
