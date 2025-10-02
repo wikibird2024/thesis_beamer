@@ -1,8 +1,8 @@
 \section{III-THIẾT KẾ VÀ TRIỂN KHAI}
 % Slide 1: Kiến trúc tổng quan
-\subsection{Tổng quan kiến trúc}
+\subsection{Tổng quan kiến trúc FDAS(Fall detection and alert system)}
 
-\begin{frame}[fragile]{Kiến trúc Hệ thống FDAS}
+\begin{frame}[fragile]{Kiến trúc theo phân lớp của FDAS}
     \begin{columns}[t]
         \begin{column}{0.5\textwidth}
             \begin{figure}
@@ -29,92 +29,3 @@
 \end{frame}
 
 
-% Slide 1: Tổng quan hệ thống
-\begin{frame}{Tổng quan Kiến trúc Hệ thống Phát hiện Té ngã sẽ xây dựng} 
-\begin{block}{Phân loại theo đầu vào}
-\begin{itemize}
-\item \textbf{Dựa trên cảm biến hình ảnh}: Xử lý hình ảnh cố định, yêu cầu máy chủ mạnh
-\item \textbf{Dựa trên Thiết bị đeo}: Cảm biến IMU, ESP32, truyền thông di động
-\end{itemize}
-\end{block}
-
-\begin{block}{Ba thành phần cốt lõi}
-\begin{enumerate}
-\item \textbf{Thiết bị Thu thập Dữ liệu}: IMU, Camera, GPS
-\item \textbf{Máy chủ/Xử lý}: Phân tích dữ liệu, Học sâu
-\item \textbf{Truyền thông}: Wi-Fi, 4G/LTE đảm bảo kết nối
-\end{enumerate}
-\end{block}
-\end{frame}
-
-\iffalse
-% Slide 4: Lớp Xử lý/Đám mây
-\begin{frame}
-\frametitle{Lớp Xử lý/Đám mây}
-
-\begin{block}{Main Processing Server (Python)}
-\begin{itemize}
-\item \textbf{MQTT Client}: Subscribe dữ liệu từ ESP32
-\item \textbf{AI \& Image Processing}: YOLO model xử lý video
-\item \textbf{Business Logic}: Kết hợp 2 luồng dữ liệu → Quyết định cảnh báo
-\end{itemize}
-\end{block}
-
-\begin{columns}
-\column{0.5\textwidth}
-\begin{block}{Asterisk Server}
-\begin{itemize}
-\item Tổng đài PBX
-\item Cuộc gọi khẩn cấp (SIP)
-\end{itemize}
-\end{block}
-
-\column{0.5\textwidth}
-\begin{block}{Telegram Bot API}
-\begin{itemize}
-\item Tin nhắn/hình ảnh
-\item Thông báo nhóm
-\end{itemize}
-\end{block}
-\end{columns}
-
-\end{frame}
-
-% Slide 5: Lớp Ứng dụng/UI
-\begin{frame}
-\frametitle{Lớp Ứng dụng/Giao diện}
-
-\begin{columns}
-\column{0.33\textwidth}
-\begin{block}{Mobile/Web App}
-\begin{itemize}
-\item Dashboard
-\item Lịch sử sự kiện
-\item Cấu hình
-\end{itemize}
-\end{block}
-
-\column{0.33\textwidth}
-\begin{block}{SIP Client}
-\begin{itemize}
-\item Linphone/Zoiper
-\item Nhận cuộc gọi báo động
-\end{itemize}
-\end{block}
-
-\column{0.33\textwidth}
-\begin{block}{Telegram}
-\begin{itemize}
-\item Thông báo trực tiếp
-\item Tương tác 2 chiều
-\end{itemize}
-\end{block}
-\end{columns}
-
-\vspace{0.5cm}
-\begin{center}
-\textbf{Cảnh báo đa kênh}: Gọi thoại + Nhắn tin
-\end{center}
-
-\end{frame}
-\fi

@@ -1,31 +1,45 @@
-\subsection{Thực hiện phần cứng}
-% Slide 1: Tổng quan phần cứng
-\begin{frame}
-\frametitle{Thực hiện Phần cứng FDAS}
+\subsection{Thực hiện phần cứng của FDAS}
 
-\begin{block}{Kiến trúc mô-đun}
-Hệ thống gồm 2 module hoạt động độc lập:
-\begin{itemize}
-\item \textbf{Module I}: Thiết bị đeo/Cảm biến - Thu thập chuyển động \& định vị
-\item \textbf{Module II}: Camera giám sát - Xác nhận sự kiện qua hình ảnh
-\end{itemize}
-\end{block}
+\begin{frame}{Tổng quan dựa trên phần cứng của FDAS}
+\small
 
-\begin{columns}
-\column{0.5\textwidth}
-\begin{alertblock}{Ưu điểm}
-\begin{itemize}
-\item Linh hoạt triển khai
-\item Giám sát phạm vi rộng  
-\item Duy trì hoạt động khi 1 module lỗi
-\end{itemize}
-\end{alertblock}
+% ---------- Phần trên: 2 block ----------
+\begin{columns}[T]
+    % Block 1: Nguồn dữ liệu
+    \column{0.48\textwidth}
+    \setbeamercolor{block title}{bg=blue!50,fg=white}
+    \setbeamercolor{block body}{bg=blue!10,fg=black}
+    \begin{block}{1. Nguồn dữ liệu}
+    \begin{itemize}
+        \item \textbf{Thiết bị đeo / Cảm biến}: IMU, ESP32, 4G/GPS, thu thập chuyển động & định vị.
+        \item \textbf{Camera giám sát}: Xác nhận sự kiện té ngã qua hình ảnh.
+    \end{itemize}
+    \end{block}
 
-\column{0.5\textwidth}
-\begin{block}{Nguyên lý}
-2 nguồn dữ liệu độc lập tăng độ tin cậy phát hiện
-\end{block}
+    % Block 2: Thành phần chính
+    \column{0.48\textwidth}
+    \setbeamercolor{block title}{bg=green!50,fg=white}
+    \setbeamercolor{block body}{bg=green!10,fg=black}
+    \begin{block}{2. Thành phần chính}
+    \begin{itemize}
+        \item Máy chủ/Xử lý: Phân tích dữ liệu, Học sâu
+        \item Truyền thông: Wi-Fi, 4G/LTE đảm bảo kết nối
+    \end{itemize}
+    \end{block}
 \end{columns}
+
+\vspace{0.3cm}
+
+% ---------- Phần dưới: 1 block ----------
+\setbeamercolor{block title}{bg=red!50,fg=white}
+\setbeamercolor{block body}{bg=red!10,fg=black}
+\begin{block}{3. Ưu điểm \& Nguyên lý}
+\begin{itemize}
+    \item Linh hoạt triển khai, giám sát phạm vi rộng
+    \item Duy trì hoạt động khi 1 module lỗi
+    \item Hai nguồn dữ liệu độc lập tăng độ tin cậy phát hiện
+\end{itemize}
+\end{block}
 
 \end{frame}
 
