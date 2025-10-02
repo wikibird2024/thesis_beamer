@@ -40,28 +40,42 @@
 % ===============================
 % Slide: Thuật toán phát hiện té ngã
 % ===============================
-
 \begin{frame}[fragile]{Python Server: Thuật toán Phát hiện Té ngã}
 \scriptsize
 \begin{columns}[T,onlytextwidth]
-    % --- Cột 1: Thuật toán ---
+
+    % --- Cột 1: Logic ---
     \begin{column}{0.48\textwidth}
         \begin{block}{Quy trình trong \texttt{FallDetector}}
-            \textbf{Kiểm tra:} Landmarks hợp lệ (độ tin cậy $\geq 0.5$)\\[0.2em]
-            \textbf{Tính toán:} Góc thân ($>60^\circ$ dọc, $>45^\circ$ ngang), vận tốc thân ($>0.5$ đơn vị)\\[0.2em]
-            \textbf{Trạng thái:} \textit{Falling} nếu góc + vận tốc vượt ngưỡng, \textit{Lying} nếu góc vượt ngưỡng kéo dài\\[0.2em]
-            \textbf{Quyết định:} Bộ đếm $\geq 5$ frame → té ngã, reset trạng thái
+            \textbf{1. Kiểm tra Landmark:} 
+            - Đảm bảo các điểm quan trọng (vai, hông) hợp lệ và đủ độ tin cậy ($\geq \text{MIN\_LANDMARK\_CONFIDENCE}$)\\[0.2em]
+            
+            \textbf{2. Tính toán Torso \& Velocity:} 
+            - Góc thân: dọc \& ngang\\
+            - Vận tốc trung tâm torso giữa các frame\\[0.2em]
+            
+            \textbf{3. Xác định trạng thái:} 
+            - \textit{Falling}: góc vượt ngưỡng + vận tốc > threshold\\
+            - \textit{Lying}: góc vượt ngưỡng kéo dài\\
+            - Cập nhật counters: \texttt{consecutive\_frames\_fallen}, \texttt{frames\_in\_fall\_state}\\[0.2em]
+            
+            \textbf{4. Quyết định té ngã:} 
+            - Nếu counters ≥ threshold → xác nhận té ngã, reset trạng thái
         \end{block}
+        
+        \begin{alertblock}{Mục tiêu}
+            Phát hiện ngã đa hướng (trước/sau/ngang), giảm tối đa False Positives
+        \end{alertblock}
     \end{column}
 
     % --- Cột 2: Hình minh họa ---
     \begin{column}{0.5\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{images/python_fall_diagram.pdf}
-            \caption{Luồng thuật toán phát hiện té ngã}
-            \label{fig:python_fall_diagram}
-        \end{figure}
+        \centering
+        \includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{images/python_fall_diagram.pdf}
+        % Caption đã loại bỏ để gọn slide
     \end{column}
+
 \end{columns}
 \end{frame}
+
+
