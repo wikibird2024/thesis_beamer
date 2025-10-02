@@ -31,81 +31,38 @@
     \end{block}
 \end{frame}
 
+% ===============================
+% Slide: Logic fall_logic 
+% ===============================
+\begin{frame}{Logic Phát hiện Té ngã (Component \texttt{fall\_logic})}
+\scriptsize
+\begin{columns}[T]
 
-\iffalse
-% Slide: Môi trường phát triển 
-\begin{frame}{Module cảm biến đeo I: Môi trường phát triển}
-    \begin{block}{Chi tiết}
-        \begin{itemize}
-            \item Phần mềm xây dựng trên \textbf{ESP-IDF} (Espressif IoT Development Framework).
-            \item Hệ thống build: \textbf{CMake}, quản lý qua \texttt{idf\_component.yml}.
-            \item API: UART, I2C, SPI, PWM, GPIO, Wi-Fi, MQTT, HTTP.
-            \item Cấu hình qua \textbf{Kconfig}, lưu trong \texttt{sdkconfig}.
-            \item Đảm bảo ổn định, mở rộng, tương thích driver.
-        \end{itemize}
-    \end{block}
-\end{frame}
-\fi
-\iffalse
-% Slide: Mô tả các thành phần (SỬA LẠI - tách thành 2 slide nếu cần)
-\begin{frame}{Module cảm biến đeo I: Mô tả các thành phần}
-    \begin{columns}[t]
-        \begin{column}{0.48\textwidth}
-            \begin{block}{Thành phần chính}
-                \begin{itemize}
-                    \item \textbf{main.c}: Gọi \texttt{app\_main()}.
-                    \item \textbf{app\_main.c/h}: Điều phối, khởi tạo.
-                    \item \textbf{fall\_logic}: Thuật toán phát hiện té ngã.
-                    \item \textbf{event\_handler}: Phản ứng sự kiện.
-                    \item \textbf{mpu6050}: Driver cảm biến.
-                \end{itemize}
-            \end{block}
-        \end{column}
-        \begin{column}{0.48\textwidth}
-            \begin{block}{Thành phần khác}
-                \begin{itemize}
-                    \item \textbf{buzzer, led\_indicator}: Cảnh báo cục bộ.
-                    \item \textbf{sim4g\_gps, wifi\_connect}: Kết nối từ xa.
-                    \item \textbf{user\_mqtt}: Giao tiếp MQTT.
-                    \item \textbf{comm, data\_manager}: Quản lý giao tiếp.
-                \end{itemize}
-            \end{block}
-        \end{column}
-    \end{columns}
-\end{frame}
-\fi
+% Cột hình
+\begin{column}{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{images/module1_fall_logic_diagram.pdf}
+\end{column}
 
+% Cột text
+\begin{column}{0.52\textwidth}
+\begin{block}{Các Giai đoạn Phát hiện Té ngã}
+\scriptsize
+\textcolor{red}{Giai đoạn 1: STATE\_LOW\_G (Rơi tự do)} \\
+Điều kiện: Accel $<0.3g$, Ý nghĩa: Cơ thể rơi tự do / mất trọng lượng
 
-\iffalse
-% Slide: Thuật toán phát hiện té ngã
-\begin{frame}{Module cảm biến đeo: Thuật toán phát hiện té ngã}
-    \begin{block}{Cơ chế}
-        \begin{itemize}
-            \item Dựa trên \textbf{gia tốc tổng hợp}: 
-            \[
-            a_{total} = \sqrt{a_x^2 + a_y^2 + a_z^2}
-            \]
-            \item $a_{total} < \texttt{FALL\_THRESHOLD}$: Đánh dấu sự kiện té ngã.
-            \item Ngưỡng điều chỉnh qua \texttt{CONFIG\_FALL\_LOGIC\_THRESHOLD\_G}.
-            \item Chạy trong \textbf{tác vụ FreeRTOS}, chu kỳ \texttt{CHECK\_INTERVAL\_MS}.
-        \end{itemize}
-    \end{block}
-    \begin{enumerate}
-        \item Đọc dữ liệu từ \texttt{mpu6050}.
-        \item Tính gia tốc tổng hợp, so sánh ngưỡng.
-        \item Gửi \texttt{EVENT\_FALL\_DETECTED} tới \texttt{event\_handler}.
-        \item Đặt cờ \texttt{s\_fall\_detected}, reset qua \texttt{fall\_logic\_reset\_fall\_status()}.
-    \end{enumerate}
-\end{frame}
+\vspace{0.2cm}
+\textcolor{orange}{Giai đoạn 2: STATE\_HIGH\_G (Va chạm)} \\
+Điều kiện: Accel $>3.0g$, Ý nghĩa: Xác nhận va chạm đột ngột
 
-\fi
+\vspace{0.2cm}
+\textcolor{blue}{Giai đoạn 3: STATE\_CONFIRMED (Bất động)} \\
+Điều kiện: Accel ổn định $0.8-1.2g$ kéo dài $>10s$, Ý nghĩa: Kích hoạt cảnh báo té ngã
 
-% Slide: Lưu đồ thuật toán 
-\begin{frame}[fragile]{Module cảm biến đeo I: Lưu đồ thuật toán component fall\_logic}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.85\textwidth,height=0.7\textheight,keepaspectratio]{images/module1_fall_logic_diagram.pdf}
-        \caption{Lưu đồ thuật toán phát hiện té ngã.}
-        \label{fig:fall_logic_flow}
-    \end{figure}
+\vspace{0.3cm}
+\textbf{\scriptsize Mục tiêu:} Giảm False Positives bằng cách yêu cầu đủ 3 điều kiện theo thứ tự: rơi → va chạm → bất động
+\end{block}
+\end{column}
+
+\end{columns}
 \end{frame}
