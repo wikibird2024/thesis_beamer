@@ -28,6 +28,25 @@
     \end{columns}
 \end{frame}
 
+
+% Slide 1: Tổng quan hệ thống
+\begin{frame}{Tổng quan Kiến trúc Hệ thống Phát hiện Té ngã sẽ xây dựng} 
+\begin{block}{Phân loại theo đầu vào}
+\begin{itemize}
+\item \textbf{Dựa trên cảm biến hình ảnh}: Xử lý hình ảnh cố định, yêu cầu máy chủ mạnh
+\item \textbf{Dựa trên Thiết bị đeo}: Cảm biến IMU, ESP32, truyền thông di động
+\end{itemize}
+\end{block}
+
+\begin{block}{Ba thành phần cốt lõi}
+\begin{enumerate}
+\item \textbf{Thiết bị Thu thập Dữ liệu}: IMU, Camera, GPS
+\item \textbf{Máy chủ/Xử lý}: Phân tích dữ liệu, Học sâu
+\item \textbf{Truyền thông}: Wi-Fi, 4G/LTE đảm bảo kết nối
+\end{enumerate}
+\end{block}
+\end{frame}
+
 \iffalse
 % Slide 4: Lớp Xử lý/Đám mây
 \begin{frame}

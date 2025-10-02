@@ -2,10 +2,10 @@
 \subsection{Cơ sở lý thuyết xây dựng phần cứng}
 
 % Slide 1: Tổng quan hệ thống
-\begin{frame}{Tổng quan Kiến trúc Hệ thống Phát hiện Té ngã}
-\begin{block}{Phân loại hệ thống}
+\begin{frame}{Tổng quan Kiến trúc Hệ thống Phát hiện Té ngã sẽ xây dựng} 
+\begin{block}{Phân loại theo đầu vào}
 \begin{itemize}
-\item \textbf{Dựa trên Camera}: Xử lý hình ảnh cố định, yêu cầu máy chủ mạnh
+\item \textbf{Dựa trên cảm biến hình ảnh}: Xử lý hình ảnh cố định, yêu cầu máy chủ mạnh
 \item \textbf{Dựa trên Thiết bị đeo}: Cảm biến IMU, ESP32, truyền thông di động
 \end{itemize}
 \end{block}
@@ -21,7 +21,7 @@
 
 % Slide 8: Môi trường phát triển
 
-\begin{frame}{Môi trường Phát triển (ESP-IDF)}
+\begin{frame}{Môi trường Phát triển (ESP-IDF) triển khai trên nền linux}
 \begin{columns}
 \column{0.5\textwidth}
 \begin{block}{Đặc trưng của ESP-IDF}
@@ -149,9 +149,9 @@
 \textbf{Logic Hoạt động Hệ thống:}
 \begin{enumerate}
     \item ESP32 thu thập dữ liệu IMU/Camera
-    \item Phát hiện té ngã sơ cấp tại biên
+    \item Phát hiện té ngã sơ cấp và xử lý dữ liệu tại biên
     \item Truyền dữ liệu lên máy chủ (ưu tiên Wi-Fi, dự phòng 4G)
     \item Máy chủ xử lý tin và phát cảnh báo
-    \item Kích hoạt cảnh báo (SMS/cuộc gọi)
+    \item Kích hoạt các kênh cảnh báo (SMS/cuộc gọi...) tới các thiết bị cuối
 \end{enumerate}
 \end{frame}
