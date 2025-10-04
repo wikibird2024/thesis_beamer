@@ -40,6 +40,7 @@
 % ===============================
 % Slide: Thuật toán phát hiện té ngã
 % ===============================
+
 \begin{frame}[fragile]{Python Server: Thuật toán Phát hiện Té ngã}
 \scriptsize
 \begin{columns}[T,onlytextwidth]
@@ -47,19 +48,19 @@
     % --- Cột 1: Logic ---
     \begin{column}{0.48\textwidth}
         \begin{block}{Quy trình trong \texttt{FallDetector}}
-            \textbf{1. Kiểm tra Landmark:} 
+            \textbf{\textcolor{blue!80!black}{1. Kiểm tra Landmark:}} 
             - Đảm bảo các điểm quan trọng (vai, hông) hợp lệ và đủ độ tin cậy ($\geq \text{MIN\_LANDMARK\_CONFIDENCE}$)\\[0.2em]
             
-            \textbf{2. Tính toán Torso \& Velocity:} 
+            \textbf{\textcolor{teal!70!black}{2. Tính toán Torso \& Velocity:}} 
             - Góc thân: dọc \& ngang\\
             - Vận tốc trung tâm torso giữa các frame\\[0.2em]
             
-            \textbf{3. Xác định trạng thái:} 
+            \textbf{\textcolor{orange!90!black}{3. Xác định trạng thái:}} 
             - \textit{Falling}: góc vượt ngưỡng + vận tốc > threshold\\
             - \textit{Lying}: góc vượt ngưỡng kéo dài\\
             - Cập nhật counters: \texttt{consecutive\_frames\_fallen}, \texttt{frames\_in\_fall\_state}\\[0.2em]
             
-            \textbf{4. Quyết định té ngã:} 
+            \textbf{\textcolor{red!80!black}{4. Quyết định té ngã:}} 
             - Nếu counters ≥ threshold → xác nhận té ngã, reset trạng thái
         \end{block}
         
@@ -72,10 +73,7 @@
     \begin{column}{0.5\textwidth}
         \centering
         \includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]{images/python_fall_diagram.pdf}
-        % Caption đã loại bỏ để gọn slide
     \end{column}
 
 \end{columns}
 \end{frame}
-
-

@@ -10,19 +10,19 @@
     \column{0.5\textwidth}
     \textbf{Kết quả chính}
     \begin{itemize}
-        \item Hệ thống IoT tích hợp: ESP32, MPU6050, SIM4G-GPS, buzzer, LED, Python/FreeRTOS.
-        \item Thuật toán phát hiện té ngã: kết hợp dữ liệu cảm biến và hình ảnh (sensor fusion) theo thời gian thực.
+        \item Hệ thống IoT tích hợp hoàn chỉnh từ cảm biến - xử lý - thiết bị cuối
+        \item Thuật toán phát hiện té ngã: kết hợp dữ liệu cảm biến và hình ảnh theo thời gian thực.
         \item Cơ chế cảnh báo đa dạng: buzzer, LED, SMS, MQTT/Telegram, SIP.
-        \item Thực nghiệm: hệ thống hoạt động ổn định, độ chính xác cao, độ trễ thấp.
-        \item Tiềm năng ứng dụng: giám sát sức khỏe từ xa, hỗ trợ người cao tuổi và bệnh nhân.
+        \item Thực nghiệm: hệ thống hoạt động với độ chính xác tương đối, phản hồi nhanh 
+        \item Tiềm năng ứng dụng: giám sát sức khỏe từ xa, ứng dụng trong các trung tâm chăm sóc sức khỏe.
     \end{itemize}
 
     % Column 2: Hạn chế & hướng phát triển
     \column{0.5\textwidth}
     \textbf{Hạn chế \& Hướng phát triển}
     \begin{itemize}
-        \item Quy mô thử nghiệm còn hạn chế; số lượng thiết bị và kênh truyền chưa đa dạng.
-        \item Thuật toán chưa hoàn toàn ổn định; thiết bị hiện tại còn cồng kềnh.
+        \item Quy mô thử nghiệm còn hạn chế; số lượng thiết bị đầu cuối còn hạn chế
+        \item Thuật toán chưa hoàn toàn ổn định; thiết bị đeo hiện tại còn cồng kềnh.
         \item Kết nối 4G/GPS chưa tối ưu, độ tin cậy cần cải thiện.
         \item \textbf{Hướng phát triển}: mở rộng quy mô thử nghiệm, cải tiến thuật toán, thu gọn kích thước thiết bị, hoàn thiện kết nối 4G/GPS, tích hợp nền tảng IoT.
     \end{itemize}
@@ -35,12 +35,16 @@
 \begin{frame}{Kết luận chung \& Lời cảm ơn}
 \begin{itemize}
     \item Nguyên mẫu FDAS vận hành thành công: phát hiện té ngã và gửi cảnh báo trong thời gian thực.
-    \item Độ trễ đầu-cuối < 5 giây; hệ thống ổn định và đáp ứng hiệu năng yêu cầu.
+    \item Độ trễ đầu-cuối < 5 giây; hệ thống ổn định trong điều kiện thử nghiệm
     \item Đề tài đã cung cấp kiến thức thực tiễn về IoT, nhúng, sensor fusion, và hệ thống phân tán.
     \item Xác định các thách thức thực tế: tối ưu phần cứng, nâng cao độ chính xác thuật toán, đảm bảo truyền thông ổn định.
 \end{itemize}
 
-\vspace{0.5cm}
-\centering
-\textbf{Cảm ơn quý thầy/cô và các bạn đã theo dõi!}
+\vspace{1em}
+\begin{center}
+    \setbeamercolor{thankyoubox}{bg=blue!10!white,fg=blue!80!black}
+    \begin{beamercolorbox}[rounded=true,shadow=true,center,wd=\linewidth]{thankyoubox}
+        \textbf{\LARGE Cảm ơn quý thầy/cô và các bạn đã theo dõi!}
+    \end{beamercolorbox}
+\end{center}
 \end{frame}
