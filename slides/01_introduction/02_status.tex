@@ -1,28 +1,6 @@
 
 % --- Bắt đầu SUBSECTION: Nghiên cứu liên quan ---
 
-%-------slide-------------
-\begin{frame}{Các phương pháp phát hiện té ngã}
-\setbeamercolor{block title}{bg=blue!20,fg=black}
-\setbeamercolor{block body}{bg=blue!5,fg=black}
-
-\begin{block}{Dựa trên thị giác (Vision-based)}
-    Sử dụng camera và thuật toán nhận diện tư thế người (MediaPipe, OpenPose)
-\end{block}
-
-\setbeamercolor{block title}{bg=green!20,fg=black}
-\setbeamercolor{block body}{bg=green!5,fg=black}
-\begin{block}{Dựa trên cảm biến đeo (Wearable-based)}
-    Sử dụng cảm biến quán tính (IMU, MPU6050) trên thiết bị
-\end{block}
-
-\setbeamercolor{block title}{bg=orange!20,fg=black}
-\setbeamercolor{block body}{bg=orange!5,fg=black}
-\begin{block}{Kết hợp đa phương thức (Multi-modal)}
-    Tích hợp dữ liệu từ nhiều nguồn để tăng độ chính xác
-\end{block}
-\end{frame}
-
 %--------------slide-----------------
 
 \begin{frame}{khái quát hiên trạng nghiên cứu cứu trong và ngoài nước}
@@ -33,8 +11,8 @@
         \begin{block}{\textbf{Quốc tế}}
             \begin{itemize}
                 \item \textbf{Xu hướng:} AI nhẹ (TinyML), YOLO, Transformer, cảm biến mmWave
-                \item \textbf{Thành tựu:} giảm false alarm, tối ưu cho thiết bị biên, \\
-                      kết hợp dữ liệu đa cảm biến (Sensor Fusion)
+                \item \textbf{Thành tựu:} giảm cảnh báo sai, tối ưu cho thiết bị biên, \\
+                      kết hợp dữ liệu đa cảm biến. 
             \end{itemize}
         \end{block}
     \end{column}
@@ -43,17 +21,39 @@
     \begin{column}{0.48\textwidth}
         \begin{block}{\textbf{Trong nước}}
             \begin{itemize}
-                \item \textbf{Thực trạng:} chủ yếu mô hình thử nghiệm với ESP32, Arduino
-                \item \textbf{Hạn chế:} thiếu dữ liệu lớn, độ chính xác chưa cao (75--85\%). 
+                \item \textbf{Thực trạng:} chủ yếu mô hình thử nghiệm với ESP32, Arduino, Python
+                \item \textbf{Hạn chế:} thiếu dữ liệu lớn, độ chính xác chưa cao.
             \end{itemize}
         \end{block}
     \end{column}
 \end{columns}
 \end{frame}
 
+
+%-------slide-------------
+\begin{frame}{Các phương pháp phát hiện té ngã}
+\setbeamercolor{block title}{bg=blue!20,fg=black}
+\setbeamercolor{block body}{bg=blue!5,fg=black}
+
+\begin{block}{Dựa trên thị giác }
+    Sử dụng camera và thuật toán nhận diện tư thế người (MediaPipe, OpenPose)
+\end{block}
+
+\setbeamercolor{block title}{bg=green!20,fg=black}
+\setbeamercolor{block body}{bg=green!5,fg=black}
+\begin{block}{Dựa trên cảm biến đeo}
+    Sử dụng cảm biến quán tính (IMU, MPU6050) trên thiết bị
+\end{block}
+
+\setbeamercolor{block title}{bg=orange!20,fg=black}
+\setbeamercolor{block body}{bg=orange!5,fg=black}
+\begin{block}{Kết hợp đa phương thức}
+    Tích hợp dữ liệu từ nhiều nguồn để tăng độ chính xác
+\end{block}
+\end{frame}
+
+
 %-----------------
-
-
 \begin{frame}{Ưu nhược điểm các phương pháp phát hiện té ngã}
 \scriptsize
 \begin{tabular}{|p{0.18\linewidth}|p{0.22\linewidth}|p{0.25\linewidth}|p{0.25\linewidth}|}
@@ -70,9 +70,5 @@ Thị giác & Camera RGB/RGB-D/IR; pose estimation (OpenPose/MediaPipe) & Thông
 \hline
 \end{tabular}
 
-\vspace{0.2em}
-\begin{block}{Lựa chọn kết hợp đa phương thức của đề tài}
-    Hệ thống sử dụng phương pháp đa phương thức, kết hợp dữ liệu từ nhiều cảm biến và nguồn thông tin khác nhau, nhằm mở rộng phạm vi giám sát và xử lý được nhiều tình huống té ngã khác nhau một linh hoạt
-\end{block}
 \end{frame}
 
