@@ -7,19 +7,23 @@
 \end{block}
 
 \begin{block}{\textcolor{orange!80!black}{Phương pháp}}
-    \begin{itemize}
-        \item \textbf{Nhận diện tư thế (Pose Estimation)}:  
-        Dùng \textbf{MediaPipe Pose} để trích xuất \textbf{33 điểm khớp} (keypoints) trên cơ thể.
+
+    \begin{enumerate}
+        \item \textbf{Nhận diện tư thế}:  
+        Dùng thư viện Python \textbf{MediaPipe Pose} để trích xuất \textbf{33 điểm khớp} (keypoints) trên cơ thể.
+
         \item \textbf{Đặc trưng động học/tư thế}:  
         Tính toán góc, vận tốc, và sự thay đổi đột ngột về vị trí cơ thể.
+
         \item \textbf{Phát hiện té ngã}:  
-        Kết hợp logic ngưỡng (thresholds) + thuật toán học máy (ML) để phân loại té ngã.
-    \end{itemize}
+        Kết hợp logic ngưỡng (thresholds) và thuật toán học máy (ML) để phân loại té ngã.
+    \end{enumerate}
 \end{block}
 
 \end{frame}
+
 % Slide 2: Nhận diện Tư thế Người
-\begin{frame}{Nhận diện Tư thế Người}
+\begin{frame}{Keypoints}
 \begin{columns}[T]
     \begin{column}{0.45\textwidth}
         \centering
@@ -72,31 +76,11 @@
 \end{columns}
 
 \end{frame}
+
 %----------------
-\iffalse
 
-% Slide 4: MediaPipe Pose – Thành phần & Hậu xử lý
-\begin{frame}{MediaPipe Pose – Thành phần & Hậu xử lý}
-    \begin{exampleblock}{Thành phần chính}
-        \begin{itemize}
-            \item \textbf{Detection:} ROI(region of interest) từ ảnh RGB, phát hiện người.
-            \item \textbf{Landmark:} 33 keypoints 3D, Loss: $\mathcal{L} = \sum \lambda_i \mathcal{L}_i$.
-            \item \textbf{Tracking:} Dự đoán vị trí ROI cho khung tiếp theo.
-        \end{itemize}
-        \small{\textit{(Landmark 3D giúp đánh giá tư thế và động tác).}}
-    \end{exampleblock}
-
-    \begin{alertblock}{Hậu xử lý dữ liệu keypoints}
-    \begin{itemize}
-        \item \textbf{One Euro Filter:} Làm mượt dữ liệu khớp theo thời gian, giảm nhiễu nhưng vẫn phản ứng nhanh với chuyển động thực.
-        \item \textbf{Chuẩn hóa trục $z$:} Sử dụng vị trí hông làm mốc để điều chỉnh chiều sâu 3D, giúp đo tư thế chính xác và nhất quán hơn.
-    \end{itemize}
-    \end{alertblock}
-
-\end{frame}
-\fi
 % Slide 5: Thuật toán Phát hiện Té ngã
-\begin{frame}{Thuật toán Phát hiện Té ngã}
+\begin{frame}{Đặc trưng động học và phát hiện té ngã}
     \begin{columns}[T]
         \column{0.5\textwidth}
         \begin{block}{Đặc trưng Động học}

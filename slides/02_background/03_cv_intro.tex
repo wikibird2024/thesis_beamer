@@ -42,39 +42,10 @@
 \end{exampleblock}
 \end{frame}
 
-% ---------- Slide 3 ----------
-\begin{frame}
-\frametitle{Phân loại Các Bài toán Chính trong CV}
-
-\begin{block}{Các nhóm bài toán thường gặp}
-\begin{itemize}
-    \item \textbf{Phân loại Ảnh (Image Classification)}  
-    → Đầu ra: một nhãn duy nhất cho cả bức ảnh.  
-    \textit{Ví dụ:} ảnh chứa người hay xe.
-    
-    \item \textbf{Phát hiện Đối tượng (Object Detection)}  
-    → Đầu ra: nhãn + vị trí (hộp giới hạn bounding box).  
-    \textit{Ví dụ:} phát hiện nhiều người trong cùng một khung hình.
-    
-    \item \textbf{Phân đoạn Ảnh (Image Segmentation)}  
-    \begin{itemize}
-        \item \textbf{Ngữ nghĩa (Semantic)}: gán nhãn từng pixel theo lớp.  
-        \textit{Ví dụ:} tất cả pixel thuộc “Đường”, “Cây”.
-        \item \textbf{Thể hiện (Instance)}: phân biệt từng cá thể trong cùng lớp.  
-        \textit{Ví dụ:} tách riêng từng chiếc xe thay vì gom tất cả thành “Xe”.
-    \end{itemize}
-    
-    \item \textbf{Ước lượng Tư thế Người (Human Pose Estimation - HPE)}  
-    → Đầu ra: tọa độ \textbf{các khớp xương (keypoints)} của cơ thể.  
-    \textit{Ứng dụng:} phân tích chuyển động, giám sát té ngã.
-\end{itemize}
-\end{block}
-\end{frame}
-
 % ---------- Slide 4 ----------
 
 \begin{frame}
-\frametitle{Mô hình Học sâu: CNN}
+\frametitle{Mô hình Học sâu: CNN (Convolution Neural Network)}
 
 \begin{columns}
 % --- Cột trái ---
@@ -91,7 +62,7 @@
         \item $K$: kernel (bộ lọc).
         \item $(i,j)$: vị trí pixel trong đầu ra.
     \end{itemize}
-    \item \textbf{Phép gộp (Pooling)}: Giảm kích thước, tăng tính bền vững (VD: Max Pooling).
+    \item \textbf{Phép gộp (Pooling)}: Giảm kích thước, tăng tính bền vững.
 \end{itemize}
 \end{column}
 
@@ -109,14 +80,14 @@
 
 % ---------- Slide ViT ----------
 \begin{frame}
-\frametitle{Mô hình Học sâu: Vision Transformer}
+\frametitle{Mô hình Học sâu: ViT (Vision Transformer)}
 
 \begin{columns}
 % --- Cột trái ---
 \begin{column}{0.5\textwidth}
 \begin{itemize}
-    \item \textbf{Vision Transformer (ViT)}: Chia ảnh thành \textbf{patch} (miếng vá), xử lý như chuỗi token.
-    \item \textbf{Cơ chế tự chú ý (Self-Attention)}: Tính trọng số quan hệ giữa các token.
+    \item \textbf{ViT}: Chia ảnh thành \textbf{patch} (miếng vá), xử lý như chuỗi token.
+    \item \textbf{Cơ chế Self-Attention}: Tính trọng số quan hệ giữa các token.
     \begin{equation}
     \footnotesize
     \text{Attention}(Q,K,V) =
@@ -141,3 +112,33 @@
 \end{column}
 \end{columns}
 \end{frame}
+
+% ---------- Slide 3 ----------
+\begin{frame}
+\frametitle{Các Bài toán Chính trong CV}
+
+\begin{exampleblock}{Các nhóm bài toán thường gặp}
+\begin{itemize}
+    \item \textbf{Phân loại Ảnh (Image Classification)}  
+    → Đầu ra: một nhãn duy nhất cho cả bức ảnh.  
+    \textit{Ví dụ:} ảnh chứa người hay xe.
+    
+    \item \textbf{Phát hiện Đối tượng (Object Detection)}  
+    → Đầu ra: nhãn + vị trí (hộp giới hạn bounding box).  
+    \textit{Ví dụ:} phát hiện nhiều người trong cùng một khung hình.
+    
+    \item \textbf{Phân đoạn Ảnh (Image Segmentation)}  
+    \begin{itemize}
+        \item \textbf{Ngữ nghĩa (Semantic)}: gán nhãn từng pixel theo lớp.  
+        \textit{Ví dụ:} tất cả pixel thuộc “Đường”, “Cây”.
+        \item \textbf{Thể hiện (Instance)}: phân biệt từng cá thể trong cùng lớp.  
+        \textit{Ví dụ:} tách riêng từng chiếc xe thay vì gom tất cả thành “Xe”.
+    \end{itemize}
+    
+    \item \textbf{\textcolor{orange}{Ước lượng Tư thế Người (Human Pose Estimation - HPE)}}
+    → Đầu ra: tọa độ \textbf{các khớp xương (keypoints)} của cơ thể.  
+    \textit{Ứng dụng:} phân tích chuyển động, giám sát té ngã.
+\end{itemize}
+\end{block}
+\end{frame}
+

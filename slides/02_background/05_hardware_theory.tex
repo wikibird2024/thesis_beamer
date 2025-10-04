@@ -1,6 +1,13 @@
 
 \subsection{Cơ sở lý thuyết xây dựng phần cứng}
 
+\begin{frame}{Sơ đồ thực nghiệm}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{resuilt_structure_diagram.pdf}
+\caption{Sơ đồ cấu trúc thực nghiệm}
+\end{figure}
+\end{frame}
 % Slide 8: Môi trường phát triển
 
 \begin{frame}{Môi trường Phát triển (ESP-IDF) triển khai trên nền linux}
@@ -11,7 +18,7 @@
     \item \textbf{Build system CMake + Kconfig} 
           – cấu hình linh hoạt, dễ mở rộng component
     \item \textbf{FreeRTOS tích hợp sẵn} 
-          – quản lý đa nhiệm trên 2 lõi Xtensa
+          – quản lý đa nhiệm giả lập tác vụ song song 
     \item \textbf{Driver cấp thấp} 
           – I2C, SPI, UART, PWM, GPIO được tối ưu cho ESP32
     \item \textbf{Hỗ trợ mạng phong phú} 
@@ -22,86 +29,14 @@
 \column{0.5\textwidth}
 \begin{exampleblock}{Lợi ích cho hệ thống Phát hiện Té ngã}
 \begin{itemize}
-    \item Quản lý \textbf{đa component} (IMU, SIM4G, LED, Fall Logic) độc lập
-    \item Thực thi \textbf{song song}: 
-          lõi 1 xử lý cảm biến, lõi 2 lo truyền thông
-    \item Hỗ trợ \textbf{OTA update} để nâng cấp firmware từ xa
-    \item Debug chuyên nghiệp: \texttt{idf.py monitor}, gdbstub, logging
+    \item Quản lý \textbf{đa component} (IMU, SIM4G, LED, Fall Logic) độc lập, dễ khoanh vùng lỗi, tái sử dụng và mở rộng project
+    \item Thực thi \textbf{song song}: đồng thời xứ lý nhiều luồng giúp tối ưu thời gian phản hồi của thiết bị
+    \item Debug chuyên nghiệp: gdbstub, logging
 \end{itemize}
 \end{exampleblock}
 \end{columns}
 \end{frame}
 
-\iffalse
-% Slide 2: ESP32
-\begin{frame}{Vi điều khiển ESP32}
-\begin{columns}[c] % căn giữa theo chiều cao cột
-    %------------- Cột chữ -------------%
-    \column{0.5\textwidth}
-    \begin{block}{Đặc điểm chính}
-        \begin{itemize}
-            \item Lõi kép Xtensa LX6, FreeRTOS
-            \item Wi-Fi + Bluetooth tích hợp
-            \item Hỗ trợ MQTT, HTTP
-        \end{itemize}
-    \end{block}
-
-    %------------- Cột hình -------------%
-    \column{0.5\textwidth}
-    \begin{center}
-        \includegraphics[width=0.7\linewidth]{images/esp32_c3.png}
-    \end{center}
-\end{columns}
-\end{frame}
-
-% Slide 3: IMU & GPS
-\begin{frame}{Cảm biến IMU và GPS}
-\begin{columns}
-\column{0.5\textwidth}
-\begin{block}{IMU}
-\begin{itemize}
-\item Gia tốc kế $\mathbf{a}=[a_x,a_y,a_z]$
-\item Con quay hồi chuyển $\boldsymbol{\omega}=[\omega_x,\omega_y,\omega_z]$
-\item Từ kế – xác định hướng
-\item Fusion: Kalman/Madgwick
-\end{itemize}
-\end{block}
-
-\column{0.5\textwidth}
-\begin{exampleblock}{GPS}
-\begin{itemize}
-\item Module NEO-6M / EC800K
-\item Định vị NMEA, tọa độ cứu hộ
-\item Kết hợp truyền thông SMS/4G
-\end{itemize}
-\end{exampleblock}
-\end{columns}
-\end{frame}
-
-
-% Slide 5: Edge vs Cloud
-\begin{frame}{Xử lý tại Biên và Máy chủ }
-\begin{columns}
-\column{0.5\textwidth}
-\begin{block}{Edge (ESP32)}
-\begin{itemize}
-\item Xử lý IMU thời gian thực
-\item Phát hiện té ngã sơ cấp
-\item Truyền dữ liệu JSON/MQTT
-\end{itemize}
-\end{block}
-
-\column{0.5\textwidth}
-\begin{block}{Cloud/Server}
-\begin{itemize}
-\item Xử lý ảnh từ Camera (ESP32-S3 + OV5640)
-\item TensorFlow/PyTorch, OpenCV
-\end{itemize}
-\end{block}
-\end{columns}
-\end{frame}
-\fi
-%---------
 
 \begin{frame}{Hệ thống Truyền thông và Logic Hoạt động}
 %---------------- Cột Wi-Fi/4G ----------------%
@@ -130,10 +65,9 @@
 %---------------- Logic hoạt động ----------------%
 \textbf{Logic Hoạt động Hệ thống:}
 \begin{enumerate}
-    \item ESP32 thu thập dữ liệu IMU/Camera
-    \item Phát hiện té ngã sơ cấp và xử lý dữ liệu tại biên
-    \item Truyền dữ liệu lên máy chủ (ưu tiên Wi-Fi, dự phòng 4G)
-    \item Máy chủ xử lý tin và phát cảnh báo
-    \item Kích hoạt các kênh cảnh báo (SMS/cuộc gọi...) tới các thiết bị cuối
+    \item ESP32 thu thập dữ liệu cảm biến
+    \item Phát hiện té ngã sơ cấp và xử lý dữ liệu tại biên/ gửi dữ liệu thô
+    \item Truyền dữ liệu lên Broker/máy chủ   
+    \item Máy chủ xử lý tin và phát cảnh báo tới các thiết bị cuối. 
 \end{enumerate}
 \end{frame}
